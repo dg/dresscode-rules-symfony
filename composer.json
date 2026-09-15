@@ -1,0 +1,43 @@
+{
+	"name": "dresscode/rules-symfony",
+	"description": "👔 DressCode rules for Symfony: upgrades code written for older versions of the Symfony components to the API of the versions a project stands on, and reports what has to be rewritten by hand.",
+	"keywords": ["symfony", "upgrade", "migration", "deprecations", "refactoring", "modernization", "dresscode"],
+	"homepage": "https://dresscode.run",
+	"type": "dresscode-plugin",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "David Grudl",
+			"homepage": "https://davidgrudl.com"
+		}
+	],
+	"require": {
+		"php": "8.4 - 8.6",
+		"dresscode/dresscode": "dev-master"
+	},
+	"require-dev": {
+		"nette/phpstan-rules": "^1.0",
+		"nette/tester": "^2.6",
+		"phpstan/extension-installer": "^1.4",
+		"phpstan/phpstan": "^2.2"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"scripts": {
+		"tester": "tester tests -s",
+		"phpstan": "phpstan analyse"
+	},
+	"config": {
+		"allow-plugins": {
+			"phpstan/extension-installer": true
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0-dev"
+		},
+		"dresscode": {
+			"upgrading": []
+		}
+	}
+}
