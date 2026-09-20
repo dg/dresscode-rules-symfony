@@ -37,6 +37,8 @@ since 6.3:
 		Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate::$phpEscapeMap: 'there is no replacement; the cached content is no longer evaluated as PHP and needs no escaping'
 
 since 6.2:
+	symfony.valueResolver: required
+
 	replacedCalls:
 		'Symfony\Component\HttpKernel\DataCollector\ConfigDataCollector::setKernel()': 'setKernel(null)'
 

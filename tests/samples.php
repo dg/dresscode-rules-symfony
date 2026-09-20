@@ -1,16 +1,22 @@
 <?php declare(strict_types=1);
 
 use DressCode\Testing\UpgradingTester;
+use DressCodeUpgrade\Symfony\Plugin;
 
-/** The decisions a sample runs with beside the upgrading files: the signature of an override as the ancestor declares it. */
+/**
+ * The decisions a sample runs with beside the upgrading files: the signature of an override as the ancestor declares it,
+ * and those of the rules of this package that read the code alone.
+ */
 const SampleDecisions = [
 	'classes' => ['overridingMethod' => ['signature' => 'required', 'parameterName' => 'required']],
+	'symfony' => ['valueResolver' => 'required'],
 ];
 
 
-/** The decisions the corpus is run with: the data of the upgrading files. */
+/** The decisions the corpus is run with: the data of the upgrading files, and the rules of this package that read the code alone. */
 const CorpusDecisions = [
 	'upgrading' => ['packages' => true],
+	'symfony' => ['valueResolver' => 'required'],
 ];
 
 
@@ -21,7 +27,7 @@ const CorpusDecisions = [
 function lintLibrary(string $library): array
 {
 	$root = dirname(__DIR__);
-	return UpgradingTester::collectProblems("$root/upgrading/$library.neon", $root);
+	return UpgradingTester::collectProblems("$root/upgrading/$library.neon", $root, array_keys((new Plugin)->getManifest()->rules));
 }
 
 

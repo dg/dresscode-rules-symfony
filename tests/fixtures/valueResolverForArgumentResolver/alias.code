@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Resolver;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Controller as Kernel;
+use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface as LegacyResolver;
+use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+
+final class AliasResolver implements LegacyResolver
+{
+	public function supports(Request $request, ArgumentMetadata $argument): bool
+	{
+		return true;
+	}
+
+
+	public function resolve(Request $request, ArgumentMetadata $argument): iterable
+	{
+		return [$request];
+	}
+}
+
+
+function isResolver(object $object): bool
+{
+	return $object instanceof legacyresolver || $object instanceof Kernel\ArgumentValueResolverInterface;
+}

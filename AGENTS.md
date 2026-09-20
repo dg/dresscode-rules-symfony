@@ -28,3 +28,11 @@ heading of the component), checked against the code of the component at its tags
   `--rename=<Class::member>=<name>` adds an entry wrong on purpose, which must make it fail.
 - After a change of DressCode itself, push it and run `composer update dresscode/dresscode`; the package takes
   the master of DressCode from Packagist.
+
+
+## The rules of the package
+
+What no map can say is a rule in `src/`, registered by `Plugin` and named `symfony/<slug>`:
+`symfony/valueResolverForArgumentResolver`. The data hold no entry for a use such a rule converts, or the two
+would report it twice. A rule has fixtures in `tests/fixtures/<slug>/`, and the samples run it together with the rules
+the data feed.

@@ -1,0 +1,4 @@
+10: Interface `Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface` is replaced by `Symfony\Component\HttpKernel\Controller\ValueResolverInterface`, whose `resolve()` returns no value where `supports()` is false.
+25: Interface `Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface` is replaced by `Symfony\Component\HttpKernel\Controller\ValueResolverInterface`, whose `resolve()` returns no value where `supports()` is false.
+46: Interface `Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface` is replaced by `Symfony\Component\HttpKernel\Controller\ValueResolverInterface`, but the class does not declare both `supports()` and `resolve()` itself.
+60: Interface `Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface` is replaced by `Symfony\Component\HttpKernel\Controller\ValueResolverInterface`, but the new interface has no `supports()`, which code typed by the old one may call.

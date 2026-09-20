@@ -7,3 +7,10 @@ parameters:
 
 	excludePaths:
 		- tests/fixtures/*
+
+	ignoreErrors:
+		# the class a rule looks for may be gone from the installed version; its name loads nothing
+		-
+			identifier: class.notFound
+			paths:
+				- src/ValueResolverForArgumentResolverRule.php
