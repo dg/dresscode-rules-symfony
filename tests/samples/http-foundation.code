@@ -1,0 +1,127 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ExpressionRequestMatcher;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestMatcher;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
+use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\HttpFoundation\UriSigner;
+
+
+class ArticleController
+{
+	public function __construct(
+		private RequestStack $requestStack,
+	) {
+	}
+
+
+	public function show(Request $request): Response
+	{
+		$id = $request->get('id');
+		$format = $request->getContentType();
+		if ($format === 'json') {
+			$response = JsonResponse::create(['id' => $id]);
+			$response->setCallback();
+			return $response;
+		}
+
+		$response = Response::create('<h1>Article</h1>', 200, ['X-Id' => $id]);
+		$response->setExpires();
+		$response->setLastModified();
+		$response->setEtag();
+		$response->setEtag('abc');
+		return $response;
+	}
+
+
+	public function redirect(Request $request): RedirectResponse
+	{
+		$main = $this->requestStack->getMasterRequest();
+		$request->setFormat(null, 'application/x-custom');
+		$request->setFormat('csv', 'text/csv');
+		return RedirectResponse::create('/articles', 301);
+	}
+
+
+	public function download(string $path): Response
+	{
+		if (!is_file($path)) {
+			return StreamedResponse::create(fn() => print('missing'));
+		}
+
+		return BinaryFileResponse::create($path, 200, [], false);
+	}
+
+
+	public function sign(string $url): string
+	{
+		$signer = new UriSigner('secret', parameter: '_sig');
+		return $signer->sign($url);
+	}
+}
+
+
+class NoCacheResponse extends Response
+{
+	public function disableCache(): static
+	{
+		$this->setExpires();
+		$this->setLastModified();
+		return $this;
+	}
+}
+
+
+class TrustedProxies
+{
+	public static function configure(): void
+	{
+		Request::setTrustedProxies(['10.0.0.0/8'], Request::HEADER_X_FORWARDED_ALL);
+	}
+
+
+	public static function matchAdmin(Request $request): bool
+	{
+		$matcher = new RequestMatcher('^/admin');
+		$expression = new ExpressionRequestMatcher;
+		$expression->setExpression(new ExpressionLanguage, 'request.isSecure()');
+		return $matcher->matches($request) && $expression->matches($request);
+	}
+}
+
+
+function createStorage(): NativeSessionStorage
+{
+	$storage = new NativeSessionStorage([], null, null, new NamespacedAttributeBag);
+	$storage->setMetadataBag();
+	$storage->setSaveHandler();
+
+	$mock = new MockFileSessionStorage;
+	$mock->setMetadataBag();
+
+	return $storage;
+}
+
+
+function prepareSubRequest(Request $request, array $query): Request
+{
+	$sub = clone $request;
+	$sub->query = new \Symfony\Component\HttpFoundation\InputBag($query);
+	$sub->attributes = clone $request->attributes;
+	$sub->headers->set('X-Sub', '1');
+	$page = $sub->query->get('page');
+	$sub->attributes->set('page', $page);
+
+	return $sub;
+}

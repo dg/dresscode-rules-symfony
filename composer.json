@@ -20,7 +20,8 @@
 		"nette/tester": "^2.6",
 		"phpstan/extension-installer": "^1.4",
 		"phpstan/phpstan": "^2.2",
-		"symfony/console": "^8.1"
+		"symfony/console": "^8.1",
+		"symfony/http-foundation": "^8.1"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
@@ -39,7 +40,8 @@
 		},
 		"dresscode": {
 			"upgrading": [
-				"upgrading/console.neon"
+				"upgrading/console.neon",
+				"upgrading/http-foundation.neon"
 			]
 		}
 	}

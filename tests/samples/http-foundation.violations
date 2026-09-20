@@ -1,0 +1,25 @@
+31: Method `Symfony\Component\HttpFoundation\Request::get()` is forbidden: read the bag the value comes from, the `attributes`, `query` or `request` property, such as `query->get()`
+32: Method `Symfony\Component\HttpFoundation\Request::getContentType()` is replaced by `Request::getContentTypeFormat()`
+34: Static method `Symfony\Component\HttpFoundation\JsonResponse::create()` is replaced by `new \Symfony\Component\HttpFoundation\JsonResponse(...$args)`
+35: Method `Symfony\Component\HttpFoundation\JsonResponse::setCallback()` is replaced by `setCallback(null)`
+39: Static method `Symfony\Component\HttpFoundation\Response::create()` is replaced by `new \Symfony\Component\HttpFoundation\Response(...$args)`
+40: Method `Symfony\Component\HttpFoundation\Response::setExpires()` is replaced by `setExpires(null)`
+41: Method `Symfony\Component\HttpFoundation\Response::setLastModified()` is replaced by `setLastModified(null)`
+42: Method `Symfony\Component\HttpFoundation\Response::setEtag()` is replaced by `setEtag(null)`
+50: Method `Symfony\Component\HttpFoundation\RequestStack::getMasterRequest()` is replaced by `RequestStack::getMainRequest()`
+51: Method `Symfony\Component\HttpFoundation\Request::setFormat()` is replaced by `setFormat('', $mimeTypes)`
+53: Static method `Symfony\Component\HttpFoundation\RedirectResponse::create()` is replaced by `new \Symfony\Component\HttpFoundation\RedirectResponse(...$args)`
+60: Static method `Symfony\Component\HttpFoundation\StreamedResponse::create()` is replaced by `new \Symfony\Component\HttpFoundation\StreamedResponse(...$args)`
+63: Static method `Symfony\Component\HttpFoundation\BinaryFileResponse::create()` is replaced by `new \Symfony\Component\HttpFoundation\BinaryFileResponse(...$args)`
+69: Constructor `Symfony\Component\HttpFoundation\UriSigner::__construct()` is replaced by `new \Symfony\Component\HttpFoundation\UriSigner($secret, hashParameter: $parameter)`
+79: Method `Symfony\Component\HttpFoundation\Response::setExpires()` is replaced by `setExpires(null)`
+80: Method `Symfony\Component\HttpFoundation\Response::setLastModified()` is replaced by `setLastModified(null)`
+90: Constant `Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL` is forbidden: use `HEADER_X_FORWARDED_FOR | HEADER_X_FORWARDED_HOST | HEADER_X_FORWARDED_PORT | HEADER_X_FORWARDED_PROTO`, the headers it stood for
+96: Class `Symfony\Component\HttpFoundation\RequestMatcher` is forbidden: create `Symfony\Component\HttpFoundation\ChainRequestMatcher` of the matchers in the namespace `Symfony\Component\HttpFoundation\RequestMatcher`
+97: Class `Symfony\Component\HttpFoundation\ExpressionRequestMatcher` is forbidden: create `Symfony\Component\HttpFoundation\RequestMatcher\ExpressionRequestMatcher`, which takes the language and the expression in its constructor
+106: Class `Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag` is forbidden: use `Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag`, which does not split a name into nested arrays
+107: Method `Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage::setMetadataBag()` is replaced by `setMetadataBag(null)`
+108: Method `Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage::setSaveHandler()` is replaced by `setSaveHandler(null)`
+111: Method `Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage::setMetadataBag()` is replaced by `setMetadataBag(null)`
+120: Writing to property `Symfony\Component\HttpFoundation\Request::$query` is forbidden: pass the query parameters to the constructor or to `initialize()`, or change the bag itself, such as `query->set()`
+121: Writing to property `Symfony\Component\HttpFoundation\Request::$attributes` is forbidden: pass the attributes to the constructor or to `initialize()`, or change the bag itself, such as `attributes->set()`

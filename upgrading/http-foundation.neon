@@ -1,0 +1,57 @@
+package: symfony/http-foundation
+group: deprecations
+
+since 8.1:
+	forbiddenMembers:
+		Symfony\Component\HttpFoundation\Request::$query::set: 'pass the query parameters to the constructor or to `initialize()`, or change the bag itself, such as `query->set()`'
+		Symfony\Component\HttpFoundation\Request::$request::set: 'pass the body parameters to the constructor or to `initialize()`, or change the bag itself, such as `request->set()`'
+		Symfony\Component\HttpFoundation\Request::$attributes::set: 'pass the attributes to the constructor or to `initialize()`, or change the bag itself, such as `attributes->set()`'
+		Symfony\Component\HttpFoundation\Request::$cookies::set: 'pass the cookies to the constructor or to `initialize()`, or change the bag itself, such as `cookies->set()`'
+		Symfony\Component\HttpFoundation\Request::$files::set: 'pass the files to the constructor or to `initialize()`, or change the bag itself, such as `files->set()`'
+		Symfony\Component\HttpFoundation\Request::$server::set: 'pass the server parameters to the constructor or to `initialize()`, or change the bag itself, such as `server->set()`'
+		Symfony\Component\HttpFoundation\Request::$headers::set: 'pass the server parameters the headers come from to the constructor or to `initialize()`, or change the bag itself, such as `headers->set()`'
+
+since 7.4:
+	replacedCalls:
+		'Symfony\Component\HttpFoundation\Request::setFormat(null, $mimeTypes)': 'setFormat('''', $mimeTypes)'
+
+	forbiddenMembers:
+		Symfony\Component\HttpFoundation\Request::get: 'read the bag the value comes from, the `attributes`, `query` or `request` property, such as `query->get()`'
+
+since 7.1:
+	replacedCalls:
+		'Symfony\Component\HttpFoundation\UriSigner::__construct($secret, parameter: $parameter)': 'new \Symfony\Component\HttpFoundation\UriSigner($secret, hashParameter: $parameter)'
+
+since 6.2:
+	replacedMembers:
+		Symfony\Component\HttpFoundation\Request::getContentType: getContentTypeFormat
+
+	replacedCalls:
+		'Symfony\Component\HttpFoundation\JsonResponse::setCallback()': 'setCallback(null)'
+		'Symfony\Component\HttpFoundation\Response::setExpires()': 'setExpires(null)'
+		'Symfony\Component\HttpFoundation\Response::setLastModified()': 'setLastModified(null)'
+		'Symfony\Component\HttpFoundation\Response::setEtag()': 'setEtag(null)'
+		'Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage::setMetadataBag()': 'setMetadataBag(null)'
+		'Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage::setMetadataBag()': 'setMetadataBag(null)'
+		'Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage::setSaveHandler()': 'setSaveHandler(null)'
+
+	forbiddenClasses:
+		Symfony\Component\HttpFoundation\RequestMatcher: 'create `Symfony\Component\HttpFoundation\ChainRequestMatcher` of the matchers in the namespace `Symfony\Component\HttpFoundation\RequestMatcher`'
+		Symfony\Component\HttpFoundation\ExpressionRequestMatcher: 'create `Symfony\Component\HttpFoundation\RequestMatcher\ExpressionRequestMatcher`, which takes the language and the expression in its constructor'
+
+since 6.0:
+	replacedMembers:
+		Symfony\Component\HttpFoundation\RequestStack::getMasterRequest: getMainRequest
+
+	replacedCalls:
+		'Symfony\Component\HttpFoundation\JsonResponse::create(...$args)': 'new \Symfony\Component\HttpFoundation\JsonResponse(...$args)'
+		'Symfony\Component\HttpFoundation\RedirectResponse::create(...$args)': 'new \Symfony\Component\HttpFoundation\RedirectResponse(...$args)'
+		'Symfony\Component\HttpFoundation\StreamedResponse::create(...$args)': 'new \Symfony\Component\HttpFoundation\StreamedResponse(...$args)'
+		'Symfony\Component\HttpFoundation\BinaryFileResponse::create(...$args)': 'new \Symfony\Component\HttpFoundation\BinaryFileResponse(...$args)'
+		'Symfony\Component\HttpFoundation\Response::create(...$args)': 'new \Symfony\Component\HttpFoundation\Response(...$args)'
+
+	forbiddenMembers:
+		Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL: 'use `HEADER_X_FORWARDED_FOR | HEADER_X_FORWARDED_HOST | HEADER_X_FORWARDED_PORT | HEADER_X_FORWARDED_PROTO`, the headers it stood for'
+
+	forbiddenClasses:
+		Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag: 'use `Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag`, which does not split a name into nested arrays'
