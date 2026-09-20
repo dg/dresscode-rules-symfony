@@ -1,0 +1,73 @@
+package: symfony/routing
+group: deprecations
+
+since 7.4:
+	replacedCalls:
+		'Symfony\Component\Routing\Attribute\Route::setPath($path)': '$this->path = $path'
+		'Symfony\Component\Routing\Attribute\Route::setLocalizedPaths($localizedPaths)': '$this->path = $localizedPaths'
+		'Symfony\Component\Routing\Attribute\Route::setHost($host)': '$this->host = $host'
+		'Symfony\Component\Routing\Attribute\Route::getHost()': '$this->host'
+		'Symfony\Component\Routing\Attribute\Route::setName($name)': '$this->name = $name'
+		'Symfony\Component\Routing\Attribute\Route::getName()': '$this->name'
+		'Symfony\Component\Routing\Attribute\Route::setRequirements($requirements)': '$this->requirements = $requirements'
+		'Symfony\Component\Routing\Attribute\Route::getRequirements()': '$this->requirements'
+		'Symfony\Component\Routing\Attribute\Route::setOptions($options)': '$this->options = $options'
+		'Symfony\Component\Routing\Attribute\Route::getOptions()': '$this->options'
+		'Symfony\Component\Routing\Attribute\Route::setDefaults($defaults)': '$this->defaults = $defaults'
+		'Symfony\Component\Routing\Attribute\Route::getDefaults()': '$this->defaults'
+		'Symfony\Component\Routing\Attribute\Route::setSchemes(array $schemes)': '$this->schemes = $schemes'
+		'Symfony\Component\Routing\Attribute\Route::setSchemes(string $schemes)': '$this->schemes = [$schemes]'
+		'Symfony\Component\Routing\Attribute\Route::setSchemes($schemes)': '$this->schemes = (array) $schemes'
+		'Symfony\Component\Routing\Attribute\Route::getSchemes()': '$this->schemes'
+		'Symfony\Component\Routing\Attribute\Route::setMethods(array $methods)': '$this->methods = $methods'
+		'Symfony\Component\Routing\Attribute\Route::setMethods(string $methods)': '$this->methods = [$methods]'
+		'Symfony\Component\Routing\Attribute\Route::setMethods($methods)': '$this->methods = (array) $methods'
+		'Symfony\Component\Routing\Attribute\Route::getMethods()': '$this->methods'
+		'Symfony\Component\Routing\Attribute\Route::setCondition($condition)': '$this->condition = $condition'
+		'Symfony\Component\Routing\Attribute\Route::getCondition()': '$this->condition'
+		'Symfony\Component\Routing\Attribute\Route::setPriority($priority)': '$this->priority = $priority'
+		'Symfony\Component\Routing\Attribute\Route::getPriority()': '$this->priority'
+		'Symfony\Component\Routing\Attribute\Route::setEnv(string $env)': '$this->envs = [$env]'
+		'Symfony\Component\Routing\Attribute\Route::setEnv(null)': '$this->envs = []'
+		'Symfony\Component\Routing\Attribute\Route::setEnv($env)': '$this->envs = (array) $env'
+		'Symfony\Component\Routing\Attribute\Route::setAliases(array $aliases)': '$this->aliases = $aliases'
+		'Symfony\Component\Routing\Attribute\Route::setAliases(string $aliases)': '$this->aliases = [$aliases]'
+		'Symfony\Component\Routing\Attribute\Route::setAliases(Symfony\Component\Routing\Attribute\DeprecatedAlias $aliases)': '$this->aliases = [$aliases]'
+		'Symfony\Component\Routing\Attribute\Route::getAliases()': '$this->aliases'
+		'Symfony\Component\Routing\Attribute\DeprecatedAlias::getAliasName()': '$this->aliasName'
+		'Symfony\Component\Routing\Attribute\DeprecatedAlias::getPackage()': '$this->package'
+		'Symfony\Component\Routing\Attribute\DeprecatedAlias::getVersion()': '$this->version'
+		'Symfony\Component\Routing\Attribute\DeprecatedAlias::getMessage()': '$this->message'
+
+	forbiddenMembers:
+		Symfony\Component\Routing\Attribute\Route::getPath: 'read the `path` property, which holds the array of localized paths where `getPath()` returned `null`'
+		Symfony\Component\Routing\Attribute\Route::getLocalizedPaths: 'read the `path` property, which holds a string where `getLocalizedPaths()` returned an empty array'
+		Symfony\Component\Routing\Attribute\Route::getEnv: 'read the `envs` property, which lists every environment of the route'
+
+since 7.2:
+	replacedMembers:
+		Symfony\Component\Routing\Loader\AttributeClassLoader::setRouteAnnotationClass: setRouteAttributeClass
+
+	replacedCalls:
+		Symfony\Component\Routing\Loader\AttributeClassLoader::$routeAnnotationClass::set: 'setRouteAttributeClass($value)'
+
+since 6.4:
+	replacedClasses:
+		Symfony\Component\Routing\Annotation\Route: Symfony\Component\Routing\Attribute\Route
+		Symfony\Component\Routing\Loader\AnnotationClassLoader: Symfony\Component\Routing\Loader\AttributeClassLoader
+		Symfony\Component\Routing\Loader\AnnotationDirectoryLoader: Symfony\Component\Routing\Loader\AttributeDirectoryLoader
+		Symfony\Component\Routing\Loader\AnnotationFileLoader: Symfony\Component\Routing\Loader\AttributeFileLoader
+
+	attributeForAnnotation:
+		Symfony\Component\Routing\Annotation\*: Symfony\Component\Routing\Attribute\*
+		Symfony\Component\Routing\Attribute\*: Symfony\Component\Routing\Attribute\*
+
+since 6.0:
+	attributeForAnnotation:
+		Sensio\Bundle\FrameworkExtraBundle\Configuration\Route: Symfony\Component\Routing\Annotation\Route
+
+	forbiddenClasses:
+		Symfony\Component\Routing\RouteCollectionBuilder: 'use `Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator`, which the `configureRoutes()` method of `MicroKernelTrait` receives'
+
+	forbiddenMembers:
+		Symfony\Component\Routing\RouteCompiler::REGEX_DELIMITER: 'there is no replacement, the compiled regular expressions are delimited by `#`'

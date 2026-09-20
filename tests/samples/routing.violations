@@ -1,0 +1,42 @@
+25: Class `Symfony\Component\Routing\Annotation\Route` is replaced by `Symfony\Component\Routing\Attribute\Route`
+28: Annotation `@Route` is replaced by the attribute `#[Symfony\Component\Routing\Attribute\Route]`
+33: Annotation `@Route` is replaced by the attribute `#[Symfony\Component\Routing\Attribute\Route]`
+44: Class `Symfony\Component\Routing\Annotation\Route` is replaced by `Symfony\Component\Routing\Attribute\Route`
+61: Annotation `@Route` is replaced by the attribute `#[Symfony\Component\Routing\Annotation\Route]`
+64: Class `Symfony\Component\Routing\Annotation\Route` is replaced by `Symfony\Component\Routing\Attribute\Route`
+70: Class `Symfony\Component\Routing\Annotation\Route` is replaced by `Symfony\Component\Routing\Attribute\Route`
+70: Attribute `#[Sensio\Bundle\FrameworkExtraBundle\Configuration\Route]` is replaced by `#[Symfony\Component\Routing\Annotation\Route]`
+82: Class `Symfony\Component\Routing\Annotation\Route` is replaced by `Symfony\Component\Routing\Attribute\Route`
+84: Class `Symfony\Component\Routing\Loader\AnnotationClassLoader` is replaced by `Symfony\Component\Routing\Loader\AttributeClassLoader`
+85: Class `Symfony\Component\Routing\Loader\AnnotationDirectoryLoader` is replaced by `Symfony\Component\Routing\Loader\AttributeDirectoryLoader`
+86: Class `Symfony\Component\Routing\Loader\AnnotationFileLoader` is replaced by `Symfony\Component\Routing\Loader\AttributeFileLoader`
+94: Class `Symfony\Component\Routing\Annotation\Route` is replaced by `Symfony\Component\Routing\Attribute\Route`
+99: Class `Symfony\Component\Routing\Loader\AnnotationClassLoader` is replaced by `Symfony\Component\Routing\Loader\AttributeClassLoader`
+109: Parameter `$annot` of `configureRoute()` is named `$attr` in `Symfony\Component\Routing\Loader\AttributeClassLoader::configureRoute()`
+111: Class `Symfony\Component\Routing\Annotation\Route` is replaced by `Symfony\Component\Routing\Attribute\Route`
+113: Method `Symfony\Component\Routing\Attribute\Route::getName()` is replaced by `$this->name`
+114: Method `Symfony\Component\Routing\Attribute\Route::setName()` is replaced by `$this->name = $name`
+117: Method `Symfony\Component\Routing\Attribute\Route::getDefaults()` is replaced by `$this->defaults`
+118: Method `Symfony\Component\Routing\Attribute\Route::getMethods()` is replaced by `$this->methods`
+119: Method `Symfony\Component\Routing\Attribute\Route::getHost()` is replaced by `$this->host`
+120: Method `Symfony\Component\Routing\Attribute\Route::getCondition()` is replaced by `$this->condition`
+121: Method `Symfony\Component\Routing\Attribute\Route::getPath()` is forbidden: read the `path` property, which holds the array of localized paths where `getPath()` returned `null`
+122: Method `Symfony\Component\Routing\Attribute\Route::setMethods()` is replaced by `$this->methods = [$methods]`
+123: Method `Symfony\Component\Routing\Attribute\Route::setEnv()` is replaced by `$this->envs = [$env]`
+124: Method `Symfony\Component\Routing\Attribute\Route::setAliases()` is replaced by `$this->aliases = [$aliases]`
+125: Method `Symfony\Component\Routing\Attribute\Route::setAliases()` is replaced by `$this->aliases = [$aliases]`
+126: Method `Symfony\Component\Routing\Attribute\Route::setAliases()` is replaced by `$this->aliases = $aliases`
+130: Class `Symfony\Component\Routing\Annotation\Route` is replaced by `Symfony\Component\Routing\Attribute\Route`
+132: Method `Symfony\Component\Routing\Attribute\Route::getName()` is replaced by `$this->name`
+132: Method `Symfony\Component\Routing\Attribute\DeprecatedAlias::getAliasName()` is replaced by `$this->aliasName`
+132: Method `Symfony\Component\Routing\Attribute\DeprecatedAlias::getPackage()` is replaced by `$this->package`
+132: Method `Symfony\Component\Routing\Attribute\DeprecatedAlias::getVersion()` is replaced by `$this->version`
+132: Method `Symfony\Component\Routing\Attribute\DeprecatedAlias::getMessage()` is replaced by `$this->message`
+142: Property `Symfony\Component\Routing\Loader\AttributeClassLoader::$routeAnnotationClass` is replaced by `setRouteAttributeClass($value)`
+143: Method `Symfony\Component\Routing\Loader\AttributeClassLoader::setRouteAnnotationClass()` is replaced by `AttributeClassLoader::setRouteAttributeClass()`
+158: Class `Symfony\Component\Routing\Loader\AnnotationDirectoryLoader` is replaced by `Symfony\Component\Routing\Loader\AttributeDirectoryLoader`
+159: Class `Symfony\Component\Routing\Loader\AnnotationFileLoader` is replaced by `Symfony\Component\Routing\Loader\AttributeFileLoader`
+164: Class `Symfony\Component\Routing\RouteCollectionBuilder` is forbidden: use `Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator`, which the `configureRoutes()` method of `MicroKernelTrait` receives
+166: Class `Symfony\Component\Routing\RouteCollectionBuilder` is forbidden: use `Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator`, which the `configureRoutes()` method of `MicroKernelTrait` receives
+174: Constant `Symfony\Component\Routing\RouteCompiler::REGEX_DELIMITER` is forbidden: there is no replacement, the compiled regular expressions are delimited by `#`
+174: Constant `Symfony\Component\Routing\RouteCompiler::REGEX_DELIMITER` is forbidden: there is no replacement, the compiled regular expressions are delimited by `#`
