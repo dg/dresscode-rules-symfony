@@ -1,0 +1,205 @@
+<?php
+
+namespace Sensio\Bundle\FrameworkExtraBundle\Configuration {
+
+	#[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
+	class Cache
+	{
+		public function __construct(
+			array $values = [],
+			?string $expires = null,
+			$maxage = null,
+			$smaxage = null,
+			?bool $public = null,
+		) {
+		}
+	}
+}
+
+
+namespace App {
+
+	use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+	use Symfony\Component\Config\Loader\LoaderInterface;
+	use Symfony\Component\DependencyInjection\ContainerBuilder;
+	use Symfony\Component\HttpFoundation\Request;
+	use Symfony\Component\HttpFoundation\Response;
+	use Symfony\Component\HttpKernel\Attribute\ArgumentInterface;
+	use Symfony\Component\HttpKernel\Bundle\Bundle;
+	use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+	use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+	use Symfony\Component\HttpKernel\DataCollector\ConfigDataCollector;
+	use Symfony\Component\HttpKernel\Debug\FileLinkFormatter;
+	use Symfony\Component\HttpKernel\DependencyInjection\AddAnnotatedClassesToCachePass;
+	use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+	use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
+	use Symfony\Component\HttpKernel\DependencyInjection\ResettableServicePass;
+	use Symfony\Component\HttpKernel\DependencyInjection\ServicesResetter;
+	use Symfony\Component\HttpKernel\DependencyInjection\ServicesResetterInterface;
+	use Symfony\Component\HttpKernel\Event\RequestEvent;
+	use Symfony\Component\HttpKernel\Event\ResponseEvent;
+	use Symfony\Component\HttpKernel\EventListener\StreamedResponseListener;
+	use Symfony\Component\HttpKernel\Fragment\HIncludeFragmentRenderer;
+	use Symfony\Component\HttpKernel\HttpCache\Esi;
+	use Symfony\Component\HttpKernel\HttpKernelInterface;
+	use Symfony\Component\HttpKernel\Kernel as BaseKernel;
+	use Symfony\Component\HttpKernel\KernelEvents;
+	use Symfony\Component\HttpKernel\UriSigner;
+
+
+	class Kernel extends BaseKernel
+	{
+		public function registerBundles(): iterable
+		{
+			return [new AppBundle];
+		}
+
+
+		public function registerContainerConfiguration(LoaderInterface $loader): void
+		{
+			$loader->load(__DIR__ . '/config.php');
+		}
+
+
+		public function getAnnotatedClassesToCompile(): array
+		{
+			return ['App\Controller\\'];
+		}
+
+
+		public function handleMain(Request $request): Response
+		{
+			$source = self::stripComments('<?php // note');
+			return $this->handle($request, HttpKernelInterface::MASTER_REQUEST);
+		}
+	}
+
+
+	class AppBundle extends Bundle
+	{
+		public function build(ContainerBuilder $container): void
+		{
+			$container->addCompilerPass(new MergeExtensionConfigurationPass(['twig']));
+			$container->addCompilerPass(new ResettableServicePass);
+			$container->addCompilerPass(new AddAnnotatedClassesToCachePass($this->container->get('kernel')));
+		}
+
+
+		public function registerCommands(\Symfony\Component\Console\Application $application): void
+		{
+		}
+	}
+
+
+	class AppExtension extends Extension
+	{
+		public function load(array $configs, ContainerBuilder $container): void
+		{
+			$this->addAnnotatedClassesToCompile(['App\Entity\\']);
+		}
+
+
+		public function getAnnotatedClassesToCompile(): array
+		{
+			return [];
+		}
+	}
+
+
+	class RequestSubscriber implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
+	{
+		public function __construct(
+			private ServicesResetterInterface $resetter,
+			private UriSigner $signer,
+			private FileLinkFormatter $fileLinkFormatter,
+		) {
+		}
+
+
+		public static function getSubscribedEvents(): array
+		{
+			return [KernelEvents::REQUEST => 'onRequest', KernelEvents::RESPONSE => 'onResponse'];
+		}
+
+
+		public function onRequest(RequestEvent $event): void
+		{
+			if (!$event->isMasterRequest()) {
+				return;
+			}
+
+			$this->signer->check($event->getRequest()->getUri());
+			if ($event->getRequestType() === HttpKernelInterface::MASTER_REQUEST) {
+				$this->resetter->reset();
+			}
+		}
+
+
+		public function onResponse(ResponseEvent $event): void
+		{
+			if ($event->isMainRequest()) {
+				(new StreamedResponseListener)->onKernelResponse($event);
+			}
+		}
+	}
+
+
+	#[\Attribute(\Attribute::TARGET_PARAMETER)]
+	class CurrentUser implements ArgumentInterface
+	{
+	}
+
+
+	class CurrentUserResolver implements ArgumentValueResolverInterface
+	{
+		public function supports(Request $request, ArgumentMetadata $argument): bool
+		{
+			return $argument->getAttribute() instanceof CurrentUser;
+		}
+
+
+		public function resolve(Request $request, ArgumentMetadata $argument): iterable
+		{
+			yield $request->attributes->get('_user');
+		}
+	}
+
+
+	class BlogController
+	{
+		/**
+		 * @Cache(expires="tomorrow", public=true)
+		 */
+		public function index(): Response
+		{
+			return new Response('blog');
+		}
+
+
+		#[Cache(smaxage: 15)]
+		public function show(): Response
+		{
+			return new Response('post');
+		}
+	}
+
+
+	class SafeEsi extends Esi
+	{
+		public function escape(string $content): string
+		{
+			return str_replace($this->phpEscapeMap[0], $this->phpEscapeMap[1], $content);
+		}
+	}
+
+
+	function boot(ServicesResetter $resetter): void
+	{
+		$collector = new ConfigDataCollector;
+		$collector->setKernel();
+		$collector->setKernel(new Kernel('prod', false));
+
+		$renderer = new HIncludeFragmentRenderer;
+		$resetter->reset();
+	}
+}

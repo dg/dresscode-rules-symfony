@@ -1,0 +1,31 @@
+32: Class `Symfony\Component\HttpKernel\Debug\FileLinkFormatter` is replaced by `Symfony\Component\ErrorHandler\ErrorRenderer\FileLinkFormatter`
+34: Class `Symfony\Component\HttpKernel\DependencyInjection\Extension` is replaced by `Symfony\Component\DependencyInjection\Extension\Extension`
+35: Class `Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass` is replaced by `Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass`
+36: Class `Symfony\Component\HttpKernel\DependencyInjection\ResettableServicePass` is replaced by `Symfony\Component\DependencyInjection\Compiler\ResettableServicePass`
+37: Class `Symfony\Component\HttpKernel\DependencyInjection\ServicesResetter` is replaced by `Symfony\Component\DependencyInjection\ServicesResetter`
+38: Class `Symfony\Component\HttpKernel\DependencyInjection\ServicesResetterInterface` is replaced by `Symfony\Component\DependencyInjection\ServicesResetterInterface`
+47: Class `Symfony\Component\HttpKernel\UriSigner` is replaced by `Symfony\Component\HttpFoundation\UriSigner`
+64: Method `Symfony\Component\HttpKernel\Kernel::getAnnotatedClassesToCompile()` is forbidden: there is no replacement, the kernel no longer compiles a class cache
+72: Method `Symfony\Component\HttpKernel\Kernel::stripComments()` is forbidden: there is no replacement; copy the method into the project where it is still needed
+73: Constant `Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST` is replaced by `HttpKernelInterface::MAIN_REQUEST`
+82: Class `Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass` is replaced by `Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass`
+83: Class `Symfony\Component\HttpKernel\DependencyInjection\ResettableServicePass` is replaced by `Symfony\Component\DependencyInjection\Compiler\ResettableServicePass`
+84: Class `Symfony\Component\HttpKernel\DependencyInjection\AddAnnotatedClassesToCachePass` is forbidden: there is no replacement, the kernel no longer compiles a class cache; drop the compiler pass
+88: Method `Symfony\Component\HttpKernel\Bundle\Bundle::registerCommands()` is forbidden: register each command as a service with the `#[AsCommand]` attribute or the `console.command` tag
+94: Class `Symfony\Component\HttpKernel\DependencyInjection\Extension` is replaced by `Symfony\Component\DependencyInjection\Extension\Extension`
+98: Method `Symfony\Component\HttpKernel\DependencyInjection\Extension::addAnnotatedClassesToCompile()` is forbidden: there is no replacement, the kernel no longer compiles a class cache; drop the call
+102: Method `Symfony\Component\HttpKernel\DependencyInjection\Extension::getAnnotatedClassesToCompile()` is forbidden: there is no replacement, the kernel no longer compiles a class cache
+112: Class `Symfony\Component\HttpKernel\DependencyInjection\ServicesResetterInterface` is replaced by `Symfony\Component\DependencyInjection\ServicesResetterInterface`
+113: Class `Symfony\Component\HttpKernel\UriSigner` is replaced by `Symfony\Component\HttpFoundation\UriSigner`
+114: Class `Symfony\Component\HttpKernel\Debug\FileLinkFormatter` is replaced by `Symfony\Component\ErrorHandler\ErrorRenderer\FileLinkFormatter`
+127: Method `Symfony\Component\HttpKernel\Event\KernelEvent::isMasterRequest()` is replaced by `KernelEvent::isMainRequest()`
+132: Constant `Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST` is replaced by `HttpKernelInterface::MAIN_REQUEST`
+141: Class `Symfony\Component\HttpKernel\EventListener\StreamedResponseListener` is forbidden: there is no replacement, a streamed response is sent without it; drop the listener
+148: Class `Symfony\Component\HttpKernel\Attribute\ArgumentInterface` is forbidden: there is no replacement, any attribute class can mark a controller argument; drop the interface
+157: Method `Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata::getAttribute()` is forbidden: call `getAttributes()`, which returns every attribute of the argument as a list, optionally only those of one class
+170: Annotation `@Cache` is replaced by the attribute `#[Symfony\Component\HttpKernel\Attribute\Cache]`
+179: Attribute `#[Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache]` is replaced by `#[Symfony\Component\HttpKernel\Attribute\Cache]`
+191: Property `Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate::$phpEscapeMap` is forbidden: there is no replacement, the cached content is no longer evaluated as PHP and needs no escaping
+191: Property `Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate::$phpEscapeMap` is forbidden: there is no replacement, the cached content is no longer evaluated as PHP and needs no escaping
+196: Class `Symfony\Component\HttpKernel\DependencyInjection\ServicesResetter` is replaced by `Symfony\Component\DependencyInjection\ServicesResetter`
+199: Method `Symfony\Component\HttpKernel\DataCollector\ConfigDataCollector::setKernel()` is replaced by `setKernel(null)`

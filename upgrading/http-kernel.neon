@@ -1,0 +1,60 @@
+package: symfony/http-kernel
+group: deprecations
+
+since 8.2:
+	forbiddenClasses:
+		Symfony\Component\HttpKernel\Fragment\HIncludeFragmentRenderer: 'use the `esi` or the `inline` fragment strategy, or load the fragment with Symfony UX Turbo'
+
+since 8.1:
+	replacedClasses:
+		Symfony\Component\HttpKernel\DependencyInjection\Extension: Symfony\Component\DependencyInjection\Extension\Extension
+		Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass: Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass
+		Symfony\Component\HttpKernel\DependencyInjection\ResettableServicePass: Symfony\Component\DependencyInjection\Compiler\ResettableServicePass
+		Symfony\Component\HttpKernel\DependencyInjection\ServicesResetter: Symfony\Component\DependencyInjection\ServicesResetter
+		Symfony\Component\HttpKernel\DependencyInjection\ServicesResetterInterface: Symfony\Component\DependencyInjection\ServicesResetterInterface
+
+	forbiddenMembers:
+		Symfony\Component\HttpKernel\Bundle\Bundle::registerCommands: 'register each command as a service with the `#[AsCommand]` attribute or the `console.command` tag'
+
+since 7.1:
+	forbiddenClasses:
+		Symfony\Component\HttpKernel\DependencyInjection\AddAnnotatedClassesToCachePass: 'there is no replacement, the kernel no longer compiles a class cache; drop the compiler pass'
+
+	forbiddenMembers:
+		Symfony\Component\HttpKernel\DependencyInjection\Extension::addAnnotatedClassesToCompile: 'there is no replacement, the kernel no longer compiles a class cache; drop the call'
+		Symfony\Component\HttpKernel\DependencyInjection\Extension::getAnnotatedClassesToCompile: 'there is no replacement, the kernel no longer compiles a class cache'
+		Symfony\Component\HttpKernel\Kernel::getAnnotatedClassesToCompile: 'there is no replacement, the kernel no longer compiles a class cache'
+
+since 6.4:
+	replacedClasses:
+		Symfony\Component\HttpKernel\UriSigner: Symfony\Component\HttpFoundation\UriSigner
+		Symfony\Component\HttpKernel\Debug\FileLinkFormatter: Symfony\Component\ErrorHandler\ErrorRenderer\FileLinkFormatter
+
+	forbiddenMembers:
+		Symfony\Component\HttpKernel\Kernel::stripComments: 'there is no replacement; copy the method into the project where it is still needed'
+
+since 6.3:
+	forbiddenMembers:
+		Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate::$phpEscapeMap: 'there is no replacement, the cached content is no longer evaluated as PHP and needs no escaping'
+
+since 6.2:
+	replacedCalls:
+		'Symfony\Component\HttpKernel\DataCollector\ConfigDataCollector::setKernel()': 'setKernel(null)'
+
+	attributeForAnnotation:
+		Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache: Symfony\Component\HttpKernel\Attribute\Cache
+
+since 6.1:
+	forbiddenClasses:
+		Symfony\Component\HttpKernel\EventListener\StreamedResponseListener: 'there is no replacement, a streamed response is sent without it; drop the listener'
+
+since 6.0:
+	replacedMembers:
+		Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST: MAIN_REQUEST
+		Symfony\Component\HttpKernel\Event\KernelEvent::isMasterRequest: isMainRequest
+
+	forbiddenClasses:
+		Symfony\Component\HttpKernel\Attribute\ArgumentInterface: 'there is no replacement, any attribute class can mark a controller argument; drop the interface'
+
+	forbiddenMembers:
+		Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata::getAttribute: 'call `getAttributes()`, which returns every attribute of the argument as a list, optionally only those of one class'
