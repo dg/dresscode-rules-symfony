@@ -21,4 +21,8 @@ heading of the component), checked against the code of the component at its tags
   run. Always read the diff of `.code` against `.expected`: a wrong fix recorded there is a wrong fix tested ever
   after.
 - `vendor/bin/tester tests`: every file and every sample.
+- `php tests/corpus.php <symfony>/src/Symfony <package>...`: the data over the tests of the components themselves,
+  code written for the current API, which they must leave as they are except the tests of `@group legacy`; take the
+  checkout at the tag of the installed version. A component is not done until this passes over its tests.
+  `--rename=<Class::member>=<name>` adds an entry wrong on purpose, which must make it fail.
 - After a change of DressCode itself, `composer reinstall dresscode/dresscode`; the path repository is a copy.
