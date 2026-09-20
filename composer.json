@@ -21,7 +21,9 @@
 		"phpstan/extension-installer": "^1.4",
 		"phpstan/phpstan": "^2.2",
 		"symfony/console": "^8.1",
-		"symfony/http-foundation": "^8.1"
+		"symfony/error-handler": "^8.1",
+		"symfony/http-foundation": "^8.1",
+		"symfony/http-kernel": "^8.1"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
@@ -40,7 +42,7 @@
 		},
 		"dresscode": {
 			"upgrading-dir": "upgrading",
-			"packages": ["symfony/console", "symfony/http-foundation"]
+			"packages": ["symfony/console", "symfony/http-foundation", "symfony/http-kernel"]
 		}
 	}
 }
