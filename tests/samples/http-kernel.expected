@@ -45,6 +45,7 @@ namespace App {
 	use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 	use Symfony\Component\HttpKernel\KernelEvents;
 	use Symfony\Component\HttpFoundation\UriSigner;
+	use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 
 
 	class Kernel extends BaseKernel
@@ -150,7 +151,7 @@ namespace App {
 	}
 
 
-	class CurrentUserResolver implements ArgumentValueResolverInterface
+	class CurrentUserResolver implements ValueResolverInterface
 	{
 		public function supports(Request $request, ArgumentMetadata $argument): bool
 		{
@@ -160,6 +161,10 @@ namespace App {
 
 		public function resolve(Request $request, ArgumentMetadata $argument): iterable
 		{
+			if (!$this->supports($request, $argument)) {
+				return [];
+			}
+
 			yield $request->attributes->get('_user');
 		}
 	}

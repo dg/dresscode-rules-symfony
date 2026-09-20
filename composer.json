@@ -27,6 +27,12 @@
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
+	"autoload": {
+		"classmap": ["src/"],
+		"psr-4": {
+			"DressCodeRules\\Symfony\\": "src"
+		}
+	},
 	"scripts": {
 		"tester": "tester tests -s",
 		"phpstan": "phpstan analyse"
@@ -41,6 +47,7 @@
 			"dev-master": "1.0-dev"
 		},
 		"dresscode": {
+			"plugin": "DressCodeRules\\Symfony\\Plugin",
 			"upgrading": [
 				"upgrading/console.neon",
 				"upgrading/http-foundation.neon",

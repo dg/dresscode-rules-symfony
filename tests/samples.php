@@ -2,7 +2,7 @@
 
 use DressCode\Testing\UpgradingTester;
 
-/** The rules a sample is run with: those the upgrading files feed. */
+/** The rules a sample is run with: those the upgrading files feed, and those of this package that read the code alone. */
 const UpgradingRules = [
 	'replacedClasses',
 	'replacedMembers',
@@ -14,6 +14,7 @@ const UpgradingRules = [
 	'attributeForAnnotation',
 	'attributeForMember',
 	'overrideSignature',
+	'symfony/valueResolverForArgumentResolver',
 ];
 
 

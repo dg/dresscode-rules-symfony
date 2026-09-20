@@ -21,3 +21,10 @@ excludePaths:
 fileExtensions:
 	- php
 	- phpt
+
+overrides:
+	- paths: [src]
+	  groups: [optimizedCalls]
+	  nameResolution: certain
+	  rules:
+	  	nameFallback: {optimizedFunction: qualified, optimizedConstant: qualified}

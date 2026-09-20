@@ -22,6 +22,7 @@
 132: Constant `Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST` is replaced by `HttpKernelInterface::MAIN_REQUEST`
 141: Class `Symfony\Component\HttpKernel\EventListener\StreamedResponseListener` is forbidden: there is no replacement, a streamed response is sent without it; drop the listener
 148: Class `Symfony\Component\HttpKernel\Attribute\ArgumentInterface` is forbidden: there is no replacement, any attribute class can mark a controller argument; drop the interface
+153: Interface `Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface` is replaced by `Symfony\Component\HttpKernel\Controller\ValueResolverInterface`, whose `resolve()` returns no value where `supports()` is false
 157: Method `Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata::getAttribute()` is forbidden: call `getAttributes()`, which returns every attribute of the argument as a list, optionally only those of one class
 170: Annotation `@Cache` is replaced by the attribute `#[Symfony\Component\HttpKernel\Attribute\Cache]`
 179: Attribute `#[Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache]` is replaced by `#[Symfony\Component\HttpKernel\Attribute\Cache]`

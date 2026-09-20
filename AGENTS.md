@@ -26,3 +26,11 @@ heading of the component), checked against the code of the component at its tags
   checkout at the tag of the installed version. A component is not done until this passes over its tests.
   `--rename=<Class::member>=<name>` adds an entry wrong on purpose, which must make it fail.
 - After a change of DressCode itself, `composer reinstall dresscode/dresscode`; the path repository is a copy.
+
+
+## The rules of the package
+
+What no map can say is a rule in `src/`, registered by `Plugin` and named `symfony/<slug>`:
+`symfony/valueResolverForArgumentResolver`. The data hold no entry for a use such a rule converts, or the two
+would report it twice. A rule has fixtures in `tests/fixtures/<slug>/`, and the samples run it together with the rules
+the data feed.
