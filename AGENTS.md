@@ -13,3 +13,14 @@ checked against what is installed. DressCode is required as `dresscode/dresscode
 
 Where an entry comes from is the upgrade guide of the Symfony monorepo (`UPGRADE-<version>.md`, the part under the
 heading of the component), checked against the code of the component at its tags: the tag decides, not the guide.
+
+
+## Essential commands
+
+- `php tests/check.php <component>`: the lint of one file and its sample; the verdict is the exit code.
+- `php tests/check.php <component> --update`: writes `tests/samples/<component>.expected` and `.violations` from the
+  run. Always read the diff of `.code` against `.expected`: a wrong fix recorded there is a wrong fix tested ever
+  after.
+- `vendor/bin/tester tests`: every file and every sample.
+- After a change of DressCode itself, push it and run `composer update dresscode/dresscode`; the package takes
+  the master of DressCode from Packagist.
