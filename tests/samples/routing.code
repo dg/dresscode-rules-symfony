@@ -1,0 +1,176 @@
+<?php
+
+namespace Sensio\Bundle\FrameworkExtraBundle\Configuration {
+
+	#[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
+	class Route
+	{
+		public function __construct(
+			string|array|null $path = null,
+			?string $name = null,
+			array $requirements = [],
+			array $options = [],
+			array $defaults = [],
+			?string $host = null,
+			array|string $methods = [],
+		) {
+		}
+	}
+}
+
+
+namespace App\Controller {
+
+	use Symfony\Component\HttpFoundation\Response;
+	use Symfony\Component\Routing\Annotation\Route;
+
+
+	/**
+	 * @Route("/blog", name="blog_")
+	 */
+	class BlogController
+	{
+		/**
+		 * Shows one post.
+		 *
+		 * @Route("/{slug}", name="show", methods={"GET"}, requirements={"slug"="[a-z-]+"})
+		 */
+		public function show(string $slug): Response
+		{
+			return new Response($slug);
+		}
+
+
+		#[Route('/', name: 'index')]
+		public function index(): Response
+		{
+			return new Response('');
+		}
+	}
+}
+
+
+namespace App\Controller\Legacy {
+
+	use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+	use Symfony\Component\HttpFoundation\Response;
+
+
+	class LegacyController
+	{
+		/**
+		 * @Route("/legacy", name="legacy")
+		 */
+		public function legacy(): Response
+		{
+			return new Response('');
+		}
+
+
+		#[Route('/legacy/list', name: 'legacy_list')]
+		public function list(): Response
+		{
+			return new Response('');
+		}
+	}
+}
+
+
+namespace App\Routing {
+
+	use Symfony\Component\Config\FileLocator;
+	use Symfony\Component\Routing\Annotation\Route as RouteAnnotation;
+	use Symfony\Component\Routing\Attribute\DeprecatedAlias;
+	use Symfony\Component\Routing\Loader\AnnotationClassLoader;
+	use Symfony\Component\Routing\Loader\AnnotationDirectoryLoader;
+	use Symfony\Component\Routing\Loader\AnnotationFileLoader;
+	use Symfony\Component\Routing\Loader\AttributeClassLoader;
+	use Symfony\Component\Routing\Route;
+	use Symfony\Component\Routing\RouteCollectionBuilder;
+	use Symfony\Component\Routing\RouteCompiler;
+
+
+	#[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
+	class ApiRoute extends RouteAnnotation
+	{
+	}
+
+
+	class ControllerLoader extends AnnotationClassLoader
+	{
+		public function __construct(?string $env = null)
+		{
+			parent::__construct($env);
+			$this->routeAnnotationClass = ApiRoute::class;
+			$this->setRouteAnnotationClass(ApiRoute::class);
+		}
+
+
+		protected function configureRoute(Route $route, \ReflectionClass $class, \ReflectionMethod $method, object $annot): void
+		{
+			assert($annot instanceof RouteAnnotation);
+			$route->setDefault('_controller', $class->getName() . '::' . $method->getName());
+			if ($annot->getName() === null) {
+				$annot->setName($method->getName());
+			}
+
+			$route->addDefaults($annot->getDefaults());
+			$route->setMethods($annot->getMethods() ?: ['GET']);
+			$route->setHost($annot->getHost() ?? '');
+			$route->setCondition($annot->getCondition());
+			$route->setPath($annot->getPath() ?? '/');
+			$annot->setMethods('GET');
+			$annot->setEnv('prod');
+			$annot->setAliases('api_legacy');
+			$annot->setAliases(new DeprecatedAlias('api_old', 'acme/api', '2.0'));
+			$annot->setAliases(['api_a', 'api_b']);
+		}
+
+
+		public function describe(?RouteAnnotation $annot, DeprecatedAlias $alias): string
+		{
+			return $annot?->getName() . $alias->getAliasName() . $alias->getPackage() . $alias->getVersion() . $alias->getMessage();
+		}
+	}
+
+
+	class AdminLoader extends AttributeClassLoader
+	{
+		public function __construct(?string $env = null)
+		{
+			parent::__construct($env);
+			$this->routeAnnotationClass = ApiRoute::class;
+			$this->setRouteAnnotationClass(ApiRoute::class);
+		}
+
+
+		protected function configureRoute(Route $route, \ReflectionClass $class, \ReflectionMethod $method, object $attr): void
+		{
+			$route->setDefault('_controller', $class->getName() . '::' . $method->getName());
+		}
+	}
+
+
+	function loaders(FileLocator $locator): array
+	{
+		$classLoader = new ControllerLoader('prod');
+		return [
+			new AnnotationDirectoryLoader($locator, $classLoader),
+			new AnnotationFileLoader($locator, $classLoader),
+		];
+	}
+
+
+	function routes(): RouteCollectionBuilder
+	{
+		$builder = new RouteCollectionBuilder;
+		$builder->add('/blog', 'App\Controller\BlogController::index', 'blog');
+		return $builder;
+	}
+
+
+	function pattern(string $regex): string
+	{
+		return RouteCompiler::REGEX_DELIMITER . $regex . RouteCompiler::REGEX_DELIMITER;
+	}
+}
