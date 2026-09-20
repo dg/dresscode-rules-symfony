@@ -1,0 +1,141 @@
+<?php
+
+namespace App\Console;
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use Symfony\Component\Console\Helper\Helper;
+use Symfony\Component\Console\Helper\HelperSet;
+use Symfony\Component\Console\Helper\QuestionHelper;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\Question;
+
+
+#[AsCommand(name: 'app:create-user', description: 'Creates users')]
+class CreateUserCommand extends Command
+{
+	protected function configure(): void
+	{
+		$this->addArgument('username', InputArgument::OPTIONAL);
+		$this->getDefinition()->getArgument('username')->setDefault(null);
+
+		$option = new InputOption('role', null, InputOption::VALUE_OPTIONAL);
+		$option->setDefault(null);
+		$option->setDefault('user');
+		$this->getDefinition()->addOption($option);
+	}
+
+
+	protected function execute(InputInterface $input, OutputInterface $output): int
+	{
+		$question = new Question('Password?');
+		$question->setAutocompleterCallback(null);
+		$question->setValidator(null);
+		$question->setValidator(fn($value) => $value);
+
+		$helper = $this->getHelper('question');
+		assert($helper instanceof QuestionHelper);
+		$helper->ask($input, $output, $question);
+
+		$style = new OutputFormatterStyle('red');
+		$style->setForeground(null);
+		$style->setBackground(null);
+		$style->setBackground('blue');
+
+		$width = Helper::width('héllo');
+		$plain = Helper::width(Helper::removeDecoration($output->getFormatter(), '<info>done</info>'));
+		$output->writeln(str_repeat('-', $width + $plain));
+
+		if (preg_match('/' . StringInput::REGEX_STRING . '/A', 'a b')) {
+			$this->setApplication(null);
+		}
+
+		$this->getApplication()?->addCommand(new self);
+
+		return self::SUCCESS;
+	}
+}
+
+
+class ImportCommand extends Command
+{
+	protected function configure()
+	{
+		$this->setName('app:import');
+	}
+
+
+	protected function execute(InputInterface $input, OutputInterface $output)
+	{
+		return 0;
+	}
+}
+
+
+#[AsCommand(name: 'app:export', description: 'Exports the data')]
+class ExportCommand extends Command
+{
+	protected function execute(InputInterface $input, OutputInterface $output): int
+	{
+		$output->writeln(CreateUserCommand::getDefaultName());
+		return 0;
+	}
+}
+
+
+class TableWidthHelper extends Helper
+{
+	public function getName(): string
+	{
+		return 'table_width';
+	}
+
+
+	public function measure(string $text): int
+	{
+		return self::width($text) + Helper::width(Helper::removeDecoration(new \Symfony\Component\Console\Formatter\OutputFormatter, $text));
+	}
+
+
+	public function detach(): void
+	{
+		$this->setHelperSet(null);
+	}
+}
+
+
+class ConsoleApplication extends Application
+{
+	public function __construct()
+	{
+		parent::__construct('app', '1.0');
+		$this->addCommand(new CreateUserCommand);
+		$this->setHelperSet(new HelperSet([new TableWidthHelper]));
+	}
+}
+
+
+function bootstrap(): void
+{
+	$application = new ConsoleApplication;
+	$application->addCommand(new CreateUserCommand);
+	$application->addCommand(new CreateUserCommand);
+
+	$helper = new TableWidthHelper;
+	$helper->setHelperSet(null);
+	$helper->setHelperSet($application->getHelperSet());
+
+	$command = new CreateUserCommand;
+	$command->setApplication($application);
+	$command->setApplication(null);
+
+	$helperSet = new HelperSet;
+	$helperSet->setCommand($command);
+	$helperSet->getCommand()->run(new StringInput(''), new \Symfony\Component\Console\Output\NullOutput);
+}

@@ -1,0 +1,45 @@
+package: symfony/console
+group: deprecations
+
+since 7.4:
+	replacedMembers:
+		Symfony\Component\Console\Application::add: addCommand
+
+since 7.3:
+	attributeForMember:
+		'Symfony\Component\Console\Command\Command::getDefaultName()': 'Symfony\Component\Console\Attribute\AsCommand(name: $value)'
+		'Symfony\Component\Console\Command\Command::getDefaultDescription()': 'Symfony\Component\Console\Attribute\AsCommand(description: $value)'
+
+	forbiddenMembers:
+		'Symfony\Component\Console\Command\Command::getDefaultName()': 'read `getName()` of the command, which the attribute `AsCommand` of its class gives'
+		'Symfony\Component\Console\Command\Command::getDefaultDescription()': 'read `getDescription()` of the command, which the attribute `AsCommand` of its class gives'
+
+since 6.2:
+	replacedCalls:
+		'Symfony\Component\Console\Command\Command::setApplication()': 'setApplication(null)'
+		'Symfony\Component\Console\Formatter\OutputFormatterStyleInterface::setForeground()': 'setForeground(null)'
+		'Symfony\Component\Console\Formatter\OutputFormatterStyleInterface::setBackground()': 'setBackground(null)'
+		'Symfony\Component\Console\Helper\HelperInterface::setHelperSet()': 'setHelperSet(null)'
+		'Symfony\Component\Console\Input\InputArgument::setDefault()': 'setDefault(null)'
+		'Symfony\Component\Console\Input\InputOption::setDefault()': 'setDefault(null)'
+		'Symfony\Component\Console\Question\Question::setAutocompleterCallback()': 'setAutocompleterCallback(null)'
+		'Symfony\Component\Console\Question\Question::setValidator()': 'setValidator(null)'
+
+since 6.1:
+	attributeForMember:
+		Symfony\Component\Console\Command\Command::$defaultName: 'Symfony\Component\Console\Attribute\AsCommand(name: $value)'
+		Symfony\Component\Console\Command\Command::$defaultDescription: 'Symfony\Component\Console\Attribute\AsCommand(description: $value)'
+
+	forbiddenMembers:
+		Symfony\Component\Console\Input\StringInput::REGEX_STRING: 'use `REGEX_UNQUOTED_STRING` or `REGEX_QUOTED_STRING`, which match an unquoted and a quoted token separately'
+
+since 6.0:
+	replacedMembers:
+		Symfony\Component\Console\Helper\Helper::strlen: width
+
+	replacedCalls:
+		'Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($formatter, $string)': '\Symfony\Component\Console\Helper\Helper::width(\Symfony\Component\Console\Helper\Helper::removeDecoration($formatter, $string))'
+
+	forbiddenMembers:
+		Symfony\Component\Console\Helper\HelperSet::setCommand: 'there is no replacement, a helper set is no longer tied to a command; drop the call'
+		Symfony\Component\Console\Helper\HelperSet::getCommand: 'there is no replacement, a helper set is no longer tied to a command; pass the command to the code that needs it'

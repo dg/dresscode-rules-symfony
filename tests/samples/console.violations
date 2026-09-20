@@ -1,0 +1,27 @@
+21: Property `Symfony\Component\Console\Command\Command::$defaultName` is replaced by the attribute `#[Symfony\Component\Console\Attribute\AsCommand]`
+22: Property `Symfony\Component\Console\Command\Command::$defaultDescription` is replaced by the attribute `#[Symfony\Component\Console\Attribute\AsCommand]`
+28: Method `Symfony\Component\Console\Input\InputArgument::setDefault()` is replaced by `setDefault(null)`
+31: Method `Symfony\Component\Console\Input\InputOption::setDefault()` is replaced by `setDefault(null)`
+40: Method `Symfony\Component\Console\Question\Question::setAutocompleterCallback()` is replaced by `setAutocompleterCallback(null)`
+41: Method `Symfony\Component\Console\Question\Question::setValidator()` is replaced by `setValidator(null)`
+49: Method `Symfony\Component\Console\Formatter\OutputFormatterStyleInterface::setForeground()` is replaced by `setForeground(null)`
+50: Method `Symfony\Component\Console\Formatter\OutputFormatterStyleInterface::setBackground()` is replaced by `setBackground(null)`
+53: Static method `Symfony\Component\Console\Helper\Helper::strlen()` is replaced by `Helper::width()`
+54: Static method `Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration()` is replaced by `\Symfony\Component\Console\Helper\Helper::width(\Symfony\Component\Console\Helper\Helper::removeDecoration($formatter, $string))`
+57: Constant `Symfony\Component\Console\Input\StringInput::REGEX_STRING` is forbidden: use `REGEX_UNQUOTED_STRING` or `REGEX_QUOTED_STRING`, which match an unquoted and a quoted token separately
+58: Method `Symfony\Component\Console\Command\Command::setApplication()` is replaced by `setApplication(null)`
+61: Method `Symfony\Component\Console\Application::add()` is replaced by `Application::addCommand()`
+70: Method `configure()` declares no return type while `Symfony\Component\Console\Command\Command::configure()` returns `void`
+76: Method `execute()` declares no return type while `Symfony\Component\Console\Command\Command::execute()` returns `int`
+85: Method `Symfony\Component\Console\Command\Command::getDefaultName()` is replaced by the attribute `#[Symfony\Component\Console\Attribute\AsCommand]`
+91: Method `Symfony\Component\Console\Command\Command::getDefaultDescription()` is replaced by the attribute `#[Symfony\Component\Console\Attribute\AsCommand]`
+99: Static method `Symfony\Component\Console\Command\Command::getDefaultName()` is forbidden: read `getName()` of the command, which the attribute `AsCommand` of its class gives
+115: Method `Symfony\Component\Console\Helper\Helper::strlen()` is replaced by `Helper::width()`
+115: Method `Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration()` is replaced by `\Symfony\Component\Console\Helper\Helper::width(\Symfony\Component\Console\Helper\Helper::removeDecoration($formatter, $string))`
+121: Method `Symfony\Component\Console\Helper\HelperInterface::setHelperSet()` is replaced by `setHelperSet(null)`
+131: Method `Symfony\Component\Console\Application::add()` is replaced by `Application::addCommand()`
+140: Method `Symfony\Component\Console\Application::add()` is replaced by `Application::addCommand()`
+144: Method `Symfony\Component\Console\Helper\HelperInterface::setHelperSet()` is replaced by `setHelperSet(null)`
+149: Method `Symfony\Component\Console\Command\Command::setApplication()` is replaced by `setApplication(null)`
+152: Method `Symfony\Component\Console\Helper\HelperSet::setCommand()` is forbidden: there is no replacement, a helper set is no longer tied to a command; drop the call
+153: Method `Symfony\Component\Console\Helper\HelperSet::getCommand()` is forbidden: there is no replacement, a helper set is no longer tied to a command; pass the command to the code that needs it

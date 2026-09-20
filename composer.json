@@ -19,7 +19,8 @@
 		"nette/phpstan-rules": "^1.0",
 		"nette/tester": "^2.6",
 		"phpstan/extension-installer": "^1.4",
-		"phpstan/phpstan": "^2.2"
+		"phpstan/phpstan": "^2.2",
+		"symfony/console": "^8.1"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
@@ -37,7 +38,9 @@
 			"dev-master": "1.0-dev"
 		},
 		"dresscode": {
-			"upgrading": []
+			"upgrading": [
+				"upgrading/console.neon"
+			]
 		}
 	}
 }
