@@ -8,6 +8,12 @@ const SampleDecisions = [
 ];
 
 
+/** The decisions the corpus is run with: the data of the upgrading files. */
+const CorpusDecisions = [
+	'upgrading' => ['packages' => true],
+];
+
+
 /**
  * What the upgrading file of a library has wrong, checked against the installed library.
  * @return list<string>
