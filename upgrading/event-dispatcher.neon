@@ -1,0 +1,6 @@
+package: symfony/event-dispatcher
+group: deprecations
+
+since 6.0:
+	replacedCalls:
+		'Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy::decorate($dispatcher)': '$dispatcher'

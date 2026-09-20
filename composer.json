@@ -22,6 +22,7 @@
 		"phpstan/phpstan": "^2.2",
 		"symfony/console": "^8.1",
 		"symfony/error-handler": "^8.1",
+		"symfony/event-dispatcher": "^8.1",
 		"symfony/http-foundation": "^8.1",
 		"symfony/http-kernel": "^8.1",
 		"symfony/routing": "^8.1"
@@ -51,6 +52,7 @@
 			"plugin": "DressCodeRules\\Symfony\\Plugin",
 			"upgrading": [
 				"upgrading/console.neon",
+				"upgrading/event-dispatcher.neon",
 				"upgrading/http-foundation.neon",
 				"upgrading/http-kernel.neon",
 				"upgrading/routing.neon"

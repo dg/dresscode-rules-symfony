@@ -1,0 +1,1 @@
+26: Static method `Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy::decorate()` is replaced by `$dispatcher`
