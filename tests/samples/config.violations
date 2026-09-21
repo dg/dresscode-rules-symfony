@@ -1,0 +1,10 @@
+20: Method `Symfony\Component\Config\Definition\Builder\NodeDefinition::setDeprecated()` is forbidden: pass the package and the version that deprecate the node
+21: Method `Symfony\Component\Config\Definition\Builder\NodeDefinition::setDeprecated()` is forbidden: pass the package and the version that deprecate the node before the message
+35: Method `Symfony\Component\Config\Definition\Builder\NodeBuilder::setParent()` is replaced by `setParent(null)`
+44: Method `Symfony\Component\Config\Definition\BaseNode::setDeprecated()` is forbidden: pass the package and the version that deprecate the node before the message; a node can no longer be un-deprecated
+45: Method `Symfony\Component\Config\Definition\BaseNode::setDeprecated()` is forbidden: pass the package and the version that deprecate the node before the message; a node can no longer be un-deprecated
+47: Method `Symfony\Component\Config\Definition\BaseNode::getDeprecationMessage()` is replaced by `getDeprecation($node, $path)['message']`
+48: Method `Symfony\Component\Config\Definition\BaseNode::getDeprecationMessage()` is replaced by `getDeprecation($node, $path)['message']`
+53: Class `Symfony\Component\Config\Builder\ConfigBuilderInterface` is forbidden: there is no replacement, fluent config builders are gone; return a PHP array from the config file
+55: Method `Symfony\Component\Config\Definition\Builder\NodeBuilder::setParent()` is replaced by `setParent(null)`
+57: Class `Symfony\Component\Config\Builder\ConfigBuilderGenerator` is forbidden: there is no replacement, fluent config builders are gone; return a PHP array from the config file

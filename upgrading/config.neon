@@ -1,0 +1,22 @@
+package: symfony/config
+group: deprecations
+
+since 7.4:
+	forbiddenClasses:
+		Symfony\Component\Config\Builder\ConfigBuilderInterface: 'there is no replacement, fluent config builders are gone; return a PHP array from the config file'
+		Symfony\Component\Config\Builder\ConfigBuilderGeneratorInterface: 'there is no replacement, fluent config builders are gone; return a PHP array from the config file'
+		Symfony\Component\Config\Builder\ConfigBuilderGenerator: 'there is no replacement, fluent config builders are gone; return a PHP array from the config file'
+
+since 6.2:
+	replacedCalls:
+		'Symfony\Component\Config\Definition\Builder\NodeBuilder::setParent()': 'setParent(null)'
+
+since 6.0:
+	replacedCalls:
+		'Symfony\Component\Config\Definition\BaseNode::getDeprecationMessage($node, $path)': 'getDeprecation($node, $path)[''message'']'
+
+	forbiddenMembers:
+		'Symfony\Component\Config\Definition\BaseNode::setDeprecated()': 'pass the package and the version that deprecate the node'
+		'Symfony\Component\Config\Definition\BaseNode::setDeprecated($message)': 'pass the package and the version that deprecate the node before the message; a node can no longer be un-deprecated'
+		'Symfony\Component\Config\Definition\Builder\NodeDefinition::setDeprecated()': 'pass the package and the version that deprecate the node'
+		'Symfony\Component\Config\Definition\Builder\NodeDefinition::setDeprecated($message)': 'pass the package and the version that deprecate the node before the message'
