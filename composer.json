@@ -31,6 +31,7 @@
 		"symfony/http-kernel": "^8.1",
 		"symfony/options-resolver": "^8.1",
 		"symfony/property-access": "^8.1",
+		"symfony/property-info": "^8.1",
 		"symfony/routing": "^8.1",
 		"symfony/validator": "^8.1"
 	},
@@ -69,6 +70,7 @@
 				"symfony/http-kernel",
 				"symfony/options-resolver",
 				"symfony/property-access",
+				"symfony/property-info",
 				"symfony/routing",
 				"symfony/validator"
 			]
