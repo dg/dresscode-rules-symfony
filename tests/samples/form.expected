@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Form;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Event\PostSetDataEvent;
+use Symfony\Component\Form\Event\PostSubmitEvent;
+use Symfony\Component\Form\Exception\TransformationFailedException;
+use Symfony\Component\Form\Extension\Core\DataAccessor\PropertyPathAccessor;
+use Symfony\Component\Form\Extension\Core\DataMapper\DataMapper;
+use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
+use Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
+use Symfony\Component\Form\Util\ServerParams;
+use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\Forms;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\Validator\Validation;
+
+
+class ProductType extends AbstractType
+{
+	public function buildForm(FormBuilderInterface $builder, array $options): void
+	{
+		$builder->add('price', TextType::class);
+		$builder->setDataMapper(new DataMapper());
+		$builder->setDataMapper(new DataMapper(new PropertyPathAccessor(PropertyAccess::createPropertyAccessor())));
+		$builder->setDataMapper(null);
+		$builder->setDataMapper(null);
+
+		$transformer = new NumberToLocalizedStringTransformer(2, false, \NumberFormatter::ROUND_HALFUP);
+		$transformer->reverseTransform('1,5');
+		$rounding = [\NumberFormatter::ROUND_CEILING, \NumberFormatter::ROUND_HALFEVEN];
+
+		$builder->addEventListener(FormEvents::POST_SET_DATA, function (PostSetDataEvent $event): void {
+			$event->setData(['price' => 0]);
+		});
+
+		$builder->addEventListener(FormEvents::POST_SUBMIT, function (PostSubmitEvent $event) use ($rounding): void {
+			$event->setData($rounding);
+		});
+	}
+}
+
+
+class PriceTransformer
+{
+	public function reverseTransform(mixed $value): float
+	{
+		$e = new TransformationFailedException('Invalid price');
+		$e->setInvalidMessage(null);
+		$e->setInvalidMessage('The price {{ value }} is invalid.', ['{{ value }}' => $value]);
+		throw $e;
+	}
+}
+
+
+class UploadLimit extends ServerParams
+{
+}
+
+
+function detach(FormInterface $form): void
+{
+	$form->setParent(null);
+	$form->get('price')->setParent($form);
+	$form->get('price')->setParent(null);
+}
+
+
+function createFactory(): void
+{
+	$validator = Validation::createValidator();
+	$limit = (new ServerParams)->getPostMaxSize();
+
+	Forms::createFormFactoryBuilder()
+		->addExtension(new ValidatorExtension($validator))
+		->addExtension(new ValidatorExtension($validator))
+		->addExtension(new ValidatorExtension($validator, null, null, null))
+		->addTypeExtension(new FormTypeValidatorExtension($validator))
+		->addTypeExtension(new FormTypeValidatorExtension($validator, null, null))
+		->getFormFactory();
+}
