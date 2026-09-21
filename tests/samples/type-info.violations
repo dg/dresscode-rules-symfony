@@ -1,0 +1,8 @@
+14: Static method `Symfony\Component\TypeInfo\Type::iterable()` is replaced by `\Symfony\Component\TypeInfo\Type::list($value)`
+20: Static method `Symfony\Component\TypeInfo\Type::iterable()` is replaced by `\Symfony\Component\TypeInfo\Type::list($value)`
+26: Static method `Symfony\Component\TypeInfo\Type::iterable()` is replaced by `\Symfony\Component\TypeInfo\Type::list($value)`
+38: Method `Symfony\Component\TypeInfo\Type::isA()` is replaced by `Type::isIdentifiedBy()`
+39: Method `Symfony\Component\TypeInfo\Type::isA()` is replaced by `Type::isIdentifiedBy()`
+40: Method `Symfony\Component\TypeInfo\Type::is()` is replaced by `Type::isSatisfiedBy()`
+46: Method `Symfony\Component\TypeInfo\Type::asNonNullable()` is forbidden: use `getWrappedType()` of `Symfony\Component\TypeInfo\Type\NullableType`, which only a nullable type has
+46: Method `Symfony\Component\TypeInfo\Type::getBaseType()` is forbidden: use `getWrappedType()` of `Symfony\Component\TypeInfo\Type\WrappingTypeInterface`, which unwraps one level only, or test the type by `isIdentifiedBy()`

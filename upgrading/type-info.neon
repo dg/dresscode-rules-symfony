@@ -1,0 +1,17 @@
+package: symfony/type-info
+group: deprecations
+
+since 7.3:
+	replacedCalls:
+		'Symfony\Component\TypeInfo\Type::iterable($value, $key, true)': '\Symfony\Component\TypeInfo\Type::list($value)'
+		'Symfony\Component\TypeInfo\Type::iterable($value, $key, asList: true)': '\Symfony\Component\TypeInfo\Type::list($value)'
+		'Symfony\Component\TypeInfo\Type::iterable($value, asList: true)': '\Symfony\Component\TypeInfo\Type::list($value)'
+
+since 7.2:
+	replacedMembers:
+		Symfony\Component\TypeInfo\Type::isA: isIdentifiedBy
+		Symfony\Component\TypeInfo\Type::is: isSatisfiedBy
+
+	forbiddenMembers:
+		Symfony\Component\TypeInfo\Type::getBaseType: 'use `getWrappedType()` of `Symfony\Component\TypeInfo\Type\WrappingTypeInterface`, which unwraps one level only, or test the type by `isIdentifiedBy()`'
+		Symfony\Component\TypeInfo\Type::asNonNullable: 'use `getWrappedType()` of `Symfony\Component\TypeInfo\Type\NullableType`, which only a nullable type has'
