@@ -29,7 +29,8 @@
 		"symfony/framework-bundle": "^8.1",
 		"symfony/http-foundation": "^8.1",
 		"symfony/http-kernel": "^8.1",
-		"symfony/routing": "^8.1"
+		"symfony/routing": "^8.1",
+		"symfony/validator": "^8.1"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
@@ -64,7 +65,8 @@
 				"symfony/framework-bundle",
 				"symfony/http-foundation",
 				"symfony/http-kernel",
-				"symfony/routing"
+				"symfony/routing",
+				"symfony/validator"
 			]
 		}
 	}
