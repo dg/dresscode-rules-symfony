@@ -1,0 +1,68 @@
+<?php
+
+namespace App\Serializer;
+
+use Symfony\Component\PropertyInfo\Extractor\ConstructorArgumentTypeExtractorInterface;
+use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
+use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
+use Symfony\Component\PropertyInfo\PropertyInfoExtractorInterface;
+use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
+use Symfony\Component\PropertyInfo\Type;
+use Symfony\Component\PropertyInfo\Util\PhpDocTypeHelper;
+
+
+class MoneyTypeExtractor implements PropertyTypeExtractorInterface, ConstructorArgumentTypeExtractorInterface
+{
+	public function getTypes(string $class, string $property, array $context = []): ?array
+	{
+		return $property === 'amount' ? [new Type(Type::BUILTIN_TYPE_INT)] : null;
+	}
+
+
+	public function getTypesFromConstructor(string $class, string $property): ?array
+	{
+		return $this->getTypes($class, $property);
+	}
+}
+
+
+final class PropertyDescriber
+{
+	public function __construct(
+		private PropertyInfoExtractorInterface $propertyInfo,
+		private ?ReflectionExtractor $reflection = null,
+	) {
+	}
+
+
+	public function describe(string $class, string $property): string
+	{
+		$types = $this->propertyInfo->getTypes($class, $property) ?? [];
+		$fromConstructor = (new PhpDocExtractor)->getTypesFromConstructor($class, $property);
+		$reflected = $this->reflection?->getTypes($class, $property);
+
+		foreach ($types as $type) {
+			if ($type->isCollection()) {
+				$key = $type->getCollectionKeyType();
+				$value = $type->getCollectionValueType()?->getBuiltinType();
+				return sprintf('%s<%s, %s>', $type->getBuiltinType(), $key?->getBuiltinType(), $value);
+			}
+		}
+
+		return (string) count($types + (array) $fromConstructor + (array) $reflected);
+	}
+
+
+	public function describeCollection(Type $type): ?string
+	{
+		$key = $type->getCollectionKeyType();
+		$value = $type->getCollectionValueType()?->getBuiltinType();
+		return $key?->getBuiltinType() . $value . $type->getCollectionValueType()->getClassName();
+	}
+
+
+	public function describeDocType(PhpDocTypeHelper $helper, \phpDocumentor\Reflection\Type $docType): int
+	{
+		return count($helper->getTypes($docType));
+	}
+}

@@ -1,0 +1,16 @@
+package: symfony/property-info
+group: deprecations
+
+since 7.3:
+	forbiddenClasses:
+		Symfony\Component\PropertyInfo\Type: 'use `Symfony\Component\TypeInfo\Type`, which is built by factories such as `Type::int()` or `Type::list()` and holds a union as one object, not a list'
+
+	forbiddenMembers:
+		Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface::getTypes: 'call `getType()`, which returns one `Symfony\Component\TypeInfo\Type` or `null`, not a list of `Symfony\Component\PropertyInfo\Type`'
+		Symfony\Component\PropertyInfo\Extractor\ConstructorArgumentTypeExtractorInterface::getTypesFromConstructor: 'call `getTypeFromConstructor()`, which returns one `Symfony\Component\TypeInfo\Type` or `null`, not a list of `Symfony\Component\PropertyInfo\Type`'
+		Symfony\Component\PropertyInfo\Util\PhpDocTypeHelper::getTypes: 'call `getType()`, which returns one `Symfony\Component\TypeInfo\Type` or `null`, not a list of `Symfony\Component\PropertyInfo\Type`'
+
+since 6.0:
+	replacedCalls:
+		'Symfony\Component\PropertyInfo\Type::getCollectionKeyType()': 'getCollectionKeyTypes()[0] ?? null'
+		'Symfony\Component\PropertyInfo\Type::getCollectionValueType()': 'getCollectionValueTypes()[0] ?? null'

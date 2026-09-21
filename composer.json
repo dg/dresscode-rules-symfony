@@ -31,6 +31,7 @@
 		"symfony/http-kernel": "^8.1",
 		"symfony/options-resolver": "^8.1",
 		"symfony/property-access": "^8.1",
+		"symfony/property-info": "^8.1",
 		"symfony/routing": "^8.1",
 		"symfony/validator": "^8.1"
 	},
@@ -68,6 +69,7 @@
 				"upgrading/http-kernel.neon",
 				"upgrading/options-resolver.neon",
 				"upgrading/property-access.neon",
+				"upgrading/property-info.neon",
 				"upgrading/routing.neon",
 				"upgrading/validator.neon"
 			]

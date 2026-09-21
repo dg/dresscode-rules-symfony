@@ -1,0 +1,13 @@
+16: Method `Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface::getTypes()` is forbidden: call `getType()`, which returns one `Symfony\Component\TypeInfo\Type` or `null`, not a list of `Symfony\Component\PropertyInfo\Type`
+18: Class `Symfony\Component\PropertyInfo\Type` is forbidden: use `Symfony\Component\TypeInfo\Type`, which is built by factories such as `Type::int()` or `Type::list()` and holds a union as one object, not a list
+18: Class `Symfony\Component\PropertyInfo\Type` is forbidden: use `Symfony\Component\TypeInfo\Type`, which is built by factories such as `Type::int()` or `Type::list()` and holds a union as one object, not a list
+22: Method `Symfony\Component\PropertyInfo\Extractor\ConstructorArgumentTypeExtractorInterface::getTypesFromConstructor()` is forbidden: call `getTypeFromConstructor()`, which returns one `Symfony\Component\TypeInfo\Type` or `null`, not a list of `Symfony\Component\PropertyInfo\Type`
+24: Method `Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface::getTypes()` is forbidden: call `getType()`, which returns one `Symfony\Component\TypeInfo\Type` or `null`, not a list of `Symfony\Component\PropertyInfo\Type`
+40: Method `Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface::getTypes()` is forbidden: call `getType()`, which returns one `Symfony\Component\TypeInfo\Type` or `null`, not a list of `Symfony\Component\PropertyInfo\Type`
+41: Method `Symfony\Component\PropertyInfo\Extractor\ConstructorArgumentTypeExtractorInterface::getTypesFromConstructor()` is forbidden: call `getTypeFromConstructor()`, which returns one `Symfony\Component\TypeInfo\Type` or `null`, not a list of `Symfony\Component\PropertyInfo\Type`
+42: Method `Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface::getTypes()` is forbidden: call `getType()`, which returns one `Symfony\Component\TypeInfo\Type` or `null`, not a list of `Symfony\Component\PropertyInfo\Type`
+56: Class `Symfony\Component\PropertyInfo\Type` is forbidden: use `Symfony\Component\TypeInfo\Type`, which is built by factories such as `Type::int()` or `Type::list()` and holds a union as one object, not a list
+58: Method `Symfony\Component\PropertyInfo\Type::getCollectionKeyType()` is replaced by `getCollectionKeyTypes()[0] ?? null`
+59: Method `Symfony\Component\PropertyInfo\Type::getCollectionValueType()` is replaced by `getCollectionValueTypes()[0] ?? null`
+60: Method `Symfony\Component\PropertyInfo\Type::getCollectionValueType()` is replaced by `getCollectionValueTypes()[0] ?? null`
+66: Method `Symfony\Component\PropertyInfo\Util\PhpDocTypeHelper::getTypes()` is forbidden: call `getType()`, which returns one `Symfony\Component\TypeInfo\Type` or `null`, not a list of `Symfony\Component\PropertyInfo\Type`
