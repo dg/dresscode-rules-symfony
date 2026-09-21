@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Serializer;
+
+use Symfony\Component\TypeInfo\Type;
+use Symfony\Component\TypeInfo\Type\ObjectType;
+use Symfony\Component\TypeInfo\TypeIdentifier;
+
+
+final class PayloadTypes
+{
+	public function tags(): Type
+	{
+		return Type::iterable(Type::string(), Type::int(), true);
+	}
+
+
+	public function names(): Type
+	{
+		return Type::iterable(Type::string(), asList: true);
+	}
+
+
+	public function ids(): Type
+	{
+		return Type::iterable(Type::int(), Type::int(), asList: true);
+	}
+
+
+	public function lines(): Type
+	{
+		return Type::iterable(Type::string(), Type::int(), false);
+	}
+
+
+	public function isStringable(Type $type, ?ObjectType $object): bool
+	{
+		return $type->isA(TypeIdentifier::STRING)
+			|| $object?->isA(\Stringable::class)
+			|| $type->is(fn(Type $t): bool => $t->isNullable());
+	}
+
+
+	public function baseOf(Type $type): Type
+	{
+		return $type->isNullable() ? $type->asNonNullable()->getBaseType() : $type->getBaseType();
+	}
+}
