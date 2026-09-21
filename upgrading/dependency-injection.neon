@@ -1,0 +1,82 @@
+package: symfony/dependency-injection
+group: deprecations
+
+since 8.1:
+	replacedCalls:
+		'Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument::__construct($tag, $indexAttribute, null)': 'new \Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($tag, $indexAttribute)'
+		'Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument::__construct($tag, $indexAttribute, null, $needsIndexes)': 'new \Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($tag, $indexAttribute, $needsIndexes)'
+		'Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument::__construct($tag, $indexAttribute, null, $needsIndexes, null)': 'new \Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($tag, $indexAttribute, $needsIndexes)'
+		'Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument::__construct($tag, $indexAttribute, null, $needsIndexes, null, $exclude)': 'new \Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($tag, $indexAttribute, $needsIndexes, $exclude)'
+		'Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument::__construct($tag, $indexAttribute, null, $needsIndexes, null, $exclude, $excludeSelf)': 'new \Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($tag, $indexAttribute, $needsIndexes, $exclude, $excludeSelf)'
+
+	forbiddenMembers:
+		'Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument::__construct($tag, $indexAttribute, string $defaultIndexMethod, ...)': 'use the `#[AsTaggedItem]` attribute on the tagged services, which gives their index and priority in place of the default methods'
+		'Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument::__construct($tag, $indexAttribute, $defaultIndexMethod, $needsIndexes, string $defaultPriorityMethod, ...)': 'use the `#[AsTaggedItem]` attribute on the tagged services, which gives their index and priority in place of the default methods'
+
+since 7.4:
+	forbiddenClasses:
+		Symfony\Component\DependencyInjection\Loader\XmlFileLoader: 'use `Symfony\Component\DependencyInjection\Loader\PhpFileLoader` or `YamlFileLoader`, which read the configuration rewritten in PHP or YAML'
+
+	forbiddenMembers:
+		Symfony\Component\DependencyInjection\Extension\ExtensionInterface::getNamespace: 'there is no replacement, the XML configuration format is gone; drop the method'
+		Symfony\Component\DependencyInjection\Extension\ExtensionInterface::getXsdValidationBasePath: 'there is no replacement, the XML configuration format is gone; drop the method'
+
+since 7.3:
+	forbiddenMembers:
+		Symfony\Component\DependencyInjection\ContainerBuilder::getAutoconfiguredAttributes: 'call `getAttributeAutoconfigurators()`, which gives a list of configurators for each attribute class'
+
+since 7.1:
+	replacedClasses:
+		Symfony\Component\DependencyInjection\Attribute\TaggedIterator: Symfony\Component\DependencyInjection\Attribute\AutowireIterator
+		Symfony\Component\DependencyInjection\Attribute\TaggedLocator: Symfony\Component\DependencyInjection\Attribute\AutowireLocator
+
+	replacedCalls:
+		'Symfony\Component\DependencyInjection\Attribute\AutowireLocator::__construct(tag: $tag, ...)': 'new \Symfony\Component\DependencyInjection\Attribute\AutowireLocator($tag, ...)'
+
+since 6.4:
+	forbiddenClasses:
+		Symfony\Component\DependencyInjection\ContainerAwareInterface: 'pass the services the class needs to its constructor, or implement `Symfony\Contracts\Service\ServiceSubscriberInterface` to fetch them lazily'
+		Symfony\Component\DependencyInjection\ContainerAwareTrait: 'pass the services the class needs to its constructor, or implement `Symfony\Contracts\Service\ServiceSubscriberInterface` to fetch them lazily'
+
+since 6.3:
+	replacedClasses:
+		Symfony\Component\DependencyInjection\Attribute\MapDecorated: Symfony\Component\DependencyInjection\Attribute\AutowireDecorated
+
+	attributeForAnnotation:
+		required: Symfony\Contracts\Service\Attribute\Required
+
+since 6.2:
+	forbiddenClasses:
+		Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper: 'call `Symfony\Component\VarExporter\ProxyHelper::exportType()`, which takes the parameter or the function alone and writes a nullable type with a question mark'
+
+since 6.1:
+	forbiddenClasses:
+		Symfony\Component\DependencyInjection\Argument\ReferenceSetArgumentTrait: 'there is no replacement; implement `getValues()` and `setValues()` of `Symfony\Component\DependencyInjection\Argument\ArgumentInterface` in the class'
+
+since 6.0:
+	replacedCalls:
+		'Symfony\Component\DependencyInjection\Definition::setPrivate(true)': 'setPublic(false)'
+		'Symfony\Component\DependencyInjection\Definition::setPrivate(false)': 'setPublic(true)'
+		'Symfony\Component\DependencyInjection\Definition::setPrivate($private)': 'setPublic(!$private)'
+		'Symfony\Component\DependencyInjection\Alias::setPrivate(true)': 'setPublic(false)'
+		'Symfony\Component\DependencyInjection\Alias::setPrivate(false)': 'setPublic(true)'
+		'Symfony\Component\DependencyInjection\Alias::setPrivate($private)': 'setPublic(!$private)'
+		'Symfony\Component\DependencyInjection\Definition::getDeprecationMessage($id)': 'getDeprecation($id)[''message'']'
+		'Symfony\Component\DependencyInjection\Alias::getDeprecationMessage($id)': 'getDeprecation($id)[''message'']'
+
+	forbiddenMembers:
+		'Symfony\Component\DependencyInjection\Definition::setDeprecated()': 'pass the name of the package, the version that deprecated the service and the message'
+		'Symfony\Component\DependencyInjection\Definition::setDeprecated($status)': 'pass the name of the package, the version that deprecated the service and the message'
+		'Symfony\Component\DependencyInjection\Definition::setDeprecated($status, $message)': 'pass the name of the package, the version that deprecated the service and the message'
+		'Symfony\Component\DependencyInjection\Alias::setDeprecated()': 'pass the name of the package, the version that deprecated the alias and the message'
+		'Symfony\Component\DependencyInjection\Alias::setDeprecated($status)': 'pass the name of the package, the version that deprecated the alias and the message'
+		'Symfony\Component\DependencyInjection\Alias::setDeprecated($status, $message)': 'pass the name of the package, the version that deprecated the alias and the message'
+		'Symfony\Component\DependencyInjection\Loader\Configurator\Traits\DeprecateTrait::deprecate()': 'pass the name of the package, the version that deprecated the service and the message'
+		'Symfony\Component\DependencyInjection\Loader\Configurator\Traits\DeprecateTrait::deprecate($message)': 'pass the name of the package, the version that deprecated the service and the message'
+
+	forbiddenClasses:
+		Symfony\Component\DependencyInjection\Compiler\ResolvePrivatesPass: 'there is no replacement, `setPublic(false)` makes a service private by itself; drop the compiler pass'
+
+	replacedFunctions:
+		Symfony\Component\DependencyInjection\Loader\Configurator\ref: Symfony\Component\DependencyInjection\Loader\Configurator\service
+		Symfony\Component\DependencyInjection\Loader\Configurator\inline: Symfony\Component\DependencyInjection\Loader\Configurator\inline_service
