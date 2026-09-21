@@ -25,6 +25,7 @@
 		"symfony/dependency-injection": "^8.1",
 		"symfony/error-handler": "^8.1",
 		"symfony/event-dispatcher": "^8.1",
+		"symfony/framework-bundle": "^8.1",
 		"symfony/http-foundation": "^8.1",
 		"symfony/http-kernel": "^8.1",
 		"symfony/routing": "^8.1"
@@ -57,6 +58,7 @@
 				"upgrading/console.neon",
 				"upgrading/dependency-injection.neon",
 				"upgrading/event-dispatcher.neon",
+				"upgrading/framework-bundle.neon",
 				"upgrading/http-foundation.neon",
 				"upgrading/http-kernel.neon",
 				"upgrading/routing.neon"

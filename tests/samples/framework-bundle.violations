@@ -1,0 +1,26 @@
+8: Class `Symfony\Bundle\FrameworkBundle\Command\TranslationUpdateCommand` is replaced by `Symfony\Bundle\FrameworkBundle\Command\TranslationExtractCommand`
+9: Class `Symfony\Bundle\FrameworkBundle\Command\WorkflowDumpCommand` is replaced by `Symfony\Component\Workflow\Command\WorkflowDumpCommand`
+13: Class `Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddExpressionLanguageProvidersPass` is replaced by `Symfony\Component\Routing\DependencyInjection\AddExpressionLanguageProvidersPass`
+14: Class `Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\DataCollectorTranslatorPass` is replaced by `Symfony\Component\Translation\DependencyInjection\DataCollectorTranslatorPass`
+16: Class `Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\LoggingTranslatorPass` is replaced by `Symfony\Component\Translation\DependencyInjection\LoggingTranslatorPass`
+17: Class `Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\WorkflowGuardListenerPass` is replaced by `Symfony\Component\Workflow\DependencyInjection\WorkflowGuardListenerPass`
+18: Class `Symfony\Bundle\FrameworkBundle\Routing\AnnotatedRouteControllerLoader` is replaced by `Symfony\Bundle\FrameworkBundle\Routing\AttributeRouteControllerLoader`
+38: Method `Symfony\Bundle\FrameworkBundle\Controller\AbstractController::getDoctrine()` is forbidden: use a constructor or action argument typed with `Doctrine\Persistence\ManagerRegistry`
+39: Method `Symfony\Bundle\FrameworkBundle\Controller\AbstractController::getDoctrine()` is forbidden: use a constructor or action argument typed with `Doctrine\Persistence\ManagerRegistry`
+40: Method `Symfony\Bundle\FrameworkBundle\Controller\AbstractController::dispatchMessage()` is forbidden: use a constructor or action argument typed with `Symfony\Component\Messenger\MessageBusInterface` and call its `dispatch()`
+41: Method `Symfony\Bundle\FrameworkBundle\Controller\AbstractController::has()` is forbidden: use a nullable constructor or action argument, or override `getSubscribedServices()` and call `$this->container->has()`
+42: Method `Symfony\Bundle\FrameworkBundle\Controller\AbstractController::get()` is forbidden: use a constructor or action argument typed with the service, or override `getSubscribedServices()` and call `$this->container->get()`
+48: Method `Symfony\Bundle\FrameworkBundle\Controller\AbstractController::renderForm()` is replaced by `AbstractController::render()`
+54: Method `Symfony\Bundle\FrameworkBundle\Controller\AbstractController::renderForm()` is replaced by `AbstractController::render()`
+65: Static property `Symfony\Bundle\FrameworkBundle\Test\KernelTestCase::$container` is forbidden: call `getContainer()`, which boots the kernel when needed and returns the test service container
+77: Static property `Symfony\Bundle\FrameworkBundle\Test\KernelTestCase::$container` is forbidden: call `getContainer()`, which boots the kernel when needed and returns the test service container
+87: Class `Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddExpressionLanguageProvidersPass` is replaced by `Symfony\Component\Routing\DependencyInjection\AddExpressionLanguageProvidersPass`
+88: Class `Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\DataCollectorTranslatorPass` is replaced by `Symfony\Component\Translation\DependencyInjection\DataCollectorTranslatorPass`
+89: Class `Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\LoggingTranslatorPass` is replaced by `Symfony\Component\Translation\DependencyInjection\LoggingTranslatorPass`
+90: Class `Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\WorkflowGuardListenerPass` is replaced by `Symfony\Component\Workflow\DependencyInjection\WorkflowGuardListenerPass`
+91: Class `Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\EnableLoggerDebugModePass` is forbidden: pass `debug: true` to `Symfony\Component\HttpKernel\Log\Logger::__construct()`
+98: Static method `Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass::configureLogger()` is forbidden: register `Symfony\Component\HttpKernel\Log\DebugLoggerConfigurator::pushDebugLogger()` as the configurator of the logger service
+104: Class `Symfony\Bundle\FrameworkBundle\Routing\AnnotatedRouteControllerLoader` is replaced by `Symfony\Bundle\FrameworkBundle\Routing\AttributeRouteControllerLoader`
+110: Class `Symfony\Bundle\FrameworkBundle\Command\TranslationUpdateCommand` is replaced by `Symfony\Bundle\FrameworkBundle\Command\TranslationExtractCommand`
+110: Class `Symfony\Bundle\FrameworkBundle\Command\WorkflowDumpCommand` is replaced by `Symfony\Component\Workflow\Command\WorkflowDumpCommand`
+116: Method `Symfony\Component\Console\Application::add()` is replaced by `Application::addCommand()`

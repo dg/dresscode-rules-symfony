@@ -1,0 +1,117 @@
+<?php
+
+namespace App;
+
+use App\Entity\Product;
+use App\Form\ProductType;
+use App\Message\ProductCreated;
+use Symfony\Bundle\FrameworkBundle\Command\TranslationUpdateCommand;
+use Symfony\Bundle\FrameworkBundle\Command\WorkflowDumpCommand;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass;
+use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddExpressionLanguageProvidersPass;
+use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\DataCollectorTranslatorPass;
+use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\EnableLoggerDebugModePass;
+use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\LoggingTranslatorPass;
+use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\WorkflowGuardListenerPass;
+use Symfony\Bundle\FrameworkBundle\Routing\AnnotatedRouteControllerLoader;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\HttpKernel\Log\Logger;
+
+
+class ProductController extends AbstractController
+{
+	public function new(Request $request): Response
+	{
+		$product = new Product;
+		$form = $this->createForm(ProductType::class, $product);
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid()) {
+			$this->getDoctrine()->getManager()->persist($product);
+			$this->getDoctrine()->getManager()->flush();
+			$this->dispatchMessage(new ProductCreated);
+			if ($this->has('logger')) {
+				$this->get('logger')->info('created');
+			}
+
+			return $this->redirectToRoute('product_list');
+		}
+
+		return $this->renderForm('product/new.html.twig', ['form' => $form]);
+	}
+
+
+	public function edit(): Response
+	{
+		return $this->renderForm('product/edit.html.twig', ['form' => $this->createForm(ProductType::class)], new Response(status: 200));
+	}
+}
+
+
+class ProductControllerTest extends WebTestCase
+{
+	public function testNew(): void
+	{
+		$client = static::createClient();
+		$client->request('GET', '/product/new');
+		$logger = self::$container->get('logger');
+		$logger->info('done');
+		$this->assertResponseIsSuccessful();
+	}
+}
+
+
+class ProductRepositoryTest extends KernelTestCase
+{
+	public function testFind(): void
+	{
+		self::bootKernel();
+		$repository = static::$container->get('doctrine')->getRepository(Product::class);
+		$this->assertNotNull($repository);
+	}
+}
+
+
+class AppBundle extends Bundle
+{
+	public function build(ContainerBuilder $container): void
+	{
+		$container->addCompilerPass(new AddExpressionLanguageProvidersPass);
+		$container->addCompilerPass(new DataCollectorTranslatorPass);
+		$container->addCompilerPass(new LoggingTranslatorPass);
+		$container->addCompilerPass(new WorkflowGuardListenerPass);
+		$container->addCompilerPass(new EnableLoggerDebugModePass);
+	}
+}
+
+
+function configureLogger(Logger $logger): void
+{
+	AddDebugLogProcessorPass::configureLogger($logger);
+}
+
+
+function isRouteLoader(object $loader): bool
+{
+	return $loader instanceof AnnotatedRouteControllerLoader;
+}
+
+
+function isBuiltinCommand(Command $command): bool
+{
+	return $command instanceof TranslationUpdateCommand || $command instanceof WorkflowDumpCommand;
+}
+
+
+function registerCommands(Application $application, Command $command): void
+{
+	$application->add($command);
+}
