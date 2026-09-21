@@ -1,0 +1,19 @@
+package: symfony/property-access
+group: deprecations
+
+since 6.2:
+	replacedCalls:
+		'Symfony\Component\PropertyAccess\PropertyAccessorBuilder::setCacheItemPool()': 'setCacheItemPool(null)'
+
+since 6.0:
+	replacedCalls:
+		'Symfony\Component\PropertyAccess\PropertyAccessor::__construct(true)': 'new \Symfony\Component\PropertyAccess\PropertyAccessor(\Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_CALL | \Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_GET | \Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_SET)'
+		'Symfony\Component\PropertyAccess\PropertyAccessor::__construct(false)': 'new \Symfony\Component\PropertyAccess\PropertyAccessor(\Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_GET | \Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_SET)'
+		'Symfony\Component\PropertyAccess\PropertyAccessor::__construct(true, true, ...)': 'new \Symfony\Component\PropertyAccess\PropertyAccessor(\Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_CALL | \Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_GET | \Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_SET, \Symfony\Component\PropertyAccess\PropertyAccessor::THROW_ON_INVALID_INDEX | \Symfony\Component\PropertyAccess\PropertyAccessor::THROW_ON_INVALID_PROPERTY_PATH, ...)'
+		'Symfony\Component\PropertyAccess\PropertyAccessor::__construct(true, false, ...)': 'new \Symfony\Component\PropertyAccess\PropertyAccessor(\Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_CALL | \Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_GET | \Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_SET, \Symfony\Component\PropertyAccess\PropertyAccessor::THROW_ON_INVALID_PROPERTY_PATH, ...)'
+		'Symfony\Component\PropertyAccess\PropertyAccessor::__construct(false, true, ...)': 'new \Symfony\Component\PropertyAccess\PropertyAccessor(\Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_GET | \Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_SET, \Symfony\Component\PropertyAccess\PropertyAccessor::THROW_ON_INVALID_INDEX | \Symfony\Component\PropertyAccess\PropertyAccessor::THROW_ON_INVALID_PROPERTY_PATH, ...)'
+		'Symfony\Component\PropertyAccess\PropertyAccessor::__construct(false, false, ...)': 'new \Symfony\Component\PropertyAccess\PropertyAccessor(\Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_GET | \Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_SET, \Symfony\Component\PropertyAccess\PropertyAccessor::THROW_ON_INVALID_PROPERTY_PATH, ...)'
+		'Symfony\Component\PropertyAccess\PropertyAccessor::__construct(true, int $throw, ...)': 'new \Symfony\Component\PropertyAccess\PropertyAccessor(\Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_CALL | \Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_GET | \Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_SET, $throw, ...)'
+		'Symfony\Component\PropertyAccess\PropertyAccessor::__construct(false, int $throw, ...)': 'new \Symfony\Component\PropertyAccess\PropertyAccessor(\Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_GET | \Symfony\Component\PropertyAccess\PropertyAccessor::MAGIC_SET, $throw, ...)'
+		'Symfony\Component\PropertyAccess\PropertyAccessor::__construct(int $magicMethods, true, ...)': 'new \Symfony\Component\PropertyAccess\PropertyAccessor($magicMethods, \Symfony\Component\PropertyAccess\PropertyAccessor::THROW_ON_INVALID_INDEX | \Symfony\Component\PropertyAccess\PropertyAccessor::THROW_ON_INVALID_PROPERTY_PATH, ...)'
+		'Symfony\Component\PropertyAccess\PropertyAccessor::__construct(int $magicMethods, false, ...)': 'new \Symfony\Component\PropertyAccess\PropertyAccessor($magicMethods, \Symfony\Component\PropertyAccess\PropertyAccessor::THROW_ON_INVALID_PROPERTY_PATH, ...)'

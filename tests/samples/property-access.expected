@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Accessor;
+
+use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
+use Symfony\Component\PropertyAccess\PropertyAccessorBuilder;
+
+
+final class AccessorFactory
+{
+	public function __construct(
+		private ?CacheItemPoolInterface $cache,
+	) {
+	}
+
+
+	public function create(): array
+	{
+		return [
+			new PropertyAccessor(PropertyAccessor::MAGIC_CALL | PropertyAccessor::MAGIC_GET | PropertyAccessor::MAGIC_SET),
+			new PropertyAccessor(PropertyAccessor::MAGIC_GET | PropertyAccessor::MAGIC_SET),
+			new PropertyAccessor(PropertyAccessor::MAGIC_CALL | PropertyAccessor::MAGIC_GET | PropertyAccessor::MAGIC_SET, PropertyAccessor::THROW_ON_INVALID_INDEX | PropertyAccessor::THROW_ON_INVALID_PROPERTY_PATH),
+			new PropertyAccessor(PropertyAccessor::MAGIC_GET | PropertyAccessor::MAGIC_SET, PropertyAccessor::THROW_ON_INVALID_INDEX | PropertyAccessor::THROW_ON_INVALID_PROPERTY_PATH, $this->cache),
+			new PropertyAccessor(PropertyAccessor::MAGIC_CALL | PropertyAccessor::MAGIC_GET | PropertyAccessor::MAGIC_SET, PropertyAccessor::THROW_ON_INVALID_PROPERTY_PATH),
+			new PropertyAccessor(PropertyAccessor::MAGIC_GET | PropertyAccessor::MAGIC_SET, PropertyAccessor::THROW_ON_INVALID_PROPERTY_PATH),
+			new PropertyAccessor(PropertyAccessor::MAGIC_CALL | PropertyAccessor::MAGIC_GET | PropertyAccessor::MAGIC_SET, PropertyAccessor::THROW_ON_INVALID_INDEX),
+			new PropertyAccessor(PropertyAccessor::MAGIC_GET, PropertyAccessor::THROW_ON_INVALID_INDEX | PropertyAccessor::THROW_ON_INVALID_PROPERTY_PATH),
+			new PropertyAccessor(PropertyAccessor::MAGIC_GET | PropertyAccessor::MAGIC_CALL, PropertyAccessor::THROW_ON_INVALID_PROPERTY_PATH),
+			new PropertyAccessor(PropertyAccessor::MAGIC_GET, PropertyAccessor::DO_NOT_THROW),
+			new PropertyAccessor(),
+		];
+	}
+
+
+	public function build(?PropertyAccessorBuilder $builder): PropertyAccessor
+	{
+		$builder ??= PropertyAccess::createPropertyAccessorBuilder();
+		$builder->setCacheItemPool(null);
+		$builder?->setCacheItemPool(null);
+		return $builder->setCacheItemPool($this->cache)->getPropertyAccessor();
+	}
+}
+
+
+final class MagicAccessor extends PropertyAccessor
+{
+}
+
+
+final class LegacyAccessor extends PropertyAccessor
+{
+	public function __construct()
+	{
+		parent::__construct(PropertyAccessor::MAGIC_CALL | PropertyAccessor::MAGIC_GET | PropertyAccessor::MAGIC_SET);
+	}
+
+
+	public static function createMagic(): MagicAccessor
+	{
+		return new MagicAccessor(PropertyAccessor::MAGIC_CALL | PropertyAccessor::MAGIC_GET | PropertyAccessor::MAGIC_SET);
+	}
+}
