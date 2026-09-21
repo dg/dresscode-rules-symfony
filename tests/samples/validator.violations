@@ -1,0 +1,42 @@
+11: Class `Symfony\Component\Validator\Constraints\ExpressionLanguageSyntax` is replaced by `Symfony\Component\Validator\Constraints\ExpressionSyntax`
+16: Class `Symfony\Component\Validator\Mapping\Loader\AnnotationLoader` is replaced by `Symfony\Component\Validator\Mapping\Loader\AttributeLoader`
+21: Annotation `@Assert\GroupSequence` is replaced by the attribute `#[Symfony\Component\Validator\Constraints\GroupSequence]`
+26: Annotation `@Assert\NotBlank` is replaced by the attribute `#[Symfony\Component\Validator\Constraints\NotBlank]`
+26: Annotation `@Assert\Length` is replaced by the attribute `#[Symfony\Component\Validator\Constraints\Length]`
+32: Annotation `@Assert\AtLeastOneOf` is replaced by the attribute `#[Symfony\Component\Validator\Constraints\AtLeastOneOf]`
+40: Annotation `@Assert\Email` is replaced by the attribute `#[Symfony\Component\Validator\Constraints\Email]`
+45: Annotation `@Assert\Choice` is replaced by the attribute `#[Symfony\Component\Validator\Constraints\Choice]`
+50: Annotation `@Assert\Regex` is replaced by the attribute `#[Symfony\Component\Validator\Constraints\Regex]`
+55: Annotation `@Assert\Collection` is replaced by the attribute `#[Symfony\Component\Validator\Constraints\Collection]`
+66: Annotation `@Assert\ExpressionLanguageSyntax` is replaced by the attribute `#[Symfony\Component\Validator\Constraints\ExpressionSyntax]`
+72: Annotation `@Assert\Callback` is replaced by the attribute `#[Symfony\Component\Validator\Constraints\Callback]`
+83: Constructor `Symfony\Component\Validator\Constraints\Length::__construct()` is replaced by `new \Symfony\Component\Validator\Constraints\Length(...$options)`
+89: Class `Symfony\Component\Validator\Constraints\ExpressionLanguageSyntax` is replaced by `Symfony\Component\Validator\Constraints\ExpressionSyntax`
+101: Static property `Symfony\Component\Validator\Constraint::$errorNames` is forbidden: read `ERROR_NAMES`, the protected constant each constraint declares in its place
+122: Constant `Symfony\Component\Validator\Constraints\Bic::INVALID_BANK_CODE_ERROR` is forbidden: there is no replacement, ISO 9362 puts no restriction on the characters of a bank code and the validator never reports it
+133: Static property `Symfony\Component\Validator\Constraints\Ip::$versions` is forbidden: read `VERSIONS`, the protected constant holding the same list
+142: Constructor `Symfony\Component\Validator\Constraints\NotBlank::__construct()` is replaced by `new \Symfony\Component\Validator\Constraints\NotBlank(...$options)`
+157: Method `Symfony\Component\Validator\ConstraintValidatorInterface::validate()` is forbidden: call `validateInContext()`, which takes the execution context too; in a `ConstraintValidatorTestCase` call `$this->validate()`
+165: Method `Symfony\Component\Validator\ConstraintValidatorInterface::initialize()` is forbidden: call `validateInContext()`, which takes the execution context together with the value and the constraint
+166: Method `Symfony\Component\Validator\ConstraintValidatorInterface::validate()` is forbidden: call `validateInContext()`, which takes the execution context too; in a `ConstraintValidatorTestCase` call `$this->validate()`
+175: Constructor `Symfony\Component\Validator\Constraints\NotBlank::__construct()` is replaced by `new \Symfony\Component\Validator\Constraints\NotBlank(...$options)`
+176: Constructor `Symfony\Component\Validator\Constraints\Length::__construct()` is replaced by `new \Symfony\Component\Validator\Constraints\Length(...$options)`
+177: Constructor `Symfony\Component\Validator\Constraints\Regex::__construct()` is replaced by `new \Symfony\Component\Validator\Constraints\Regex(...$options)`
+178: Constructor `Symfony\Component\Validator\Constraints\Email::__construct()` is replaced by `new \Symfony\Component\Validator\Constraints\Email(...$options)`
+178: Constant `Symfony\Component\Validator\Constraints\Email::VALIDATION_MODE_LOOSE` is replaced by `Email::VALIDATION_MODE_HTML5`
+179: Constructor `Symfony\Component\Validator\Constraints\When::__construct()` is replaced by `new \Symfony\Component\Validator\Constraints\When(...$options)`
+180: Constructor `Symfony\Component\Validator\Constraints\Url::__construct()` is replaced by `new \Symfony\Component\Validator\Constraints\Url(...$options)`
+182: Class `Symfony\Component\Validator\Constraints\ExpressionLanguageSyntax` is replaced by `Symfony\Component\Validator\Constraints\ExpressionSyntax`
+182: Constructor `Symfony\Component\Validator\Constraints\ExpressionSyntax::__construct()` is replaced by `new \Symfony\Component\Validator\Constraints\ExpressionSyntax(...$options)`
+186: Constructor `Symfony\Component\Validator\Constraints\Choice::__construct()` is replaced by `new \Symfony\Component\Validator\Constraints\Choice(choices: $choices, ...)`
+198: Method `Symfony\Component\Validator\ValidatorBuilder::enableAnnotationMapping()` is replaced by `ValidatorBuilder::enableAttributeMapping()`
+198: Method `Symfony\Component\Validator\ValidatorBuilder::enableAnnotationMapping()` is replaced by `enableAnnotationMapping()`
+199: Method `Symfony\Component\Validator\ValidatorBuilder::enableAnnotationMapping()` is replaced by `ValidatorBuilder::enableAttributeMapping()`
+199: Method `Symfony\Component\Validator\ValidatorBuilder::setDoctrineAnnotationReader()` is forbidden: there is no replacement, constraints are read from attributes and never from Doctrine annotations; drop the call
+199: Method `Symfony\Component\Validator\ValidatorBuilder::enableAnnotationMapping()` is replaced by `enableAnnotationMapping()->setDoctrineAnnotationReader($reader)`
+200: Method `Symfony\Component\Validator\ValidatorBuilder::disableAnnotationMapping()` is replaced by `ValidatorBuilder::disableAttributeMapping()`
+201: Method `Symfony\Component\Validator\ValidatorBuilder::setDoctrineAnnotationReader()` is forbidden: there is no replacement, constraints are read from attributes and never from Doctrine annotations; drop the call
+202: Method `Symfony\Component\Validator\ValidatorBuilder::addDefaultDoctrineAnnotationReader()` is forbidden: there is no replacement, constraints are read from attributes and never from Doctrine annotations; drop the call
+203: Class `Symfony\Component\Validator\Mapping\Loader\AnnotationLoader` is replaced by `Symfony\Component\Validator\Mapping\Loader\AttributeLoader`
+205: Class `Symfony\Component\Validator\Constraints\ExpressionLanguageSyntax` is replaced by `Symfony\Component\Validator\Constraints\ExpressionSyntax`
+205: Constant `Symfony\Component\Validator\Constraints\ExpressionLanguageSyntax::EXPRESSION_LANGUAGE_SYNTAX_ERROR` is replaced by `Symfony\Component\Validator\Constraints\ExpressionSyntax::EXPRESSION_SYNTAX_ERROR`

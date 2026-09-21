@@ -1,0 +1,209 @@
+<?php
+
+namespace App\Validator;
+
+use Doctrine\Common\Annotations\Reader;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Bic;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\ExpressionLanguageSyntax;
+use Symfony\Component\Validator\Constraints\GroupSequence;
+use Symfony\Component\Validator\Constraints\Ip;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Mapping\Loader\AnnotationLoader;
+use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
+use Symfony\Component\Validator\Validation;
+
+
+/**
+ * @Assert\GroupSequence({"Author", "Strict"})
+ */
+class Author
+{
+	/**
+	 * @Assert\NotBlank
+	 * @Assert\Length(min=3, max=50, groups={"Strict"})
+	 */
+	public string $name = '';
+
+	/**
+	 * @Assert\AtLeastOneOf({
+	 *     @Assert\Blank(),
+	 *     @Assert\Length(min=5)
+	 * })
+	 */
+	public string $nickname = '';
+
+	/**
+	 * @Assert\Email(mode="html5", message="The email {{ value }} is not valid.")
+	 */
+	public string $email = '';
+
+	/**
+	 * @Assert\Choice(choices={"fiction", "non-fiction"}, message="Choose a valid genre.")
+	 */
+	public string $genre = '';
+
+	/**
+	 * @Assert\Regex("/^\w+$/")
+	 */
+	public string $login = '';
+
+	/**
+	 * @Assert\Collection(
+	 *     fields={
+	 *         "street" = @Assert\NotBlank,
+	 *         "zip" = @Assert\Length(max=10)
+	 *     },
+	 *     allowExtraFields=true
+	 * )
+	 */
+	public array $address = [];
+
+	/**
+	 * @Assert\ExpressionLanguageSyntax(allowedVariables={"value"})
+	 */
+	public string $rule = '';
+
+
+	/**
+	 * @Assert\Callback
+	 */
+	public function validate(): void
+	{
+	}
+}
+
+
+class Book
+{
+	#[Assert\Length(['min' => 3])]
+	public string $title = '';
+
+	#[Assert\NotBlank(message: 'Title is required.')]
+	public string $subtitle = '';
+
+	#[ExpressionLanguageSyntax(allowedVariables: ['value'])]
+	public string $rule = '';
+}
+
+
+/**
+ * @Annotation
+ */
+class ContainsAlphanumeric extends Constraint
+{
+	public const NOT_ALPHANUMERIC_ERROR = 'b2f0a6a1-7e5c-4a2a-9c43-2c9b6a9bf4b1';
+
+	protected static $errorNames = [
+		self::NOT_ALPHANUMERIC_ERROR => 'NOT_ALPHANUMERIC_ERROR',
+	];
+
+	public string $message = 'The string "{{ string }}" contains an illegal character.';
+
+
+	public static function describe(string $code): string
+	{
+		return self::$errorNames[$code];
+	}
+}
+
+
+class ContainsAlphanumericValidator extends ConstraintValidator
+{
+	public function validate(mixed $value, Constraint $constraint): void
+	{
+		if (!preg_match('/^[a-z0-9]+$/i', (string) $value)) {
+			$this->context->buildViolation($constraint->message)
+				->setParameter('{{ string }}', (string) $value)
+				->setCode(Bic::INVALID_BANK_CODE_ERROR)
+				->addViolation();
+		}
+	}
+}
+
+
+class StrictIp extends Ip
+{
+	public function listVersions(): array
+	{
+		return self::$versions;
+	}
+}
+
+
+class RequiredName extends NotBlank
+{
+	public function __construct(array $options = [])
+	{
+		parent::__construct($options);
+	}
+}
+
+
+class ContainsAlphanumericValidatorTest extends ConstraintValidatorTestCase
+{
+	protected function createValidator(): ContainsAlphanumericValidator
+	{
+		return new ContainsAlphanumericValidator;
+	}
+
+
+	public function testValid(): void
+	{
+		$this->validator->validate('abc', new ContainsAlphanumeric);
+		$this->assertNoViolation();
+	}
+
+
+	public function testDirect(): void
+	{
+		$validator = new ContainsAlphanumericValidator;
+		$validator->initialize($this->context);
+		$validator->validate('abc', new ContainsAlphanumeric);
+		$this->validate('abc', new ContainsAlphanumeric);
+	}
+}
+
+
+function buildConstraints(array $options): array
+{
+	return [
+		new NotBlank(['message' => 'Fill it in.', 'allowNull' => true]),
+		new Length(['min' => 3, 'max' => 10]),
+		new Assert\Regex(['pattern' => '/^\d+$/', 'match' => false]),
+		new Assert\Email(['mode' => Email::VALIDATION_MODE_LOOSE]),
+		new Assert\When(['expression' => 'this.isActive()', 'constraints' => [new NotBlank()]]),
+		new Assert\Url($options),
+		new RequiredName(['message' => 'Name?']),
+		new ExpressionLanguageSyntax(['allowedVariables' => ['value']]),
+		new Length(min: 3),
+		new Assert\Count(5),
+		new Assert\All([new NotBlank(), new Length(max: 5)]),
+		new Assert\Choice(['a', 'b']),
+		new Assert\Callback([Author::class, 'validate']),
+		new Assert\Type(['string', 'int']),
+		new Assert\EqualTo(['a' => 1]),
+		new Assert\Collection(['street' => new NotBlank()]),
+	];
+}
+
+
+function buildValidator(Reader $reader): void
+{
+	$builder = Validation::createValidatorBuilder();
+	$builder->enableAnnotationMapping(true);
+	$builder->enableAnnotationMapping($reader);
+	$builder->disableAnnotationMapping();
+	$builder->setDoctrineAnnotationReader($reader);
+	$builder->addDefaultDoctrineAnnotationReader();
+	$builder->addLoader(new AnnotationLoader($reader));
+
+	if (ExpressionLanguageSyntax::EXPRESSION_LANGUAGE_SYNTAX_ERROR === 'x') {
+		$sequence = new GroupSequence(['Default', 'Strict']);
+		$sequence->cascadedGroup = 'Default';
+	}
+}

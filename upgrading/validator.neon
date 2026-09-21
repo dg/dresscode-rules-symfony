@@ -1,0 +1,105 @@
+package: symfony/validator
+group: deprecations
+
+since 8.2:
+	forbiddenMembers:
+		Symfony\Component\Validator\Constraints\GroupSequence::$cascadedGroup: 'there is no replacement, the validator has not read it since 2014; drop the setting'
+
+since 8.1:
+	forbiddenMembers:
+		'Symfony\Component\Validator\ConstraintValidatorInterface::validate($value, $constraint)': 'call `validateInContext()`, which takes the execution context too; in a `ConstraintValidatorTestCase` call `$this->validate()`'
+		'Symfony\Component\Validator\ConstraintValidatorInterface::initialize($context)': 'call `validateInContext()`, which takes the execution context together with the value and the constraint'
+
+since 7.3:
+	replacedCalls:
+		'Symfony\Component\Validator\Constraints\Bic::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Bic(...$options)'
+		'Symfony\Component\Validator\Constraints\Blank::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Blank(...$options)'
+		'Symfony\Component\Validator\Constraints\Cidr::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Cidr(...$options)'
+		'Symfony\Component\Validator\Constraints\Choice::__construct(list $choices, ...)': 'new \Symfony\Component\Validator\Constraints\Choice(choices: $choices, ...)'
+		'Symfony\Component\Validator\Constraints\Choice::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Choice(...$options)'
+		'Symfony\Component\Validator\Constraints\Count::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Count(...$options)'
+		'Symfony\Component\Validator\Constraints\Country::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Country(...$options)'
+		'Symfony\Component\Validator\Constraints\Currency::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Currency(...$options)'
+		'Symfony\Component\Validator\Constraints\Date::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Date(...$options)'
+		'Symfony\Component\Validator\Constraints\DateTime::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\DateTime(...$options)'
+		'Symfony\Component\Validator\Constraints\DisableAutoMapping::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\DisableAutoMapping(...$options)'
+		'Symfony\Component\Validator\Constraints\Email::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Email(...$options)'
+		'Symfony\Component\Validator\Constraints\EnableAutoMapping::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\EnableAutoMapping(...$options)'
+		'Symfony\Component\Validator\Constraints\Expression::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Expression(...$options)'
+		'Symfony\Component\Validator\Constraints\ExpressionSyntax::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\ExpressionSyntax(...$options)'
+		'Symfony\Component\Validator\Constraints\File::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\File(...$options)'
+		'Symfony\Component\Validator\Constraints\Hostname::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Hostname(...$options)'
+		'Symfony\Component\Validator\Constraints\Iban::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Iban(...$options)'
+		'Symfony\Component\Validator\Constraints\Image::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Image(...$options)'
+		'Symfony\Component\Validator\Constraints\Ip::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Ip(...$options)'
+		'Symfony\Component\Validator\Constraints\IsFalse::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\IsFalse(...$options)'
+		'Symfony\Component\Validator\Constraints\IsNull::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\IsNull(...$options)'
+		'Symfony\Component\Validator\Constraints\IsTrue::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\IsTrue(...$options)'
+		'Symfony\Component\Validator\Constraints\Isbn::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Isbn(...$options)'
+		'Symfony\Component\Validator\Constraints\Isin::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Isin(...$options)'
+		'Symfony\Component\Validator\Constraints\Issn::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Issn(...$options)'
+		'Symfony\Component\Validator\Constraints\Json::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Json(...$options)'
+		'Symfony\Component\Validator\Constraints\Language::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Language(...$options)'
+		'Symfony\Component\Validator\Constraints\Length::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Length(...$options)'
+		'Symfony\Component\Validator\Constraints\Locale::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Locale(...$options)'
+		'Symfony\Component\Validator\Constraints\Luhn::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Luhn(...$options)'
+		'Symfony\Component\Validator\Constraints\NoSuspiciousCharacters::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\NoSuspiciousCharacters(...$options)'
+		'Symfony\Component\Validator\Constraints\NotBlank::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\NotBlank(...$options)'
+		'Symfony\Component\Validator\Constraints\NotCompromisedPassword::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\NotCompromisedPassword(...$options)'
+		'Symfony\Component\Validator\Constraints\NotNull::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\NotNull(...$options)'
+		'Symfony\Component\Validator\Constraints\PasswordStrength::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\PasswordStrength(...$options)'
+		'Symfony\Component\Validator\Constraints\Range::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Range(...$options)'
+		'Symfony\Component\Validator\Constraints\Regex::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Regex(...$options)'
+		'Symfony\Component\Validator\Constraints\Time::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Time(...$options)'
+		'Symfony\Component\Validator\Constraints\Timezone::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Timezone(...$options)'
+		'Symfony\Component\Validator\Constraints\Traverse::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Traverse(...$options)'
+		'Symfony\Component\Validator\Constraints\Ulid::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Ulid(...$options)'
+		'Symfony\Component\Validator\Constraints\Unique::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Unique(...$options)'
+		'Symfony\Component\Validator\Constraints\Url::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Url(...$options)'
+		'Symfony\Component\Validator\Constraints\Uuid::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Uuid(...$options)'
+		'Symfony\Component\Validator\Constraints\Valid::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\Valid(...$options)'
+		'Symfony\Component\Validator\Constraints\When::__construct(array $options)': 'new \Symfony\Component\Validator\Constraints\When(...$options)'
+
+since 7.1:
+	forbiddenMembers:
+		Symfony\Component\Validator\Constraints\Bic::INVALID_BANK_CODE_ERROR: 'there is no replacement, ISO 9362 puts no restriction on the characters of a bank code and the validator never reports it'
+
+since 6.4:
+	replacedClasses:
+		Symfony\Component\Validator\Mapping\Loader\AnnotationLoader: Symfony\Component\Validator\Mapping\Loader\AttributeLoader
+
+	replacedMembers:
+		Symfony\Component\Validator\ValidatorBuilder::enableAnnotationMapping: enableAttributeMapping
+		Symfony\Component\Validator\ValidatorBuilder::disableAnnotationMapping: disableAttributeMapping
+
+	forbiddenMembers:
+		Symfony\Component\Validator\ValidatorBuilder::setDoctrineAnnotationReader: 'there is no replacement, constraints are read from attributes and never from Doctrine annotations; drop the call'
+		Symfony\Component\Validator\ValidatorBuilder::addDefaultDoctrineAnnotationReader: 'there is no replacement, constraints are read from attributes and never from Doctrine annotations; drop the call'
+
+	attributeForAnnotation:
+		Symfony\Component\Validator\Constraints\*: Symfony\Component\Validator\Constraints\*
+		Symfony\Component\Validator\Constraints\ExpressionLanguageSyntax: Symfony\Component\Validator\Constraints\ExpressionSyntax
+
+since 6.2:
+	replacedMembers:
+		Symfony\Component\Validator\Constraints\Email::VALIDATION_MODE_LOOSE: VALIDATION_MODE_HTML5
+
+since 6.1:
+	replacedClasses:
+		Symfony\Component\Validator\Constraints\ExpressionLanguageSyntax: Symfony\Component\Validator\Constraints\ExpressionSyntax
+		Symfony\Component\Validator\Constraints\ExpressionLanguageSyntaxValidator: Symfony\Component\Validator\Constraints\ExpressionSyntaxValidator
+
+	replacedMembers:
+		Symfony\Component\Validator\Constraints\ExpressionLanguageSyntax::EXPRESSION_LANGUAGE_SYNTAX_ERROR: Symfony\Component\Validator\Constraints\ExpressionSyntax::EXPRESSION_SYNTAX_ERROR
+
+	forbiddenMembers:
+		Symfony\Component\Validator\Constraint::$errorNames: 'read `ERROR_NAMES`, the protected constant each constraint declares in its place'
+		Symfony\Component\Validator\Constraints\Ip::$versions: 'read `VERSIONS`, the protected constant holding the same list'
+
+since 6.0:
+	replacedCalls:
+		'Symfony\Component\Validator\ValidatorBuilder::enableAnnotationMapping(true)': 'enableAnnotationMapping()'
+		'Symfony\Component\Validator\ValidatorBuilder::enableAnnotationMapping($reader)': 'enableAnnotationMapping()->setDoctrineAnnotationReader($reader)'
+
+	forbiddenClasses:
+		Symfony\Component\Validator\Constraints\NumberConstraintTrait: 'there is no replacement, it served the number constraints of Symfony itself'

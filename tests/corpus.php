@@ -168,9 +168,14 @@ function findSource(array $dirs, string $file): string
 
 
 /**
- * Whether the test uses a deprecated API on purpose: something in it is in the group legacy.
+ * Whether the test uses a deprecated API on purpose: something in it is in the group legacy, or it is one of those
+ * that test the old API is refused or call it where an older version of a component lacks the new one.
  */
 function isLegacy(string $file): bool
 {
-	return (bool) preg_match('~@group\s+legacy|#\[Group\(.legacy.\)\]|#\[IgnoreDeprecations\]~i', (string) file_get_contents($file));
+	$refusing = [
+		'Validator/Tests/Constraints/BicValidatorTest.php', // new Bic(options: [...]) after the expected exception
+	];
+	return array_any($refusing, fn(string $path) => str_ends_with(str_replace('\\', '/', $file), $path))
+		|| preg_match('~@group\s+legacy|#\[Group\(.legacy.\)\]|#\[IgnoreDeprecations\]~i', (string) file_get_contents($file));
 }
