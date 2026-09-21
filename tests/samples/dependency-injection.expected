@@ -1,0 +1,171 @@
+<?php
+
+namespace App\DependencyInjection;
+
+use Psr\Container\ContainerInterface as PsrContainer;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Alias;
+use Symfony\Component\DependencyInjection\Argument\ReferenceSetArgumentTrait;
+use Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
+use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use Symfony\Component\DependencyInjection\Attribute\AutowireDecorated;
+use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\Compiler\ResolvePrivatesPass;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Contracts\Service\Attribute\Required;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\inline;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\inline_service;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\ref;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
+
+
+class AcmeExtension extends Extension
+{
+	public function load(array $configs, ContainerBuilder $container): void
+	{
+		$loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+		$loader->load('services.xml');
+
+		$definition = $container->register('acme.mailer', Mailer::class);
+		$definition->setPublic(false);
+		$definition->setPublic(true);
+		$definition->setPublic(!$configs[0]['private']);
+		$definition->setDeprecated();
+		$definition->setDeprecated(true, 'The "%service_id%" service is deprecated.');
+		$definition->setDeprecated('acme/bundle', '1.2', 'The "%service_id%" service is deprecated.');
+
+		$alias = $container->setAlias('acme.mail', 'acme.mailer');
+		$alias->setPublic(false);
+		$alias->setDeprecated(true);
+		$message = $alias->getDeprecation('acme.mail')['message'];
+
+		$container->findDefinition('acme.mailer')?->setPublic(true);
+		$container->getDefinition('acme.mailer')->getDeprecation('acme.mailer')['message'];
+
+		foreach ($container->getAutoconfiguredAttributes() as $attribute => $configurator) {
+		}
+
+		$container->setDefinition('acme.handlers', new Definition(HandlerCollection::class, [
+			new TaggedIteratorArgument('acme.handler', 'key', true),
+			new TaggedIteratorArgument('acme.handler', 'key'),
+			new TaggedIteratorArgument('acme.handler', 'key', 'getDefaultKey', true),
+			new TaggedIteratorArgument('acme.handler', 'key', null, true, 'getPriority'),
+			new TaggedIteratorArgument('acme.handler', 'key', true),
+		]));
+	}
+
+
+	public function getNamespace(): string
+	{
+		return 'http://acme.example.com/schema/dic/acme';
+	}
+
+
+	public function getXsdValidationBasePath(): string|false
+	{
+		return __DIR__ . '/../Resources/config/schema';
+	}
+
+
+	public function getConfiguration(array $config, ContainerBuilder $container): ?ConfigurationInterface
+	{
+		return null;
+	}
+}
+
+
+class AcmeCompilerPass implements CompilerPassInterface
+{
+	public function process(ContainerBuilder $container): void
+	{
+		$container->addCompilerPass(new ResolvePrivatesPass);
+
+		foreach ($container->getDefinitions() as $id => $definition) {
+			if ($definition->isDeprecated()) {
+				$container->log($this, $definition->getDeprecation($id)['message']);
+			}
+		}
+
+		$method = new \ReflectionMethod(Mailer::class, 'send');
+		$type = ProxyHelper::getTypeHint($method, $method->getParameters()[0]);
+	}
+}
+
+
+class Mailer
+{
+	#[Required]
+	public function setLogger(\Psr\Log\LoggerInterface $logger): void
+	{
+	}
+
+
+	public function send(string $to): void
+	{
+	}
+}
+
+
+class LoggingMailer
+{
+	public function __construct(
+		#[AutowireDecorated]
+		private Mailer $inner,
+	) {
+	}
+}
+
+
+class HandlerCollection
+{
+	public function __construct(
+		#[AutowireIterator('app.handler', indexAttribute: 'key')]
+		private iterable $handlers,
+		#[AutowireLocator('app.handler')]
+		private PsrContainer $locator,
+		#[AutowireLocator('app.handler')]
+		private PsrContainer $namedLocator,
+	) {
+	}
+}
+
+
+class MailingListService implements ContainerAwareInterface
+{
+	use ContainerAwareTrait;
+
+	public function sendMails(): void
+	{
+		$mailer = $this->container->get('mailer');
+	}
+}
+
+
+class ReferenceSet implements ArgumentInterface
+{
+	use ReferenceSetArgumentTrait;
+}
+
+
+function configureServices(ContainerConfigurator $container): void
+{
+	$services = $container->services();
+	$services->set('acme.mailer', Mailer::class)
+		->deprecate('The "%service_id%" service is deprecated.');
+	$services->alias('acme.mail', 'acme.mailer')
+		->deprecate();
+	$services->set('acme.logging_mailer', LoggingMailer::class)
+		->deprecate('acme/bundle', '1.2', 'The "%service_id%" service is deprecated.')
+		->args([service('acme.logger'), inline_service(Mailer::class)])
+		->call('setFallback', [\Symfony\Component\DependencyInjection\Loader\Configurator\service('acme.mailer')]);
+}

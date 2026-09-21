@@ -1,0 +1,38 @@
+12: Class `Symfony\Component\DependencyInjection\Attribute\MapDecorated` is replaced by `Symfony\Component\DependencyInjection\Attribute\AutowireDecorated`.
+13: Class `Symfony\Component\DependencyInjection\Attribute\TaggedIterator` is replaced by `Symfony\Component\DependencyInjection\Attribute\AutowireIterator`.
+14: Class `Symfony\Component\DependencyInjection\Attribute\TaggedLocator` is replaced by `Symfony\Component\DependencyInjection\Attribute\AutowireLocator`.
+33: Class `Symfony\Component\DependencyInjection\Loader\XmlFileLoader` is removed: use `Symfony\Component\DependencyInjection\Loader\PhpFileLoader` or `YamlFileLoader`, which read the configuration rewritten in PHP or YAML, since symfony/dependency-injection 7.4.
+37: Method `Symfony\Component\DependencyInjection\Definition::setPrivate()` is replaced by `setPublic(false)`.
+38: Method `Symfony\Component\DependencyInjection\Definition::setPrivate()` is replaced by `setPublic(true)`.
+39: Method `Symfony\Component\DependencyInjection\Definition::setPrivate()` is replaced by `setPublic(!$private)`.
+40: Method `Symfony\Component\DependencyInjection\Definition::setDeprecated()` is deprecated: pass the name of the package, the version that deprecated the service and the message, since symfony/dependency-injection 6.0.
+41: Method `Symfony\Component\DependencyInjection\Definition::setDeprecated()` is deprecated: pass the name of the package, the version that deprecated the service and the message, since symfony/dependency-injection 6.0.
+45: Method `Symfony\Component\DependencyInjection\Alias::setPrivate()` is replaced by `setPublic(false)`.
+46: Method `Symfony\Component\DependencyInjection\Alias::setDeprecated()` is deprecated: pass the name of the package, the version that deprecated the alias and the message, since symfony/dependency-injection 6.0.
+47: Method `Symfony\Component\DependencyInjection\Alias::getDeprecationMessage()` is replaced by `getDeprecation($id)['message']`.
+49: Method `Symfony\Component\DependencyInjection\Definition::setPrivate()` is replaced by `setPublic(true)`.
+50: Method `Symfony\Component\DependencyInjection\Definition::getDeprecationMessage()` is replaced by `getDeprecation($id)['message']`.
+52: Method `Symfony\Component\DependencyInjection\ContainerBuilder::getAutoconfiguredAttributes()` is removed: call `getAttributeAutoconfigurators()`, which gives a list of configurators for each attribute class, since symfony/dependency-injection 7.3.
+56: Constructor `Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument::__construct()` is replaced by `new \Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($tag, $indexAttribute, $needsIndexes)`.
+57: Constructor `Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument::__construct()` is replaced by `new \Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($tag, $indexAttribute)`.
+58: Constructor `Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument::__construct()` is deprecated: use the `#[AsTaggedItem]` attribute on the tagged services, which gives their index and priority in place of the default methods, since symfony/dependency-injection 8.1.
+59: Constructor `Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument::__construct()` is deprecated: use the `#[AsTaggedItem]` attribute on the tagged services, which gives their index and priority in place of the default methods, since symfony/dependency-injection 8.1.
+65: Method `Symfony\Component\DependencyInjection\Extension\ExtensionInterface::getNamespace()` is removed: there is no replacement; the XML configuration format is gone; drop the method, since symfony/dependency-injection 7.4.
+71: Method `Symfony\Component\DependencyInjection\Extension\ExtensionInterface::getXsdValidationBasePath()` is removed: there is no replacement; the XML configuration format is gone; drop the method, since symfony/dependency-injection 7.4.
+88: Class `Symfony\Component\DependencyInjection\Compiler\ResolvePrivatesPass` is removed: there is no replacement; `setPublic(false)` makes a service private by itself; drop the compiler pass, since symfony/dependency-injection 6.0.
+92: Method `Symfony\Component\DependencyInjection\Definition::getDeprecationMessage()` is replaced by `getDeprecation($id)['message']`.
+97: Class `Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper` is removed: call `Symfony\Component\VarExporter\ProxyHelper::exportType()`, which takes the parameter or the function alone and writes a nullable type with a question mark, since symfony/dependency-injection 6.2.
+104: Annotation `@required` is replaced by the attribute `#[Symfony\Contracts\Service\Attribute\Required]`.
+119: Class `Symfony\Component\DependencyInjection\Attribute\MapDecorated` is replaced by `Symfony\Component\DependencyInjection\Attribute\AutowireDecorated`.
+129: Class `Symfony\Component\DependencyInjection\Attribute\TaggedIterator` is replaced by `Symfony\Component\DependencyInjection\Attribute\AutowireIterator`.
+131: Class `Symfony\Component\DependencyInjection\Attribute\TaggedLocator` is replaced by `Symfony\Component\DependencyInjection\Attribute\AutowireLocator`.
+133: Class `Symfony\Component\DependencyInjection\Attribute\TaggedLocator` is replaced by `Symfony\Component\DependencyInjection\Attribute\AutowireLocator`.
+133: Constructor `Symfony\Component\DependencyInjection\Attribute\AutowireLocator::__construct()` is replaced by `new \Symfony\Component\DependencyInjection\Attribute\AutowireLocator($tag, ...)`.
+140: Class `Symfony\Component\DependencyInjection\ContainerAwareInterface` is removed: pass the services the class needs to its constructor, or implement `Symfony\Contracts\Service\ServiceSubscriberInterface` to fetch them lazily, since symfony/dependency-injection 6.4.
+142: Class `Symfony\Component\DependencyInjection\ContainerAwareTrait` is removed: pass the services the class needs to its constructor, or implement `Symfony\Contracts\Service\ServiceSubscriberInterface` to fetch them lazily, since symfony/dependency-injection 6.4.
+153: Class `Symfony\Component\DependencyInjection\Argument\ReferenceSetArgumentTrait` is removed: there is no replacement; implement `getValues()` and `setValues()` of `Symfony\Component\DependencyInjection\Argument\ArgumentInterface` in the class, since symfony/dependency-injection 6.1.
+161: Method `Symfony\Component\DependencyInjection\Loader\Configurator\Traits\DeprecateTrait::deprecate()` is deprecated: pass the name of the package, the version that deprecated the service and the message, since symfony/dependency-injection 6.0.
+163: Method `Symfony\Component\DependencyInjection\Loader\Configurator\Traits\DeprecateTrait::deprecate()` is deprecated: pass the name of the package, the version that deprecated the service and the message, since symfony/dependency-injection 6.0.
+166: Function `Symfony\Component\DependencyInjection\Loader\Configurator\ref()` is replaced by `Symfony\Component\DependencyInjection\Loader\Configurator\service()`.
+166: Function `Symfony\Component\DependencyInjection\Loader\Configurator\inline()` is replaced by `Symfony\Component\DependencyInjection\Loader\Configurator\inline_service()`.
+167: Function `Symfony\Component\DependencyInjection\Loader\Configurator\ref()` is replaced by `Symfony\Component\DependencyInjection\Loader\Configurator\service()`.
