@@ -1,0 +1,18 @@
+13: Class `Symfony\Component\Form\Extension\Validator\Util\ServerParams` is replaced by `Symfony\Component\Form\Util\ServerParams`
+28: Constructor `Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper::__construct()` is replaced by `new \Symfony\Component\Form\Extension\Core\DataMapper\DataMapper()`
+29: Constructor `Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper::__construct()` is replaced by `new \Symfony\Component\Form\Extension\Core\DataMapper\DataMapper(new \Symfony\Component\Form\Extension\Core\DataAccessor\PropertyPathAccessor($propertyAccessor))`
+30: Method `Symfony\Component\Form\FormConfigBuilderInterface::setDataMapper()` is replaced by `setDataMapper(null)`
+33: Constant `Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer::ROUND_HALF_UP` is replaced by `NumberFormatter::ROUND_HALFUP`
+35: Constant `Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer::ROUND_CEILING` is replaced by `NumberFormatter::ROUND_CEILING`
+35: Constant `Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer::ROUND_HALF_EVEN` is replaced by `NumberFormatter::ROUND_HALFEVEN`
+38: Method `Symfony\Component\Form\Event\PostSetDataEvent::setData()` is forbidden: call `setData()` of `Symfony\Component\Form\Event\PreSetDataEvent` in a `form.pre_set_data` listener, as the data of the form are already set
+42: Method `Symfony\Component\Form\Event\PostSubmitEvent::setData()` is forbidden: call `setData()` of `Symfony\Component\Form\Event\PreSubmitEvent` or `SubmitEvent` in a `form.pre_submit` or `form.submit` listener, as the form is already submitted
+53: Method `Symfony\Component\Form\Exception\TransformationFailedException::setInvalidMessage()` is replaced by `setInvalidMessage(null)`
+60: Class `Symfony\Component\Form\Extension\Validator\Util\ServerParams` is replaced by `Symfony\Component\Form\Util\ServerParams`
+67: Method `Symfony\Component\Form\FormInterface::setParent()` is replaced by `setParent(null)`
+69: Method `Symfony\Component\Form\FormInterface::setParent()` is replaced by `setParent(null)`
+76: Class `Symfony\Component\Form\Extension\Validator\Util\ServerParams` is replaced by `Symfony\Component\Form\Util\ServerParams`
+80: Constructor `Symfony\Component\Form\Extension\Validator\ValidatorExtension::__construct()` is replaced by `new \Symfony\Component\Form\Extension\Validator\ValidatorExtension($validator)`
+81: Constructor `Symfony\Component\Form\Extension\Validator\ValidatorExtension::__construct()` is replaced by `new \Symfony\Component\Form\Extension\Validator\ValidatorExtension($validator, null, ...$rest)`
+82: Constructor `Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension::__construct()` is replaced by `new \Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension($validator)`
+83: Constructor `Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension::__construct()` is replaced by `new \Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension($validator, null, ...$rest)`

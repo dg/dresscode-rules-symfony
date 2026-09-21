@@ -1,0 +1,41 @@
+package: symfony/form
+group: deprecations
+
+since 8.1:
+	replacedCalls:
+		'Symfony\Component\Form\Extension\Validator\ValidatorExtension::__construct($validator, true)': 'new \Symfony\Component\Form\Extension\Validator\ValidatorExtension($validator)'
+		'Symfony\Component\Form\Extension\Validator\ValidatorExtension::__construct($validator, false)': 'new \Symfony\Component\Form\Extension\Validator\ValidatorExtension($validator)'
+		'Symfony\Component\Form\Extension\Validator\ValidatorExtension::__construct($validator, true, ...$rest)': 'new \Symfony\Component\Form\Extension\Validator\ValidatorExtension($validator, null, ...$rest)'
+		'Symfony\Component\Form\Extension\Validator\ValidatorExtension::__construct($validator, false, ...$rest)': 'new \Symfony\Component\Form\Extension\Validator\ValidatorExtension($validator, null, ...$rest)'
+		'Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension::__construct($validator, true)': 'new \Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension($validator)'
+		'Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension::__construct($validator, false)': 'new \Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension($validator)'
+		'Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension::__construct($validator, true, ...$rest)': 'new \Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension($validator, null, ...$rest)'
+		'Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension::__construct($validator, false, ...$rest)': 'new \Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension($validator, null, ...$rest)'
+
+since 6.4:
+	forbiddenMembers:
+		Symfony\Component\Form\Event\PostSetDataEvent::setData: 'call `setData()` of `Symfony\Component\Form\Event\PreSetDataEvent` in a `form.pre_set_data` listener, as the data of the form are already set'
+		Symfony\Component\Form\Event\PostSubmitEvent::setData: 'call `setData()` of `Symfony\Component\Form\Event\PreSubmitEvent` or `SubmitEvent` in a `form.pre_submit` or `form.submit` listener, as the form is already submitted'
+
+since 6.2:
+	replacedCalls:
+		'Symfony\Component\Form\FormInterface::setParent()': 'setParent(null)'
+		'Symfony\Component\Form\FormConfigBuilderInterface::setDataMapper()': 'setDataMapper(null)'
+		'Symfony\Component\Form\Exception\TransformationFailedException::setInvalidMessage()': 'setInvalidMessage(null)'
+
+since 6.0:
+	replacedClasses:
+		Symfony\Component\Form\Extension\Validator\Util\ServerParams: Symfony\Component\Form\Util\ServerParams
+
+	replacedMembers:
+		Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer::ROUND_CEILING: NumberFormatter::ROUND_CEILING
+		Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer::ROUND_FLOOR: NumberFormatter::ROUND_FLOOR
+		Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer::ROUND_UP: NumberFormatter::ROUND_UP
+		Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer::ROUND_DOWN: NumberFormatter::ROUND_DOWN
+		Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer::ROUND_HALF_EVEN: NumberFormatter::ROUND_HALFEVEN
+		Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer::ROUND_HALF_UP: NumberFormatter::ROUND_HALFUP
+		Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer::ROUND_HALF_DOWN: NumberFormatter::ROUND_HALFDOWN
+
+	replacedCalls:
+		'Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper::__construct()': 'new \Symfony\Component\Form\Extension\Core\DataMapper\DataMapper()'
+		'Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper::__construct($propertyAccessor)': 'new \Symfony\Component\Form\Extension\Core\DataMapper\DataMapper(new \Symfony\Component\Form\Extension\Core\DataAccessor\PropertyPathAccessor($propertyAccessor))'
