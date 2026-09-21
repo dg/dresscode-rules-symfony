@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Form;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\Debug\OptionsResolverIntrospector;
+use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+
+final class AddressType extends AbstractType
+{
+	public function configureOptions(OptionsResolver $resolver): void
+	{
+		$resolver->setDefaults(['country' => 'CZ', 'zip' => null, 'legacy_zip' => null]);
+		$resolver->setDefault('street', fn(Options $options) => $options['country'] . ' street');
+		$resolver->setDeprecated('legacy_zip');
+		$resolver->setDeprecated('zip', 'The option "%name%" is deprecated, use "postal_code".');
+		$resolver->setDeprecated('country', 'acme/address', '1.2');
+		$resolver->setDeprecated('street', 'acme/address', '1.2', 'Do not use "%name%".');
+	}
+}
+
+
+final class OptionsDumper
+{
+	public function dump(?OptionsResolver $resolver): string
+	{
+		$introspector = new OptionsResolverIntrospector($resolver);
+		$message = $introspector->getDeprecation('zip')['message'];
+		return is_string($message) ? $message : 'dynamic';
+	}
+}

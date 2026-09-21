@@ -1,0 +1,10 @@
+package: symfony/options-resolver
+group: deprecations
+
+since 6.0:
+	replacedCalls:
+		'Symfony\Component\OptionsResolver\Debug\OptionsResolverIntrospector::getDeprecationMessage($option)': 'getDeprecation($option)[''message'']'
+
+	forbiddenMembers:
+		'Symfony\Component\OptionsResolver\OptionsResolver::setDeprecated($option)': 'pass the package and the version that deprecate the option, such as `setDeprecated($option, ''acme/blog'', ''1.2'')`'
+		'Symfony\Component\OptionsResolver\OptionsResolver::setDeprecated($option, $message)': 'pass the package and the version that deprecate the option before the message, such as `setDeprecated($option, ''acme/blog'', ''1.2'', $message)`'

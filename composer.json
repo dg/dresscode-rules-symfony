@@ -29,6 +29,7 @@
 		"symfony/framework-bundle": "^8.1",
 		"symfony/http-foundation": "^8.1",
 		"symfony/http-kernel": "^8.1",
+		"symfony/options-resolver": "^8.1",
 		"symfony/routing": "^8.1",
 		"symfony/validator": "^8.1"
 	},
@@ -64,6 +65,7 @@
 				"upgrading/framework-bundle.neon",
 				"upgrading/http-foundation.neon",
 				"upgrading/http-kernel.neon",
+				"upgrading/options-resolver.neon",
 				"upgrading/routing.neon",
 				"upgrading/validator.neon"
 			]

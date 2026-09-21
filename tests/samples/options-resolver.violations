@@ -1,0 +1,3 @@
+17: Method `Symfony\Component\OptionsResolver\OptionsResolver::setDeprecated()` is forbidden: pass the package and the version that deprecate the option, such as `setDeprecated($option, 'acme/blog', '1.2')`
+18: Method `Symfony\Component\OptionsResolver\OptionsResolver::setDeprecated()` is forbidden: pass the package and the version that deprecate the option before the message, such as `setDeprecated($option, 'acme/blog', '1.2', $message)`
+30: Method `Symfony\Component\OptionsResolver\Debug\OptionsResolverIntrospector::getDeprecationMessage()` is replaced by `getDeprecation($option)['message']`
