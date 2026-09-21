@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Accessor;
+
+use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
+use Symfony\Component\PropertyAccess\PropertyAccessorBuilder;
+
+
+final class AccessorFactory
+{
+	public function __construct(
+		private ?CacheItemPoolInterface $cache,
+	) {
+	}
+
+
+	public function create(): array
+	{
+		return [
+			new PropertyAccessor(true),
+			new PropertyAccessor(false),
+			new PropertyAccessor(true, true),
+			new PropertyAccessor(false, true, $this->cache),
+			new PropertyAccessor(true, false),
+			new PropertyAccessor(false, false),
+			new PropertyAccessor(true, PropertyAccessor::THROW_ON_INVALID_INDEX),
+			new PropertyAccessor(PropertyAccessor::MAGIC_GET, true),
+			new PropertyAccessor(PropertyAccessor::MAGIC_GET | PropertyAccessor::MAGIC_CALL, false),
+			new PropertyAccessor(PropertyAccessor::MAGIC_GET, PropertyAccessor::DO_NOT_THROW),
+			new PropertyAccessor(),
+		];
+	}
+
+
+	public function build(?PropertyAccessorBuilder $builder): PropertyAccessor
+	{
+		$builder ??= PropertyAccess::createPropertyAccessorBuilder();
+		$builder->setCacheItemPool();
+		$builder?->setCacheItemPool();
+		return $builder->setCacheItemPool($this->cache)->getPropertyAccessor();
+	}
+}
+
+
+final class MagicAccessor extends PropertyAccessor
+{
+}
+
+
+final class LegacyAccessor extends PropertyAccessor
+{
+	public function __construct()
+	{
+		parent::__construct(true);
+	}
+
+
+	public static function createMagic(): MagicAccessor
+	{
+		return new MagicAccessor(true);
+	}
+}
