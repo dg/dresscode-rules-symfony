@@ -1,0 +1,33 @@
+package: symfony/security-bundle
+group: deprecations
+
+since 7.4:
+	replacedMembers:
+		Symfony\Bundle\SecurityBundle\Security\LazyFirewallContext::__invoke: authenticate
+
+since 6.4:
+	replacedMembers:
+		Symfony\Bundle\SecurityBundle\Security::ACCESS_DENIED_ERROR: Symfony\Component\Security\Http\SecurityRequestAttributes::ACCESS_DENIED_ERROR
+		Symfony\Bundle\SecurityBundle\Security::AUTHENTICATION_ERROR: Symfony\Component\Security\Http\SecurityRequestAttributes::AUTHENTICATION_ERROR
+		Symfony\Bundle\SecurityBundle\Security::LAST_USERNAME: Symfony\Component\Security\Http\SecurityRequestAttributes::LAST_USERNAME
+
+since 6.2:
+	replacedClasses:
+		Symfony\Component\Security\Core\Security: Symfony\Bundle\SecurityBundle\Security
+
+	replacedMembers:
+		Symfony\Component\Security\Core\Security::ACCESS_DENIED_ERROR: Symfony\Component\Security\Http\SecurityRequestAttributes::ACCESS_DENIED_ERROR
+		Symfony\Component\Security\Core\Security::AUTHENTICATION_ERROR: Symfony\Component\Security\Http\SecurityRequestAttributes::AUTHENTICATION_ERROR
+		Symfony\Component\Security\Core\Security::LAST_USERNAME: Symfony\Component\Security\Http\SecurityRequestAttributes::LAST_USERNAME
+		Symfony\Component\Security\Core\Security::MAX_USERNAME_LENGTH: Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge::MAX_USERNAME_LENGTH
+
+since 6.0:
+	replacedMembers:
+		Symfony\Bundle\SecurityBundle\Security\FirewallConfig::getListeners: getAuthenticators
+
+	forbiddenMembers:
+		Symfony\Bundle\SecurityBundle\DependencyInjection\SecurityExtension::addSecurityListenerFactory: 'call `addAuthenticatorFactory()` with a factory implementing `Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\AuthenticatorFactoryInterface`'
+
+	forbiddenClasses:
+		Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\SecurityFactoryInterface: 'implement `Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\AuthenticatorFactoryInterface`, which has `getPriority()` in place of `getPosition()`'
+		Symfony\Bundle\SecurityBundle\Command\UserPasswordEncoderCommand: 'use `Symfony\Component\PasswordHasher\Command\UserPasswordHashCommand`, which takes a password hasher factory'

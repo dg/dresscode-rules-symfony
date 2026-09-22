@@ -1,0 +1,16 @@
+18: Class `Symfony\Component\Security\Core\Security` is replaced by `Symfony\Bundle\SecurityBundle\Security`
+24: Class `Symfony\Component\Security\Core\Security` is replaced by `Symfony\Bundle\SecurityBundle\Security`
+32: Class `Symfony\Component\Security\Core\Security` is replaced by `Symfony\Bundle\SecurityBundle\Security`
+32: Constant `Symfony\Component\Security\Core\Security::AUTHENTICATION_ERROR` is replaced by `Symfony\Component\Security\Http\SecurityRequestAttributes::AUTHENTICATION_ERROR`
+33: Class `Symfony\Component\Security\Core\Security` is replaced by `Symfony\Bundle\SecurityBundle\Security`
+33: Constant `Symfony\Component\Security\Core\Security::LAST_USERNAME` is replaced by `Symfony\Component\Security\Http\SecurityRequestAttributes::LAST_USERNAME`
+34: Constant `Symfony\Bundle\SecurityBundle\Security::ACCESS_DENIED_ERROR` is replaced by `Symfony\Component\Security\Http\SecurityRequestAttributes::ACCESS_DENIED_ERROR`
+35: Class `Symfony\Component\Security\Core\Security` is replaced by `Symfony\Bundle\SecurityBundle\Security`
+35: Constant `Symfony\Component\Security\Core\Security::MAX_USERNAME_LENGTH` is replaced by `Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge::MAX_USERNAME_LENGTH`
+47: Method `Symfony\Bundle\SecurityBundle\Security\FirewallConfig::getListeners()` is replaced by `FirewallConfig::getAuthenticators()`
+48: Method `Symfony\Bundle\SecurityBundle\Security\FirewallConfig::getListeners()` is replaced by `FirewallConfig::getAuthenticators()`
+53: Class `Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\SecurityFactoryInterface` is forbidden: implement `Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\AuthenticatorFactoryInterface`, which has `getPriority()` in place of `getPosition()`
+85: Method `Symfony\Bundle\SecurityBundle\DependencyInjection\SecurityExtension::addSecurityListenerFactory()` is forbidden: call `addAuthenticatorFactory()` with a factory implementing `Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\AuthenticatorFactoryInterface`
+92: Method `Symfony\Bundle\SecurityBundle\Security\LazyFirewallContext::__invoke()` is replaced by `LazyFirewallContext::authenticate()`
+94: Method `Symfony\Bundle\SecurityBundle\Security\LazyFirewallContext::__invoke()` is replaced by `LazyFirewallContext::authenticate()`
+101: Class `Symfony\Bundle\SecurityBundle\Command\UserPasswordEncoderCommand` is forbidden: use `Symfony\Component\PasswordHasher\Command\UserPasswordHashCommand`, which takes a password hasher factory

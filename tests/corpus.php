@@ -178,6 +178,9 @@ function isLegacy(string $file): bool
 		'Serializer/Tests/Fixtures/Attributes/ClassWithIgnoreAnnotation.php', // the removed Annotation\Ignore, which must not be honoured
 		'Serializer/Tests/Fixtures/DummyMessageNumberTwo.php', // a @Groups nothing reads any more
 		'Security/Http/Tests/Fixtures/DummyAuthenticator.php', // a dead import of the removed PassportInterface
+		'SecurityBundle/Tests/Fixtures/DummyAuthenticator.php', // the same, with createAuthenticatedToken() beside createToken()
+		'RememberMeBundle/Security/UserChangingUserProvider.php', // loadUserByUsername() kept for 5.x, calling it on the inner provider
+		'Security/Core/User/ArrayUserProvider.php', // setUsername(), which the installed exception has no longer
 	];
 	return array_any($refusing, fn(string $path) => str_ends_with(str_replace('\\', '/', $file), $path))
 		|| preg_match('~@group\s+legacy|#\[Group\(.legacy.\)\]|#\[IgnoreDeprecations\]~i', (string) file_get_contents($file));
