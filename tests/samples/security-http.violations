@@ -1,0 +1,21 @@
+35: Class `Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface` is replaced by `Symfony\Component\Security\Http\Authenticator\Passport\Passport`
+55: Class `Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface` is replaced by `Symfony\Component\Security\Http\Authenticator\Passport\Passport`
+55: Method `authenticate()` returns `Passport` while `Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface::authenticate()` returns `Symfony\Component\Security\Http\Authenticator\Passport\Passport`
+61: Method `Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface::createAuthenticatedToken()` is replaced by `AuthenticatorInterface::createToken()`
+61: Class `Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface` is replaced by `Symfony\Component\Security\Http\Authenticator\Passport\Passport`
+61: Parameter `$passport` of `createToken()` takes `Passport` while that of `Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator::createToken()` takes `Symfony\Component\Security\Http\Authenticator\Passport\Passport`
+93: Method `Symfony\Component\Security\Http\Firewall\AbstractListener::__invoke()` is forbidden: there is no replacement, the firewall calls `supports()` and `authenticate()` of the listener itself
+95: Method `Symfony\Component\Security\Http\Firewall\AbstractListener::__invoke()` is forbidden: there is no replacement, the firewall calls `supports()` and `authenticate()` of the listener itself
+100: Class `Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface` is forbidden: register a listener of `Symfony\Component\Security\Http\Event\LogoutEvent` and set the response on the event
+111: Annotation `@IsGranted` is replaced by the attribute `#[Symfony\Component\Security\Http\Attribute\IsGranted]`
+141: Class `Symfony\Component\Security\Http\Event\DeauthenticatedEvent` is forbidden: use `Symfony\Component\Security\Http\Event\TokenDeauthenticatedEvent`, which has the original token and the request but no refreshed token
+155: Class `Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface` is replaced by `Symfony\Component\Security\Http\Authenticator\Passport\Passport`
+157: Method `Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler::setProviderKey()` is replaced by `DefaultAuthenticationSuccessHandler::setFirewallName()`
+158: Method `Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface::createAuthenticatedToken()` is replaced by `AuthenticatorInterface::createToken()`
+158: Method `Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler::getProviderKey()` is replaced by `DefaultAuthenticationSuccessHandler::getFirewallName()`
+160: Constructor `Symfony\Component\Security\Http\RememberMe\RememberMeDetails::__construct()` is replaced by `new \Symfony\Component\Security\Http\RememberMe\RememberMeDetails($userIdentifier, $expires, $value)`
+161: Method `Symfony\Component\Security\Http\RememberMe\RememberMeDetails::getUserFqcn()` is forbidden: there is no replacement, the remember-me cookie no longer holds the class of the user
+164: Constructor `Symfony\Component\Security\Http\Authenticator\RememberMeAuthenticator::__construct()` is replaced by `new \Symfony\Component\Security\Http\Authenticator\RememberMeAuthenticator($rememberMeHandler, $tokenStorage, ...)`
+166: Constructor `Symfony\Component\Security\Http\RememberMe\PersistentRememberMeHandler::__construct()` is replaced by `new \Symfony\Component\Security\Http\RememberMe\PersistentRememberMeHandler($tokenProvider, $userProvider, ...)`
+168: Constructor `Symfony\Component\Security\Http\Authentication\AuthenticatorManager::__construct()` is replaced by `new \Symfony\Component\Security\Http\Authentication\AuthenticatorManager($authenticators, $tokenStorage, $eventDispatcher, $firewallName, $logger, ...)`
+170: Class `Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint` is forbidden: use `Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator`, which is the entry point of the form login

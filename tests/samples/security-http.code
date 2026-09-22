@@ -1,0 +1,173 @@
+<?php
+
+namespace Sensio\Bundle\FrameworkExtraBundle\Configuration
+{
+	/** @Annotation */
+	class IsGranted
+	{
+	}
+
+	/** @Annotation */
+	class Security
+	{
+	}
+}
+
+namespace App\Security
+{
+	use Psr\Log\LoggerInterface;
+	use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+	use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+	use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+	use Symfony\Component\HttpFoundation\Request;
+	use Symfony\Component\HttpFoundation\RequestStack;
+	use Symfony\Component\HttpFoundation\Response;
+	use Symfony\Component\HttpKernel\Event\RequestEvent;
+	use Symfony\Component\Security\Core\Authentication\RememberMe\TokenProviderInterface;
+	use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+	use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+	use Symfony\Component\Security\Core\Exception\AuthenticationException;
+	use Symfony\Component\Security\Core\User\UserProviderInterface;
+	use Symfony\Component\Security\Http\Authentication\AuthenticatorManager;
+	use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler;
+	use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
+	use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+	use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
+	use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
+	use Symfony\Component\Security\Http\Authenticator\RememberMeAuthenticator;
+	use Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint;
+	use Symfony\Component\Security\Http\Event\DeauthenticatedEvent;
+	use Symfony\Component\Security\Http\Firewall\AbstractListener;
+	use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
+	use Symfony\Component\Security\Http\RememberMe\PersistentRememberMeHandler;
+	use Symfony\Component\Security\Http\RememberMe\RememberMeDetails;
+	use Symfony\Component\Security\Http\RememberMe\RememberMeHandlerInterface;
+
+
+	class ApiKeyAuthenticator extends AbstractAuthenticator
+	{
+		public function supports(Request $request): ?bool
+		{
+			return $request->headers->has('X-API-KEY');
+		}
+
+
+		public function authenticate(Request $request): PassportInterface
+		{
+			return new SelfValidatingPassport(new UserBadge($request->headers->get('X-API-KEY')));
+		}
+
+
+		public function createAuthenticatedToken(PassportInterface $passport, string $firewallName): TokenInterface
+		{
+			return parent::createToken($passport, $firewallName);
+		}
+
+
+		public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+		{
+			return null;
+		}
+
+
+		public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
+		{
+			return new Response($exception->getMessageKey(), 401);
+		}
+	}
+
+
+	class MaintenanceListener extends AbstractListener
+	{
+		public function supports(Request $request): ?bool
+		{
+			return true;
+		}
+
+
+		public function authenticate(RequestEvent $event): void
+		{
+		}
+
+
+		public function __invoke(RequestEvent $event): void
+		{
+			parent::__invoke($event);
+		}
+	}
+
+
+	class LogoutRedirect implements LogoutSuccessHandlerInterface
+	{
+		public function onLogoutSuccess(Request $request): Response
+		{
+			return new Response('bye');
+		}
+	}
+
+
+	class SecurityController
+	{
+		/**
+		 * @IsGranted("ROLE_ADMIN", subject="post", message="Admins only")
+		 */
+		public function edit(object $post): Response
+		{
+			return new Response('edit');
+		}
+
+
+		/**
+		 * @Security("is_granted('VIEW', post)", message="Hidden post")
+		 */
+		public function view(object $post): Response
+		{
+			return new Response('view');
+		}
+
+
+		/**
+		 * @Security("is_granted('ROLE_ADMIN') and user.isActive()")
+		 */
+		public function delete(object $post): Response
+		{
+			return new Response('delete');
+		}
+	}
+
+
+	function subscribed(): array
+	{
+		return [DeauthenticatedEvent::class => 'onDeauthenticated'];
+	}
+
+
+	function wire(
+		RememberMeHandlerInterface $handler,
+		TokenStorageInterface $tokenStorage,
+		TokenProviderInterface $tokenProvider,
+		UserProviderInterface $userProvider,
+		RequestStack $requestStack,
+		EventDispatcherInterface $dispatcher,
+		LoggerInterface $logger,
+		DefaultAuthenticationSuccessHandler $successHandler,
+		ApiKeyAuthenticator $authenticator,
+		PassportInterface $passport,
+	): array {
+		$successHandler->setProviderKey('main');
+		$authenticator->createAuthenticatedToken($passport, $successHandler->getProviderKey());
+
+		$details = new RememberMeDetails(\App\Entity\User::class, 'john', time() + 3600, 'value');
+		$details->getUserFqcn();
+
+		return [
+			new RememberMeAuthenticator($handler, '%kernel.secret%', $tokenStorage, 'REMEMBERME', $logger),
+			new RememberMeAuthenticator($handler, $tokenStorage, 'REMEMBERME'),
+			new PersistentRememberMeHandler($tokenProvider, 'secret', $userProvider, $requestStack, []),
+			new PersistentRememberMeHandler($tokenProvider, $userProvider, $requestStack, []),
+			new AuthenticatorManager([$authenticator], $tokenStorage, $dispatcher, 'main', $logger, true),
+			new AuthenticatorManager([$authenticator], $tokenStorage, $dispatcher, 'main', $logger),
+			new FormAuthenticationEntryPoint(),
+		];
+	}
+}

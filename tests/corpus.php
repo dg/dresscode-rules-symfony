@@ -177,6 +177,7 @@ function isLegacy(string $file): bool
 		'Validator/Tests/Constraints/BicValidatorTest.php', // new Bic(options: [...]) after the expected exception
 		'Serializer/Tests/Fixtures/Attributes/ClassWithIgnoreAnnotation.php', // the removed Annotation\Ignore, which must not be honoured
 		'Serializer/Tests/Fixtures/DummyMessageNumberTwo.php', // a @Groups nothing reads any more
+		'Security/Http/Tests/Fixtures/DummyAuthenticator.php', // a dead import of the removed PassportInterface
 	];
 	return array_any($refusing, fn(string $path) => str_ends_with(str_replace('\\', '/', $file), $path))
 		|| preg_match('~@group\s+legacy|#\[Group\(.legacy.\)\]|#\[IgnoreDeprecations\]~i', (string) file_get_contents($file));
