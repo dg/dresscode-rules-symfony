@@ -1,0 +1,2 @@
+10: Annotation `@Security` is replaced by the attribute `#[Symfony\Component\Security\Http\Attribute\IsGranted]`.
+19: Attribute `#[Sensio\Bundle\FrameworkExtraBundle\Configuration\Security]` is replaced by `#[Symfony\Component\Security\Http\Attribute\IsGranted]`.

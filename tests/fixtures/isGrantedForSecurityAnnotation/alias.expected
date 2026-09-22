@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as Guard;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
+class AdminController
+{
+	#[IsGranted('ROLE_ADMIN')]
+	public function index(): Response
+	{
+		return new Response;
+	}
+
+
+	#[IsGranted('ROLE_EDITOR')]
+	public function edit(): Response
+	{
+		return new Response;
+	}
+}

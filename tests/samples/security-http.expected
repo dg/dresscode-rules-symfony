@@ -115,9 +115,7 @@ namespace App\Security
 		}
 
 
-		/**
-		 * @Security("is_granted('VIEW', post)", message="Hidden post")
-		 */
+		#[\Symfony\Component\Security\Http\Attribute\IsGranted('VIEW', subject: 'post', message: 'Hidden post')]
 		public function view(object $post): Response
 		{
 			return new Response('view');

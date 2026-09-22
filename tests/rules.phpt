@@ -8,6 +8,7 @@ use Tester\Assert;
 require __DIR__ . '/bootstrap.php';
 
 $rules = [
+	'isGrantedForSecurityAnnotation' => DressCodeUpgrade\Symfony\IsGrantedForSecurityAnnotationRule::class,
 	'valueResolverForArgumentResolver' => DressCodeUpgrade\Symfony\ValueResolverForArgumentResolverRule::class,
 ];
 

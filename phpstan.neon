@@ -13,4 +13,5 @@ parameters:
 		-
 			identifier: class.notFound
 			paths:
+				- src/IsGrantedForSecurityAnnotationRule.php
 				- src/ValueResolverForArgumentResolverRule.php

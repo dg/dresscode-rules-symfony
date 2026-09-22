@@ -21,6 +21,8 @@ since 6.3:
 		'Symfony\Component\Security\Http\RememberMe\PersistentRememberMeHandler::__construct($tokenProvider, string $secret, $userProvider, ...)': 'new \Symfony\Component\Security\Http\RememberMe\PersistentRememberMeHandler($tokenProvider, $userProvider, ...)'
 
 since 6.2:
+	symfony.isGrantedAttribute: required
+
 	attributeForAnnotation:
 		Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted: Symfony\Component\Security\Http\Attribute\IsGranted
 

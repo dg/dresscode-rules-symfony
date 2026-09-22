@@ -9,14 +9,14 @@ use DressCodeUpgrade\Symfony\Plugin;
  */
 const SampleDecisions = [
 	'classes' => ['overridingMethod' => ['signature' => 'required', 'parameterName' => 'required']],
-	'symfony' => ['valueResolver' => 'required'],
+	'symfony' => ['isGrantedAttribute' => 'required', 'valueResolver' => 'required'],
 ];
 
 
 /** The decisions the corpus is run with: the data of the upgrading files, and the rules of this package that read the code alone. */
 const CorpusDecisions = [
 	'upgrading' => ['packages' => true],
-	'symfony' => ['valueResolver' => 'required'],
+	'symfony' => ['isGrantedAttribute' => 'required', 'valueResolver' => 'required'],
 ];
 
 
