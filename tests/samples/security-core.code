@@ -1,0 +1,245 @@
+<?php
+
+namespace App\Security;
+
+use Symfony\Component\Security\Core\Authentication\AuthenticationTrustResolverInterface;
+use Symfony\Component\Security\Core\Authentication\RememberMe\PersistentToken;
+use Symfony\Component\Security\Core\Authentication\RememberMe\PersistentTokenInterface;
+use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
+use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
+use Symfony\Component\Security\Core\Authentication\Token\RememberMeToken;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\AuthenticationEvents;
+use Symfony\Component\Security\Core\Authorization\AccessDecisionManager;
+use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\User;
+use Symfony\Component\Security\Core\User\UserChecker;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
+
+
+class AppUser implements UserInterface, EncoderAwareInterface
+{
+	private string $email = '';
+	private string $nick = '';
+
+
+	public function getRoles(): array
+	{
+		return ['ROLE_USER'];
+	}
+
+
+	public function getUserIdentifier(): string
+	{
+		return $this->email;
+	}
+
+
+	public function getUsername(): string
+	{
+		return $this->getUserIdentifier();
+	}
+
+
+	public function getNick(): string
+	{
+		return $this->nick;
+	}
+
+
+	public function getEncoderName(): ?string
+	{
+		return null;
+	}
+
+
+	public function eraseCredentials(): void
+	{
+	}
+}
+
+
+class AppUserProvider implements UserProviderInterface
+{
+	public function loadUserByIdentifier(string $identifier): UserInterface
+	{
+		throw new UsernameNotFoundException("User $identifier not found.");
+	}
+
+
+	public function loadUserByUsername(string $username): UserInterface
+	{
+		return $this->loadUserByIdentifier($username);
+	}
+
+
+	public function refreshUser(UserInterface $user): UserInterface
+	{
+		return $this->loadUserByUsername($user->getUsername());
+	}
+
+
+	public function supportsClass(string $class): bool
+	{
+		return $class === AppUser::class;
+	}
+}
+
+
+class PostVoter extends Voter
+{
+	public function __construct(
+		private AuthenticationTrustResolverInterface $trustResolver,
+	) {
+	}
+
+
+	protected function supports(string $attribute, mixed $subject): bool
+	{
+		return $attribute === 'POST_EDIT';
+	}
+
+
+	protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+	{
+		if ($this->trustResolver->isAnonymous($token) || !$token->isAuthenticated()) {
+			return false;
+		}
+
+		$user = $token->getUser();
+		return $user?->getUsername() === $subject->author || $token->getUsername() === 'admin';
+	}
+}
+
+
+class ApiToken extends UsernamePasswordToken
+{
+	public function __construct(UserInterface $user, string $firewallName)
+	{
+		parent::__construct($user, null, $firewallName, $user->getRoles());
+	}
+
+
+	public function setAuthenticated(bool $isAuthenticated)
+	{
+	}
+
+
+	public function getCredentials()
+	{
+		return null;
+	}
+}
+
+
+class SecurityFixtures
+{
+	public function __construct(
+		private UserPasswordEncoderInterface $encoder,
+		private EncoderFactoryInterface $encoderFactory,
+		private TokenStorageInterface $tokenStorage,
+		private ?UserProviderInterface $userProvider,
+	) {
+	}
+
+
+	public function load(AppUser $user, string $plain): string
+	{
+		$hash = $this->encoder->encodePassword($user, $plain);
+		$native = new NativePasswordEncoder();
+		$native->isPasswordValid($hash, $plain, null);
+		$this->encoderFactory->getEncoder($user)->encodePassword($plain, null);
+		$this->userProvider->loadUserByUsername($user->getUsername());
+		return $user->getNick() . $hash;
+	}
+
+
+	public function login(UserInterface $user): void
+	{
+		$token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+		$token->setAuthenticated(true);
+		$this->tokenStorage->setToken($token);
+		$this->tokenStorage->getToken()?->getCredentials();
+
+		$current = new UsernamePasswordToken($user, 'main', $user->getRoles());
+		$pre = new PreAuthenticatedToken($user, 'credentials', 'main');
+		$switch = new SwitchUserToken($user, null, 'main', ['ROLE_PREVIOUS_ADMIN'], $pre);
+		$remember = new RememberMeToken($user, 'main', 'secret');
+		echo $current->getFirewallName(), $pre->getProviderKey(), $switch->getProviderKey(), $remember->getProviderKey(), $remember->getSecret();
+	}
+
+
+	public function logout(): void
+	{
+		$this->tokenStorage->setToken();
+		$this->tokenStorage->setToken(null);
+	}
+
+
+	public function remember(PersistentTokenInterface $token): PersistentToken
+	{
+		echo $token->getUsername(), $token->getClass();
+		return new PersistentToken(AppUser::class, 'john', 'series', 'value', new \DateTime);
+	}
+
+
+	public function eraseAll(TokenInterface $token, UserInterface $user): void
+	{
+		$token->eraseCredentials();
+		$user->eraseCredentials();
+	}
+}
+
+
+function isPublic(string $attribute, mixed $token): bool
+{
+	if ($token instanceof AnonymousToken) {
+		return $attribute === AuthenticatedVoter::IS_ANONYMOUS;
+	}
+
+	return $attribute === AuthenticatedVoter::IS_AUTHENTICATED_ANONYMOUSLY;
+}
+
+
+function isAdmin(User $user): bool
+{
+	return in_array('ROLE_ADMIN', $user->getRoles(), true) && $user->isAccountNonLocked();
+}
+
+
+function decisionManager(iterable $voters): AccessDecisionManager
+{
+	new AccessDecisionManager($voters, 'unanimous');
+	new AccessDecisionManager($voters, 'consensus', true, false);
+	new AccessDecisionManager($voters, AccessDecisionManager::STRATEGY_PRIORITY);
+	return new AccessDecisionManager($voters, 'affirmative', true);
+}
+
+
+function inMemory(): array
+{
+	$checker = new UserChecker;
+	$user = new User('admin', 'secret', ['ROLE_ADMIN']);
+	$checker->checkPreAuth($user);
+
+	try {
+		(new AppUserProvider)->loadUserByUsername('john');
+	} catch (UsernameNotFoundException $e) {
+		$e->setUsername($e->getUsername());
+	}
+
+	return [
+		AuthenticationEvents::AUTHENTICATION_FAILURE => fn(AuthenticationFailureEvent $event) => null,
+	];
+}
