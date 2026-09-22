@@ -1,0 +1,5 @@
+package: symfony/security-csrf
+
+since 6.0:
+	forbiddenMembers:
+		'Symfony\Component\Security\Csrf\TokenStorage\SessionTokenStorage::__construct(Symfony\Component\HttpFoundation\Session\SessionInterface $session, ...)': 'pass `Symfony\Component\HttpFoundation\RequestStack`, from which the storage takes the session of the current request'

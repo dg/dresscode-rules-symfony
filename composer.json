@@ -35,6 +35,7 @@
 		"symfony/property-info": "^8.1",
 		"symfony/routing": "^8.1",
 		"symfony/security-core": "^8.1",
+		"symfony/security-csrf": "^8.1",
 		"symfony/serializer": "^8.1",
 		"symfony/type-info": "^8.1",
 		"symfony/validator": "^8.1"
@@ -77,6 +78,7 @@
 				"symfony/property-info",
 				"symfony/routing",
 				"symfony/security-core",
+				"symfony/security-csrf",
 				"symfony/serializer",
 				"symfony/type-info",
 				"symfony/validator"
