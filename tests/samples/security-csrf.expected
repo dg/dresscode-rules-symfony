@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Security;
+
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManager;
+use Symfony\Component\Security\Csrf\TokenStorage\SessionTokenStorage;
+
+
+class CsrfFactory
+{
+	public function __construct(
+		private SessionInterface $session,
+		private RequestStack $requestStack,
+	) {
+	}
+
+
+	public function createLegacy(): CsrfTokenManager
+	{
+		return new CsrfTokenManager(null, new SessionTokenStorage($this->session));
+	}
+
+
+	public function createNamespaced(): SessionTokenStorage
+	{
+		return new SessionTokenStorage(new Session, 'app_csrf');
+	}
+
+
+	public function create(): CsrfTokenManager
+	{
+		return new CsrfTokenManager(null, new SessionTokenStorage($this->requestStack, 'app_csrf'));
+	}
+}

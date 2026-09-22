@@ -1,0 +1,2 @@
+23: Constructor `Symfony\Component\Security\Csrf\TokenStorage\SessionTokenStorage::__construct()` is forbidden: pass `Symfony\Component\HttpFoundation\RequestStack`, from which the storage takes the session of the current request
+29: Constructor `Symfony\Component\Security\Csrf\TokenStorage\SessionTokenStorage::__construct()` is forbidden: pass `Symfony\Component\HttpFoundation\RequestStack`, from which the storage takes the session of the current request
