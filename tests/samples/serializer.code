@@ -1,0 +1,175 @@
+<?php
+
+namespace App\Serializer;
+
+use Symfony\Component\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\CacheWarmer\CompiledClassMetadataCacheWarmer;
+use Symfony\Component\Serializer\Context\Encoder\CsvEncoderContextBuilder;
+use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use Symfony\Component\Serializer\Encoder\JsonDecode;
+use Symfony\Component\Serializer\Mapping\AttributeMetadata;
+use Symfony\Component\Serializer\Mapping\ClassMetadataInterface;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryCompiler;
+use Symfony\Component\Serializer\Mapping\Factory\CompiledClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
+use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
+use Symfony\Component\Serializer\NameConverter\AdvancedNameConverterInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
+use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Serializer as SymfonySerializer;
+
+
+/**
+ * @Serializer\DiscriminatorMap(typeProperty="type", mapping={"topic"="App\Serializer\Topic"})
+ */
+abstract class Post
+{
+}
+
+
+class Topic extends Post
+{
+	/**
+	 * @Serializer\Context(normalizationContext={"datetime_format"="Y-m-d"}, groups={"detail"})
+	 * @Serializer\Ignore
+	 */
+	public ?\DateTimeImmutable $createdAt = null;
+
+	/**
+	 * @Groups({"list", "detail"})
+	 * @SerializedName("topic_title")
+	 */
+	public string $title = '';
+
+	/**
+	 * @Serializer\MaxDepth(2)
+	 */
+	public array $children = [];
+
+	#[Groups(['detail'])]
+	#[SerializedName('body_text')]
+	public string $body = '';
+}
+
+
+class TopicNormalizer implements ContextAwareNormalizerInterface, CacheableSupportsMethodInterface
+{
+	public function normalize(mixed $data, ?string $format = null, array $context = []): array
+	{
+		return ['title' => $data->title];
+	}
+
+
+	public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+	{
+		return $data instanceof Topic;
+	}
+
+
+	public function hasCacheableSupportsMethod(): bool
+	{
+		return true;
+	}
+}
+
+
+class TopicDenormalizer implements ContextAwareDenormalizerInterface, DenormalizerAwareInterface
+{
+	use DenormalizerAwareTrait;
+
+	public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+	{
+		return new Topic;
+	}
+
+
+	public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+	{
+		return $type === Topic::class;
+	}
+}
+
+
+abstract class BaseTopicNormalizer extends AbstractNormalizer
+{
+	public function hasCacheableSupportsMethod(): bool
+	{
+		return parent::hasCacheableSupportsMethod();
+	}
+}
+
+
+class SnakeCaseConverter implements AdvancedNameConverterInterface
+{
+	public function normalize(string $propertyName, ?string $class = null, ?string $format = null, array $context = []): string
+	{
+		return strtolower($propertyName);
+	}
+
+
+	public function denormalize(string $propertyName, ?string $class = null, ?string $format = null, array $context = []): string
+	{
+		return $propertyName;
+	}
+}
+
+
+class LegacyJsonDecode extends JsonDecode
+{
+	public function hasSerializer(): bool
+	{
+		return $this->serializer !== null;
+	}
+}
+
+
+function configure(SymfonySerializer $serializer, ?\Doctrine\Common\Annotations\Reader $reader, ClassMetadataInterface $classMetadata): void
+{
+	$arrayDenormalizer = new ArrayDenormalizer;
+	$arrayDenormalizer->setSerializer($serializer);
+
+	$factory = new ClassMetadataFactory(new AnnotationLoader($reader));
+	$factory = new ClassMetadataFactory(new AnnotationLoader);
+	$factory = new ClassMetadataFactory(new AttributeLoader(null));
+	$loader = new AttributeLoader;
+	foreach ($loader->loadAnnotations(new \ReflectionClass(Topic::class)) as $annotation) {
+	}
+
+	$attributeMetadata = new AttributeMetadata('title');
+	$attributeMetadata->setSerializedName();
+	$attributeMetadata->setSerializedName('topic_title');
+	$classMetadata->setClassDiscriminatorMapping();
+
+	$context = (new ObjectNormalizerContextBuilder)
+		->withDefaultContructorArguments([Topic::class => ['title' => '']])
+		->toArray();
+
+	$csvContext = (new CsvEncoderContextBuilder)
+		->withEscapeChar('\\')
+		->toArray();
+	$csv = (new CsvEncoder)->encode([], 'csv', [CsvEncoder::ESCAPE_CHAR_KEY => '\\']);
+
+	$compiled = new CompiledClassMetadataFactory(__DIR__ . '/metadata.php', $factory);
+	$warmer = new CompiledClassMetadataCacheWarmer([], $factory, new ClassMetadataFactoryCompiler, new \Symfony\Component\Filesystem\Filesystem);
+
+	$groups = new Groups(['list']);
+	$names = $groups->getGroups();
+	$property = new \ReflectionProperty(Topic::class, 'body');
+	foreach ($property->getAttributes(SerializedName::class) as $attribute) {
+		$name = $attribute->newInstance()->getSerializedName();
+	}
+	$maxDepth = (new Serializer\MaxDepth(2))->getMaxDepth();
+	$map = new \Symfony\Component\Serializer\Attribute\DiscriminatorMap('type', ['topic' => Topic::class]);
+	$typeProperty = $map->getTypeProperty();
+	$mapping = $map?->getMapping();
+}
