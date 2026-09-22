@@ -1,0 +1,60 @@
+19: Class `Symfony\Component\Security\Core\Encoder\EncoderAwareInterface` is replaced by `Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface`
+20: Class `Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface` is replaced by `Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface`
+21: Class `Symfony\Component\Security\Core\Encoder\NativePasswordEncoder` is replaced by `Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher`
+22: Class `Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface` is replaced by `Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface`
+24: Class `Symfony\Component\Security\Core\Exception\UsernameNotFoundException` is replaced by `Symfony\Component\Security\Core\Exception\UserNotFoundException`
+26: Class `Symfony\Component\Security\Core\User\UserChecker` is replaced by `Symfony\Component\Security\Core\User\InMemoryUserChecker`
+31: Class `Symfony\Component\Security\Core\Encoder\EncoderAwareInterface` is replaced by `Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface`
+67: Method `Symfony\Component\Security\Core\User\UserInterface::eraseCredentials()` is forbidden: there is no replacement, nothing calls it any more; leave the plain password out of `__serialize()` where the method erased it
+77: Class `Symfony\Component\Security\Core\Exception\UsernameNotFoundException` is replaced by `Symfony\Component\Security\Core\Exception\UserNotFoundException`
+81: Method `Symfony\Component\Security\Core\User\UserProviderInterface::loadUserByUsername()` is replaced by `UserProviderInterface::loadUserByIdentifier()`, but the class declares `loadUserByIdentifier()` already
+89: Method `Symfony\Component\Security\Core\User\UserProviderInterface::loadUserByUsername()` is replaced by `UserProviderInterface::loadUserByIdentifier()`
+89: Method `Symfony\Component\Security\Core\User\UserInterface::getUsername()` is replaced by `getUserIdentifier()`
+114: Method `voteOnAttribute()` lacks the parameter `$vote` that `Symfony\Component\Security\Core\Authorization\Voter\Voter::voteOnAttribute()` declares
+116: Method `Symfony\Component\Security\Core\Authentication\AuthenticationTrustResolverInterface::isAnonymous()` is forbidden: call `isAuthenticated()` and negate the result, which unlike `isAnonymous()` takes a missing token for a visitor who is not logged in
+116: Method `Symfony\Component\Security\Core\Authentication\Token\TokenInterface::isAuthenticated()` is replaced by `getUser() !== null`
+121: Method `Symfony\Component\Security\Core\User\UserInterface::getUsername()` is replaced by `getUserIdentifier()`
+121: Method `Symfony\Component\Security\Core\Authentication\Token\TokenInterface::getUsername()` is replaced by `getUserIdentifier()`
+130: Constructor `Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken::__construct()` is replaced by `new \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken($user, $firewallName, ...)`
+134: Method `Symfony\Component\Security\Core\Authentication\Token\TokenInterface::setAuthenticated()` is forbidden: there is no replacement, a token is authenticated while `getUser()` returns a user; drop the call
+139: Method `Symfony\Component\Security\Core\Authentication\Token\TokenInterface::getCredentials()` is forbidden: there is no replacement, a token no longer holds credentials; read them in the authenticator from the request
+149: Class `Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface` is replaced by `Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface`
+150: Class `Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface` is replaced by `Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface`
+159: Method `Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface::encodePassword()` is replaced by `UserPasswordEncoderInterface::hashPassword()`
+160: Class `Symfony\Component\Security\Core\Encoder\NativePasswordEncoder` is replaced by `Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher`
+161: Method `Symfony\Component\Security\Core\Encoder\NativePasswordEncoder::isPasswordValid()` is replaced by `NativePasswordEncoder::verify()`
+162: Method `Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface::getEncoder()` is replaced by `EncoderFactoryInterface::getPasswordHasher()`
+163: Method `Symfony\Component\Security\Core\User\UserProviderInterface::loadUserByUsername()` is replaced by `UserProviderInterface::loadUserByIdentifier()`
+163: Method `Symfony\Component\Security\Core\User\UserInterface::getUsername()` is replaced by `getUserIdentifier()`
+170: Constructor `Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken::__construct()` is replaced by `new \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken($user, $firewallName, ...)`
+171: Method `Symfony\Component\Security\Core\Authentication\Token\TokenInterface::setAuthenticated()` is forbidden: there is no replacement, a token is authenticated while `getUser()` returns a user; drop the call
+173: Method `Symfony\Component\Security\Core\Authentication\Token\TokenInterface::getCredentials()` is forbidden: there is no replacement, a token no longer holds credentials; read them in the authenticator from the request
+176: Constructor `Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken::__construct()` is replaced by `new \Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken($user, $firewallName, ...)`
+177: Constructor `Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken::__construct()` is replaced by `new \Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken($user, $firewallName, ...)`
+178: Constructor `Symfony\Component\Security\Core\Authentication\Token\RememberMeToken::__construct()` is replaced by `new \Symfony\Component\Security\Core\Authentication\Token\RememberMeToken($user, $firewallName)`
+179: Method `Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken::getProviderKey()` is replaced by `PreAuthenticatedToken::getFirewallName()`
+179: Method `Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken::getProviderKey()` is replaced by `UsernamePasswordToken::getFirewallName()`
+179: Method `Symfony\Component\Security\Core\Authentication\Token\RememberMeToken::getProviderKey()` is replaced by `RememberMeToken::getFirewallName()`
+179: Method `Symfony\Component\Security\Core\Authentication\Token\RememberMeToken::getSecret()` is forbidden: there is no replacement, the token no longer holds a secret
+185: Method `Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface::setToken()` is replaced by `setToken(null)`
+192: Method `Symfony\Component\Security\Core\Authentication\RememberMe\PersistentTokenInterface::getUsername()` is replaced by `getUserIdentifier()`
+192: Method `Symfony\Component\Security\Core\Authentication\RememberMe\PersistentTokenInterface::getClass()` is forbidden: there is no replacement, the remember-me cookie no longer holds the class of the user
+193: Constructor `Symfony\Component\Security\Core\Authentication\RememberMe\PersistentToken::__construct()` is replaced by `new \Symfony\Component\Security\Core\Authentication\RememberMe\PersistentToken($userIdentifier, $series, $tokenValue, $lastUsed)`
+199: Method `Symfony\Component\Security\Core\Authentication\Token\TokenInterface::eraseCredentials()` is forbidden: there is no replacement, nothing calls it any more; leave the credentials out of `__serialize()` where the method erased them
+200: Method `Symfony\Component\Security\Core\User\UserInterface::eraseCredentials()` is forbidden: there is no replacement, nothing calls it any more; leave the plain password out of `__serialize()` where the method erased it
+207: Class `Symfony\Component\Security\Core\Authentication\Token\AnonymousToken` is forbidden: there is no replacement, a visitor who is not logged in has no token or a `NullToken`; test `isAuthenticated()` of `AuthenticationTrustResolverInterface`
+208: Constant `Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter::IS_ANONYMOUS` is forbidden: test `IS_AUTHENTICATED` and negate the result, as there is no anonymous user any more; `PUBLIC_ACCESS` grants everybody
+211: Constant `Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter::IS_AUTHENTICATED_ANONYMOUSLY` is replaced by `AuthenticatedVoter::PUBLIC_ACCESS`
+215: Class `Symfony\Component\Security\Core\User\User` is forbidden: use `Symfony\Component\Security\Core\User\InMemoryUser` or an own user class; the former has no `isAccountNonLocked()` and the other account checks
+223: Constructor `Symfony\Component\Security\Core\Authorization\AccessDecisionManager::__construct()` is replaced by `new \Symfony\Component\Security\Core\Authorization\AccessDecisionManager($voters, new \Symfony\Component\Security\Core\Authorization\Strategy\UnanimousStrategy())`
+224: Constructor `Symfony\Component\Security\Core\Authorization\AccessDecisionManager::__construct()` is replaced by `new \Symfony\Component\Security\Core\Authorization\AccessDecisionManager($voters, new \Symfony\Component\Security\Core\Authorization\Strategy\ConsensusStrategy($allowIfAllAbstain, $allowIfEqual))`
+225: Constant `Symfony\Component\Security\Core\Authorization\AccessDecisionManager::STRATEGY_PRIORITY` is forbidden: pass `new Symfony\Component\Security\Core\Authorization\Strategy\PriorityStrategy()` to the constructor
+226: Constructor `Symfony\Component\Security\Core\Authorization\AccessDecisionManager::__construct()` is replaced by `new \Symfony\Component\Security\Core\Authorization\AccessDecisionManager($voters, new \Symfony\Component\Security\Core\Authorization\Strategy\AffirmativeStrategy($allowIfAllAbstain))`
+232: Class `Symfony\Component\Security\Core\User\UserChecker` is replaced by `Symfony\Component\Security\Core\User\InMemoryUserChecker`
+233: Constructor `Symfony\Component\Security\Core\User\User::__construct()` is replaced by `new \Symfony\Component\Security\Core\User\InMemoryUser($username, $password, $roles)`
+237: Method `Symfony\Component\Security\Core\User\UserProviderInterface::loadUserByUsername()` is replaced by `UserProviderInterface::loadUserByIdentifier()`
+238: Class `Symfony\Component\Security\Core\Exception\UsernameNotFoundException` is replaced by `Symfony\Component\Security\Core\Exception\UserNotFoundException`
+239: Method `Symfony\Component\Security\Core\Exception\UserNotFoundException::setUsername()` is replaced by `UserNotFoundException::setUserIdentifier()`
+239: Method `Symfony\Component\Security\Core\Exception\UserNotFoundException::getUsername()` is replaced by `UserNotFoundException::getUserIdentifier()`
+243: Constant `Symfony\Component\Security\Core\AuthenticationEvents::AUTHENTICATION_FAILURE` is forbidden: use `Symfony\Component\Security\Http\Event\LoginFailureEvent` as the event, which carries the authenticator, the passport and the request
+243: Class `Symfony\Component\Security\Core\Event\AuthenticationFailureEvent` is forbidden: use `Symfony\Component\Security\Http\Event\LoginFailureEvent`, which the authenticator system dispatches with the authenticator and the passport

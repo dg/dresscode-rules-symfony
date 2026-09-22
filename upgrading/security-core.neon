@@ -1,0 +1,118 @@
+package: symfony/security-core
+group: deprecations
+
+since 7.4:
+	replacedCalls:
+		'Symfony\Component\Security\Core\Authentication\RememberMe\PersistentToken::__construct($class, $userIdentifier, $series, $tokenValue, $lastUsed)': 'new \Symfony\Component\Security\Core\Authentication\RememberMe\PersistentToken($userIdentifier, $series, $tokenValue, $lastUsed)'
+
+	forbiddenMembers:
+		Symfony\Component\Security\Core\Authentication\RememberMe\PersistentTokenInterface::getClass: 'there is no replacement, the remember-me cookie no longer holds the class of the user'
+
+since 7.3:
+	forbiddenMembers:
+		Symfony\Component\Security\Core\User\UserInterface::eraseCredentials: 'there is no replacement, nothing calls it any more; leave the plain password out of `__serialize()` where the method erased it'
+		Symfony\Component\Security\Core\Authentication\Token\TokenInterface::eraseCredentials: 'there is no replacement, nothing calls it any more; leave the credentials out of `__serialize()` where the method erased them'
+
+since 7.2:
+	replacedCalls:
+		'Symfony\Component\Security\Core\Authentication\Token\RememberMeToken::__construct($user, $firewallName, $secret)': 'new \Symfony\Component\Security\Core\Authentication\Token\RememberMeToken($user, $firewallName)'
+
+	forbiddenMembers:
+		Symfony\Component\Security\Core\Authentication\Token\RememberMeToken::getSecret: 'there is no replacement, the token no longer holds a secret'
+
+since 6.2:
+	replacedCalls:
+		'Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface::setToken()': 'setToken(null)'
+
+since 6.0:
+	replacedClasses:
+		Symfony\Component\Security\Core\Exception\UsernameNotFoundException: Symfony\Component\Security\Core\Exception\UserNotFoundException
+		Symfony\Component\Security\Core\User\UserChecker: Symfony\Component\Security\Core\User\InMemoryUserChecker
+		Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface: Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface
+		Symfony\Component\Security\Core\Encoder\UserPasswordEncoder: Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher
+		Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface: Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface
+		Symfony\Component\Security\Core\Encoder\EncoderFactory: Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory
+		Symfony\Component\Security\Core\Encoder\EncoderAwareInterface: Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface
+		Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface: Symfony\Component\PasswordHasher\PasswordHasherInterface
+		Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder: Symfony\Component\PasswordHasher\Hasher\MessageDigestPasswordHasher
+		Symfony\Component\Security\Core\Encoder\MigratingPasswordEncoder: Symfony\Component\PasswordHasher\Hasher\MigratingPasswordHasher
+		Symfony\Component\Security\Core\Encoder\NativePasswordEncoder: Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher
+		Symfony\Component\Security\Core\Encoder\Pbkdf2PasswordEncoder: Symfony\Component\PasswordHasher\Hasher\Pbkdf2PasswordHasher
+		Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder: Symfony\Component\PasswordHasher\Hasher\PlaintextPasswordHasher
+		Symfony\Component\Security\Core\Encoder\SodiumPasswordEncoder: Symfony\Component\PasswordHasher\Hasher\SodiumPasswordHasher
+
+	replacedMembers:
+		Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter::IS_AUTHENTICATED_ANONYMOUSLY: PUBLIC_ACCESS
+		Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken::getProviderKey: getFirewallName
+		Symfony\Component\Security\Core\Authentication\Token\RememberMeToken::getProviderKey: getFirewallName
+		Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken::getProviderKey: getFirewallName
+		Symfony\Component\Security\Core\Exception\UserNotFoundException::getUsername: getUserIdentifier
+		Symfony\Component\Security\Core\Exception\UserNotFoundException::setUsername: setUserIdentifier
+		Symfony\Component\Security\Core\User\UserProviderInterface::loadUserByUsername: loadUserByIdentifier
+		Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface::encodePassword: hashPassword
+		Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface::getEncoder: getPasswordHasher
+		Symfony\Component\Security\Core\Encoder\EncoderAwareInterface::getEncoderName: getPasswordHasherName
+		Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface::encodePassword: hash
+		Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface::isPasswordValid: verify
+		Symfony\Component\Security\Core\Encoder\UserPasswordEncoder::encodePassword: hashPassword
+		Symfony\Component\Security\Core\Encoder\EncoderFactory::getEncoder: getPasswordHasher
+		Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder::encodePassword: hash
+		Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder::isPasswordValid: verify
+		Symfony\Component\Security\Core\Encoder\MigratingPasswordEncoder::encodePassword: hash
+		Symfony\Component\Security\Core\Encoder\MigratingPasswordEncoder::isPasswordValid: verify
+		Symfony\Component\Security\Core\Encoder\NativePasswordEncoder::encodePassword: hash
+		Symfony\Component\Security\Core\Encoder\NativePasswordEncoder::isPasswordValid: verify
+		Symfony\Component\Security\Core\Encoder\Pbkdf2PasswordEncoder::encodePassword: hash
+		Symfony\Component\Security\Core\Encoder\Pbkdf2PasswordEncoder::isPasswordValid: verify
+		Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder::encodePassword: hash
+		Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder::isPasswordValid: verify
+		Symfony\Component\Security\Core\Encoder\SodiumPasswordEncoder::encodePassword: hash
+		Symfony\Component\Security\Core\Encoder\SodiumPasswordEncoder::isPasswordValid: verify
+
+	replacedCalls:
+		'Symfony\Component\Security\Core\User\UserInterface::getUsername()': 'getUserIdentifier()'
+		'Symfony\Component\Security\Core\Authentication\Token\TokenInterface::getUsername()': 'getUserIdentifier()'
+		'Symfony\Component\Security\Core\Authentication\RememberMe\PersistentTokenInterface::getUsername()': 'getUserIdentifier()'
+		'Symfony\Component\Security\Core\Authentication\Token\TokenInterface::isAuthenticated()': 'getUser() !== null'
+		'Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken::__construct($user, $credentials, string $firewallName, ...)': 'new \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken($user, $firewallName, ...)'
+		'Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken::__construct($user, $credentials, string $firewallName, ...)': 'new \Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken($user, $firewallName, ...)'
+		'Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken::__construct($user, $credentials, string $firewallName, ...)': 'new \Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken($user, $firewallName, ...)'
+		'Symfony\Component\Security\Core\User\User::__construct($username, $password)': 'new \Symfony\Component\Security\Core\User\InMemoryUser($username, $password)'
+		'Symfony\Component\Security\Core\User\User::__construct($username, $password, $roles)': 'new \Symfony\Component\Security\Core\User\InMemoryUser($username, $password, $roles)'
+		'Symfony\Component\Security\Core\User\User::__construct($username, $password, $roles, $enabled)': 'new \Symfony\Component\Security\Core\User\InMemoryUser($username, $password, $roles, $enabled)'
+		'Symfony\Component\Security\Core\Authorization\AccessDecisionManager::__construct($voters, ''affirmative'')': 'new \Symfony\Component\Security\Core\Authorization\AccessDecisionManager($voters, new \Symfony\Component\Security\Core\Authorization\Strategy\AffirmativeStrategy())'
+		'Symfony\Component\Security\Core\Authorization\AccessDecisionManager::__construct($voters, ''affirmative'', $allowIfAllAbstain)': 'new \Symfony\Component\Security\Core\Authorization\AccessDecisionManager($voters, new \Symfony\Component\Security\Core\Authorization\Strategy\AffirmativeStrategy($allowIfAllAbstain))'
+		'Symfony\Component\Security\Core\Authorization\AccessDecisionManager::__construct($voters, ''consensus'')': 'new \Symfony\Component\Security\Core\Authorization\AccessDecisionManager($voters, new \Symfony\Component\Security\Core\Authorization\Strategy\ConsensusStrategy())'
+		'Symfony\Component\Security\Core\Authorization\AccessDecisionManager::__construct($voters, ''consensus'', $allowIfAllAbstain)': 'new \Symfony\Component\Security\Core\Authorization\AccessDecisionManager($voters, new \Symfony\Component\Security\Core\Authorization\Strategy\ConsensusStrategy($allowIfAllAbstain))'
+		'Symfony\Component\Security\Core\Authorization\AccessDecisionManager::__construct($voters, ''consensus'', $allowIfAllAbstain, $allowIfEqual)': 'new \Symfony\Component\Security\Core\Authorization\AccessDecisionManager($voters, new \Symfony\Component\Security\Core\Authorization\Strategy\ConsensusStrategy($allowIfAllAbstain, $allowIfEqual))'
+		'Symfony\Component\Security\Core\Authorization\AccessDecisionManager::__construct($voters, ''unanimous'')': 'new \Symfony\Component\Security\Core\Authorization\AccessDecisionManager($voters, new \Symfony\Component\Security\Core\Authorization\Strategy\UnanimousStrategy())'
+		'Symfony\Component\Security\Core\Authorization\AccessDecisionManager::__construct($voters, ''unanimous'', $allowIfAllAbstain)': 'new \Symfony\Component\Security\Core\Authorization\AccessDecisionManager($voters, new \Symfony\Component\Security\Core\Authorization\Strategy\UnanimousStrategy($allowIfAllAbstain))'
+		'Symfony\Component\Security\Core\Authorization\AccessDecisionManager::__construct($voters, ''priority'')': 'new \Symfony\Component\Security\Core\Authorization\AccessDecisionManager($voters, new \Symfony\Component\Security\Core\Authorization\Strategy\PriorityStrategy())'
+		'Symfony\Component\Security\Core\Authorization\AccessDecisionManager::__construct($voters, ''priority'', $allowIfAllAbstain)': 'new \Symfony\Component\Security\Core\Authorization\AccessDecisionManager($voters, new \Symfony\Component\Security\Core\Authorization\Strategy\PriorityStrategy($allowIfAllAbstain))'
+
+	forbiddenClasses:
+		Symfony\Component\Security\Core\User\User: 'use `Symfony\Component\Security\Core\User\InMemoryUser` or an own user class; the former has no `isAccountNonLocked()` and the other account checks'
+		Symfony\Component\Security\Core\Authentication\Token\AnonymousToken: 'there is no replacement, a visitor who is not logged in has no token or a `NullToken`; test `isAuthenticated()` of `AuthenticationTrustResolverInterface`'
+		Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface: 'there is no replacement, the authenticator system logs users in; implement `Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface`'
+		Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager: 'there is no replacement, the authenticator system logs users in; implement `Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface`'
+		Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface: 'there is no replacement, the authenticator system logs users in; implement `Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface`'
+		Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider: 'there is no replacement, a visitor who is not logged in has no token; drop the provider'
+		Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider: 'use `Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator` or another authenticator with a `PasswordCredentials` badge'
+		Symfony\Component\Security\Core\Authentication\Provider\LdapBindAuthenticationProvider: 'use an authenticator with `Symfony\Component\Ldap\Security\LdapBadge`, which binds to the server with the credentials of the user'
+		Symfony\Component\Security\Core\Authentication\Provider\PreAuthenticatedAuthenticationProvider: 'use `Symfony\Component\Security\Http\Authenticator\RemoteUserAuthenticator` or `X509Authenticator`'
+		Symfony\Component\Security\Core\Authentication\Provider\RememberMeAuthenticationProvider: 'use `Symfony\Component\Security\Http\Authenticator\RememberMeAuthenticator`'
+		Symfony\Component\Security\Core\Authentication\Provider\UserAuthenticationProvider: 'there is no replacement, the authenticator system logs users in; implement `Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface`'
+		Symfony\Component\Security\Core\Event\AuthenticationFailureEvent: 'use `Symfony\Component\Security\Http\Event\LoginFailureEvent`, which the authenticator system dispatches with the authenticator and the passport'
+		Symfony\Component\Security\Core\Encoder\BasePasswordEncoder: 'implement `Symfony\Component\PasswordHasher\PasswordHasherInterface` with the help of `Symfony\Component\PasswordHasher\Hasher\CheckPasswordLengthTrait`'
+		Symfony\Component\Security\Core\Encoder\SelfSaltingEncoderInterface: 'there is no replacement, a hasher implementing `Symfony\Component\PasswordHasher\PasswordHasherInterface` salts by itself; drop the interface'
+
+	forbiddenMembers:
+		Symfony\Component\Security\Core\AuthenticationEvents::AUTHENTICATION_FAILURE: 'use `Symfony\Component\Security\Http\Event\LoginFailureEvent` as the event, which carries the authenticator, the passport and the request'
+		Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter::IS_ANONYMOUS: 'test `IS_AUTHENTICATED` and negate the result, as there is no anonymous user any more; `PUBLIC_ACCESS` grants everybody'
+		Symfony\Component\Security\Core\Authentication\AuthenticationTrustResolverInterface::isAnonymous: 'call `isAuthenticated()` and negate the result, which unlike `isAnonymous()` takes a missing token for a visitor who is not logged in'
+		Symfony\Component\Security\Core\Authentication\Token\TokenInterface::getCredentials: 'there is no replacement, a token no longer holds credentials; read them in the authenticator from the request'
+		Symfony\Component\Security\Core\Authentication\Token\TokenInterface::setAuthenticated: 'there is no replacement, a token is authenticated while `getUser()` returns a user; drop the call'
+		Symfony\Component\Security\Core\Authorization\AccessDecisionManager::STRATEGY_AFFIRMATIVE: 'pass `new Symfony\Component\Security\Core\Authorization\Strategy\AffirmativeStrategy()` to the constructor'
+		Symfony\Component\Security\Core\Authorization\AccessDecisionManager::STRATEGY_CONSENSUS: 'pass `new Symfony\Component\Security\Core\Authorization\Strategy\ConsensusStrategy()` to the constructor'
+		Symfony\Component\Security\Core\Authorization\AccessDecisionManager::STRATEGY_UNANIMOUS: 'pass `new Symfony\Component\Security\Core\Authorization\Strategy\UnanimousStrategy()` to the constructor'
+		Symfony\Component\Security\Core\Authorization\AccessDecisionManager::STRATEGY_PRIORITY: 'pass `new Symfony\Component\Security\Core\Authorization\Strategy\PriorityStrategy()` to the constructor'
