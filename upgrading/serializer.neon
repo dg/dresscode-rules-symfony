@@ -1,0 +1,83 @@
+package: symfony/serializer
+group: deprecations
+
+since 7.4:
+	replacedClasses:
+		Symfony\Component\Serializer\Annotation\Context: Symfony\Component\Serializer\Attribute\Context
+		Symfony\Component\Serializer\Annotation\DiscriminatorMap: Symfony\Component\Serializer\Attribute\DiscriminatorMap
+		Symfony\Component\Serializer\Annotation\Groups: Symfony\Component\Serializer\Attribute\Groups
+		Symfony\Component\Serializer\Annotation\Ignore: Symfony\Component\Serializer\Attribute\Ignore
+		Symfony\Component\Serializer\Annotation\MaxDepth: Symfony\Component\Serializer\Attribute\MaxDepth
+		Symfony\Component\Serializer\Annotation\SerializedName: Symfony\Component\Serializer\Attribute\SerializedName
+		Symfony\Component\Serializer\Annotation\SerializedPath: Symfony\Component\Serializer\Attribute\SerializedPath
+
+	replacedCalls:
+		'Symfony\Component\Serializer\Attribute\Context::getContext()': '$this->context'
+		'Symfony\Component\Serializer\Attribute\Context::getNormalizationContext()': '$this->normalizationContext'
+		'Symfony\Component\Serializer\Attribute\Context::getDenormalizationContext()': '$this->denormalizationContext'
+		'Symfony\Component\Serializer\Attribute\Context::getGroups()': '$this->groups'
+		'Symfony\Component\Serializer\Attribute\DiscriminatorMap::getTypeProperty()': '$this->typeProperty'
+		'Symfony\Component\Serializer\Attribute\DiscriminatorMap::getMapping()': '$this->mapping'
+		'Symfony\Component\Serializer\Attribute\DiscriminatorMap::getDefaultType()': '$this->defaultType'
+		'Symfony\Component\Serializer\Attribute\Groups::getGroups()': '$this->groups'
+		'Symfony\Component\Serializer\Attribute\MaxDepth::getMaxDepth()': '$this->maxDepth'
+		'Symfony\Component\Serializer\Attribute\SerializedName::getSerializedName()': '$this->serializedName'
+		'Symfony\Component\Serializer\Attribute\SerializedPath::getSerializedPath()': '$this->serializedPath'
+
+	forbiddenClasses:
+		Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryCompiler: 'there is no replacement; cache the metadata with `Symfony\Component\Serializer\Mapping\Factory\CacheClassMetadataFactory`'
+
+since 7.3:
+	forbiddenClasses:
+		Symfony\Component\Serializer\Mapping\Factory\CompiledClassMetadataFactory: 'there is no replacement; cache the metadata with `Symfony\Component\Serializer\Mapping\Factory\CacheClassMetadataFactory`'
+		Symfony\Component\Serializer\CacheWarmer\CompiledClassMetadataCacheWarmer: 'there is no replacement; cache the metadata with `Symfony\Component\Serializer\Mapping\Factory\CacheClassMetadataFactory`'
+
+since 7.2:
+	replacedClasses:
+		Symfony\Component\Serializer\NameConverter\AdvancedNameConverterInterface: Symfony\Component\Serializer\NameConverter\NameConverterInterface
+
+	forbiddenMembers:
+		Symfony\Component\Serializer\Encoder\CsvEncoder::ESCAPE_CHAR_KEY: 'there is no replacement, PHP 8.4 deprecated the escape character of its CSV functions; drop the option'
+		Symfony\Component\Serializer\Context\Encoder\CsvEncoderContextBuilder::withEscapeChar: 'there is no replacement, PHP 8.4 deprecated the escape character of its CSV functions; drop the call'
+
+since 7.1:
+	replacedMembers:
+		Symfony\Component\Serializer\Context\Normalizer\AbstractNormalizerContextBuilder::withDefaultContructorArguments: withDefaultConstructorArguments
+
+since 6.4:
+	replacedClasses:
+		Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader: Symfony\Component\Serializer\Mapping\Loader\AttributeLoader
+
+	replacedCalls:
+		'Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader::__construct($reader)': 'new \Symfony\Component\Serializer\Mapping\Loader\AttributeLoader()'
+		'Symfony\Component\Serializer\Mapping\Loader\AttributeLoader::__construct(null)': 'new \Symfony\Component\Serializer\Mapping\Loader\AttributeLoader()'
+
+	forbiddenMembers:
+		Symfony\Component\Serializer\Mapping\Loader\AttributeLoader::loadAnnotations: 'there is no replacement, the loader reads the attributes of a class only in `loadClassMetadata()`'
+		Symfony\Component\Serializer\Encoder\JsonDecode::$serializer: 'there is no replacement, the decoder never used it; drop the property'
+
+	attributeForAnnotation:
+		Symfony\Component\Serializer\Annotation\*: Symfony\Component\Serializer\Attribute\*
+		Symfony\Component\Serializer\Attribute\*: Symfony\Component\Serializer\Attribute\*
+
+since 6.3:
+	forbiddenClasses:
+		Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface: 'implement `getSupportedTypes()` of the normalizer interfaces, which maps each supported type to whether `supports*()` may be cached; drop the interface'
+
+	forbiddenMembers:
+		Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface::hasCacheableSupportsMethod: 'implement `getSupportedTypes()`, which maps each supported type to whether `supports*()` may be cached; drop the method'
+		Symfony\Component\Serializer\Normalizer\AbstractNormalizer::hasCacheableSupportsMethod: 'implement `getSupportedTypes()`, which maps each supported type to whether `supports*()` may be cached; drop the method'
+
+since 6.2:
+	replacedCalls:
+		'Symfony\Component\Serializer\Mapping\AttributeMetadataInterface::setSerializedName()': 'setSerializedName(null)'
+		'Symfony\Component\Serializer\Mapping\ClassMetadataInterface::setClassDiscriminatorMapping()': 'setClassDiscriminatorMapping(null)'
+
+since 6.1:
+	replacedClasses:
+		Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface: Symfony\Component\Serializer\Normalizer\NormalizerInterface
+		Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface: Symfony\Component\Serializer\Normalizer\DenormalizerInterface
+
+since 6.0:
+	replacedMembers:
+		Symfony\Component\Serializer\Normalizer\ArrayDenormalizer::setSerializer: setDenormalizer

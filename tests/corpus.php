@@ -175,6 +175,8 @@ function isLegacy(string $file): bool
 {
 	$refusing = [
 		'Validator/Tests/Constraints/BicValidatorTest.php', // new Bic(options: [...]) after the expected exception
+		'Serializer/Tests/Fixtures/Attributes/ClassWithIgnoreAnnotation.php', // the removed Annotation\Ignore, which must not be honoured
+		'Serializer/Tests/Fixtures/DummyMessageNumberTwo.php', // a @Groups nothing reads any more
 	];
 	return array_any($refusing, fn(string $path) => str_ends_with(str_replace('\\', '/', $file), $path))
 		|| preg_match('~@group\s+legacy|#\[Group\(.legacy.\)\]|#\[IgnoreDeprecations\]~i', (string) file_get_contents($file));

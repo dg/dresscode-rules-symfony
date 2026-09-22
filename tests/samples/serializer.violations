@@ -1,0 +1,43 @@
+6: Class `Symfony\Component\Serializer\Annotation\Groups` is replaced by `Symfony\Component\Serializer\Attribute\Groups`
+7: Class `Symfony\Component\Serializer\Annotation\SerializedName` is replaced by `Symfony\Component\Serializer\Attribute\SerializedName`
+18: Class `Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader` is replaced by `Symfony\Component\Serializer\Mapping\Loader\AttributeLoader`
+20: Class `Symfony\Component\Serializer\NameConverter\AdvancedNameConverterInterface` is replaced by `Symfony\Component\Serializer\NameConverter\NameConverterInterface`
+24: Class `Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface` is replaced by `Symfony\Component\Serializer\Normalizer\DenormalizerInterface`
+25: Class `Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface` is replaced by `Symfony\Component\Serializer\Normalizer\NormalizerInterface`
+32: Annotation `@Serializer\DiscriminatorMap` is replaced by the attribute `#[Symfony\Component\Serializer\Attribute\DiscriminatorMap]`
+42: Annotation `@Serializer\Context` is replaced by the attribute `#[Symfony\Component\Serializer\Attribute\Context]`
+42: Annotation `@Serializer\Ignore` is replaced by the attribute `#[Symfony\Component\Serializer\Attribute\Ignore]`
+48: Annotation `@Groups` is replaced by the attribute `#[Symfony\Component\Serializer\Attribute\Groups]`
+48: Annotation `@SerializedName` is replaced by the attribute `#[Symfony\Component\Serializer\Attribute\SerializedName]`
+54: Annotation `@Serializer\MaxDepth` is replaced by the attribute `#[Symfony\Component\Serializer\Attribute\MaxDepth]`
+59: Class `Symfony\Component\Serializer\Annotation\Groups` is replaced by `Symfony\Component\Serializer\Attribute\Groups`
+60: Class `Symfony\Component\Serializer\Annotation\SerializedName` is replaced by `Symfony\Component\Serializer\Attribute\SerializedName`
+65: Class `Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface` is replaced by `Symfony\Component\Serializer\Normalizer\NormalizerInterface`
+65: Class `Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface` is forbidden: implement `getSupportedTypes()` of the normalizer interfaces, which maps each supported type to whether `supports*()` may be cached; drop the interface
+86: Class `Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface` is replaced by `Symfony\Component\Serializer\Normalizer\DenormalizerInterface`
+105: Method `Symfony\Component\Serializer\Normalizer\AbstractNormalizer::hasCacheableSupportsMethod()` is forbidden: implement `getSupportedTypes()`, which maps each supported type to whether `supports*()` may be cached; drop the method
+107: Method `Symfony\Component\Serializer\Normalizer\AbstractNormalizer::hasCacheableSupportsMethod()` is forbidden: implement `getSupportedTypes()`, which maps each supported type to whether `supports*()` may be cached; drop the method
+112: Class `Symfony\Component\Serializer\NameConverter\AdvancedNameConverterInterface` is replaced by `Symfony\Component\Serializer\NameConverter\NameConverterInterface`
+131: Property `Symfony\Component\Serializer\Encoder\JsonDecode::$serializer` is forbidden: there is no replacement, the decoder never used it; drop the property
+139: Method `Symfony\Component\Serializer\Normalizer\ArrayDenormalizer::setSerializer()` is replaced by `ArrayDenormalizer::setDenormalizer()`
+141: Class `Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader` is replaced by `Symfony\Component\Serializer\Mapping\Loader\AttributeLoader`
+141: Constructor `Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader::__construct()` is replaced by `new \Symfony\Component\Serializer\Mapping\Loader\AttributeLoader()`
+142: Class `Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader` is replaced by `Symfony\Component\Serializer\Mapping\Loader\AttributeLoader`
+143: Constructor `Symfony\Component\Serializer\Mapping\Loader\AttributeLoader::__construct()` is replaced by `new \Symfony\Component\Serializer\Mapping\Loader\AttributeLoader()`
+145: Method `Symfony\Component\Serializer\Mapping\Loader\AttributeLoader::loadAnnotations()` is forbidden: there is no replacement, the loader reads the attributes of a class only in `loadClassMetadata()`
+149: Method `Symfony\Component\Serializer\Mapping\AttributeMetadataInterface::setSerializedName()` is replaced by `setSerializedName(null)`
+151: Method `Symfony\Component\Serializer\Mapping\ClassMetadataInterface::setClassDiscriminatorMapping()` is replaced by `setClassDiscriminatorMapping(null)`
+154: Method `Symfony\Component\Serializer\Context\Normalizer\AbstractNormalizerContextBuilder::withDefaultContructorArguments()` is replaced by `AbstractNormalizerContextBuilder::withDefaultConstructorArguments()`
+158: Method `Symfony\Component\Serializer\Context\Encoder\CsvEncoderContextBuilder::withEscapeChar()` is forbidden: there is no replacement, PHP 8.4 deprecated the escape character of its CSV functions; drop the call
+160: Constant `Symfony\Component\Serializer\Encoder\CsvEncoder::ESCAPE_CHAR_KEY` is forbidden: there is no replacement, PHP 8.4 deprecated the escape character of its CSV functions; drop the option
+162: Class `Symfony\Component\Serializer\Mapping\Factory\CompiledClassMetadataFactory` is forbidden: there is no replacement; cache the metadata with `Symfony\Component\Serializer\Mapping\Factory\CacheClassMetadataFactory`
+163: Class `Symfony\Component\Serializer\CacheWarmer\CompiledClassMetadataCacheWarmer` is forbidden: there is no replacement; cache the metadata with `Symfony\Component\Serializer\Mapping\Factory\CacheClassMetadataFactory`
+163: Class `Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryCompiler` is forbidden: there is no replacement; cache the metadata with `Symfony\Component\Serializer\Mapping\Factory\CacheClassMetadataFactory`
+165: Class `Symfony\Component\Serializer\Annotation\Groups` is replaced by `Symfony\Component\Serializer\Attribute\Groups`
+166: Method `Symfony\Component\Serializer\Attribute\Groups::getGroups()` is replaced by `$this->groups`
+168: Class `Symfony\Component\Serializer\Annotation\SerializedName` is replaced by `Symfony\Component\Serializer\Attribute\SerializedName`
+169: Method `Symfony\Component\Serializer\Attribute\SerializedName::getSerializedName()` is replaced by `$this->serializedName`
+171: Class `Symfony\Component\Serializer\Annotation\MaxDepth` is replaced by `Symfony\Component\Serializer\Attribute\MaxDepth`
+171: Method `Symfony\Component\Serializer\Attribute\MaxDepth::getMaxDepth()` is replaced by `$this->maxDepth`
+173: Method `Symfony\Component\Serializer\Attribute\DiscriminatorMap::getTypeProperty()` is replaced by `$this->typeProperty`
+174: Method `Symfony\Component\Serializer\Attribute\DiscriminatorMap::getMapping()` is replaced by `$this->mapping`
