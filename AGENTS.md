@@ -64,6 +64,6 @@ heading of the component), checked against the code of the component at its tags
 ## The rules of the package
 
 What no map can say is a rule in `src/`, registered by `Plugin` and named `symfony/<slug>`:
-`symfony/valueResolverForArgumentResolver`. The data hold no entry for a use such a rule converts, or the two
-would report it twice. A rule has fixtures in `tests/fixtures/<slug>/`, and the samples run it together with the rules
-the data feed.
+`symfony/valueResolverForArgumentResolver` and `symfony/isGrantedForSecurityAnnotation`. The data hold
+no entry for a use such a rule converts, or the two would report it twice. A rule has fixtures in
+`tests/fixtures/<slug>/`, and the samples run it together with the rules the data feed.

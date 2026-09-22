@@ -8,6 +8,8 @@
 95: Method `Symfony\Component\Security\Http\Firewall\AbstractListener::__invoke()` is forbidden: there is no replacement, the firewall calls `supports()` and `authenticate()` of the listener itself
 100: Class `Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface` is forbidden: register a listener of `Symfony\Component\Security\Http\Event\LogoutEvent` and set the response on the event
 111: Annotation `@IsGranted` is replaced by the attribute `#[Symfony\Component\Security\Http\Attribute\IsGranted]`
+120: Annotation `@Security` is replaced by the attribute `#[Symfony\Component\Security\Http\Attribute\IsGranted]`
+129: Annotation `@Security` is replaced by the attribute `#[Symfony\Component\Security\Http\Attribute\IsGranted]`, but its expression asks more than `is_granted()` with a literal, and an expression of `IsGranted` names its variables otherwise
 141: Class `Symfony\Component\Security\Http\Event\DeauthenticatedEvent` is forbidden: use `Symfony\Component\Security\Http\Event\TokenDeauthenticatedEvent`, which has the original token and the request but no refreshed token
 155: Class `Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface` is replaced by `Symfony\Component\Security\Http\Authenticator\Passport\Passport`
 157: Method `Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler::setProviderKey()` is replaced by `DefaultAuthenticationSuccessHandler::setFirewallName()`

@@ -1,0 +1,7 @@
+8: Annotation `@Security` is replaced by the attribute `#[Symfony\Component\Security\Http\Attribute\IsGranted]`
+14: Annotation `@Security` is replaced by the attribute `#[Symfony\Component\Security\Http\Attribute\IsGranted]`
+23: Annotation `@Security` is replaced by the attribute `#[Symfony\Component\Security\Http\Attribute\IsGranted]`, but its expression asks more than `is_granted()` with a literal, and an expression of `IsGranted` names its variables otherwise
+34: Annotation `@Security` is replaced by the attribute `#[Symfony\Component\Security\Http\Attribute\IsGranted]`, but its expression asks more than `is_granted()` with a literal, and an expression of `IsGranted` names its variables otherwise
+41: Attribute `#[Sensio\Bundle\FrameworkExtraBundle\Configuration\Security]` is replaced by `#[Symfony\Component\Security\Http\Attribute\IsGranted]`
+48: Attribute `#[Sensio\Bundle\FrameworkExtraBundle\Configuration\Security]` is replaced by `#[Symfony\Component\Security\Http\Attribute\IsGranted]`
+55: Attribute `#[Sensio\Bundle\FrameworkExtraBundle\Configuration\Security]` is replaced by `#[Symfony\Component\Security\Http\Attribute\IsGranted]`, but it stands in a group with other attributes, and asks for several

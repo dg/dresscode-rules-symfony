@@ -14,6 +14,7 @@ const UpgradingRules = [
 	'attributeForAnnotation',
 	'attributeForMember',
 	'overrideSignature',
+	'symfony/isGrantedForSecurityAnnotation',
 	'symfony/valueResolverForArgumentResolver',
 ];
 
