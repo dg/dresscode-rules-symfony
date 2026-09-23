@@ -46,6 +46,7 @@
 		"symfony/security-csrf": "^8.1",
 		"symfony/security-http": "^8.1",
 		"symfony/serializer": "^8.1",
+		"symfony/translation": "^8.1",
 		"symfony/type-info": "^8.1",
 		"symfony/validator": "^8.1",
 		"symfony/amqp-messenger": "^8.1",
@@ -105,6 +106,7 @@
 				"symfony/security-csrf",
 				"symfony/security-http",
 				"symfony/serializer",
+				"symfony/translation",
 				"symfony/type-info",
 				"symfony/validator"
 			]
