@@ -1,0 +1,1 @@
+12: Class `Symfony\Component\Mailer\Test\TransportFactoryTestCase` is removed: extend `Symfony\Component\Mailer\Test\AbstractTransportFactoryTestCase`, which has no mock getters; use `IncompleteDsnTestTrait` for `incompleteDsnProvider()`, since symfony/mailer 7.2.
