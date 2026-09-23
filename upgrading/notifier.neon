@@ -1,0 +1,5 @@
+package: symfony/notifier
+
+since 7.2:
+	forbiddenClasses:
+		Symfony\Component\Notifier\Test\TransportFactoryTestCase: 'extend `Symfony\Component\Notifier\Test\AbstractTransportFactoryTestCase` and use `IncompleteDsnTestTrait` or `MissingRequiredOptionTestTrait` for their providers'

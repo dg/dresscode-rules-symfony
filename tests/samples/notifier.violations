@@ -1,0 +1,2 @@
+10: Class `Symfony\Component\Notifier\Test\TransportFactoryTestCase` is removed: extend `Symfony\Component\Notifier\Test\AbstractTransportFactoryTestCase` and use `IncompleteDsnTestTrait` or `MissingRequiredOptionTestTrait` for their providers, since symfony/notifier 7.2.
+38: Class `Symfony\Component\Notifier\Test\TransportFactoryTestCase` is removed: extend `Symfony\Component\Notifier\Test\AbstractTransportFactoryTestCase` and use `IncompleteDsnTestTrait` or `MissingRequiredOptionTestTrait` for their providers, since symfony/notifier 7.2.
