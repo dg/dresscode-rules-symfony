@@ -1,0 +1,10 @@
+23: Static method `Symfony\Component\Mime\Address::fromString()` is replaced by `Address::create()`
+28: Method `Symfony\Component\Mime\Email::attachPart()` is replaced by `Email::addPart()`
+30: Method `Symfony\Component\Mime\Email::attachPart()` is replaced by `Email::addPart()`
+41: Method `Symfony\Component\Mime\Message::setBody()` is replaced by `setBody(null)`
+51: Method `Symfony\Component\Mime\Email::attachPart()` is replaced by `Email::addPart()`
+53: Method `Symfony\Component\Mime\Email::attachPart()` is replaced by `Email::addPart()`
+63: Method `Symfony\Component\Mime\Part\AbstractPart::__sleep()` is forbidden: implement `__serialize()`, which returns the values themselves merged with `parent::__serialize()`, not the names of the properties
+69: Method `Symfony\Component\Mime\Part\AbstractPart::__wakeup()` is forbidden: implement `__unserialize()`, which receives the values and passes the data of the parent to `parent::__unserialize()`
+78: Method `Symfony\Component\Mime\Part\AbstractPart::__sleep()` is forbidden: implement `__serialize()`, which returns the values themselves merged with `parent::__serialize()`, not the names of the properties
+80: Method `Symfony\Component\Mime\Part\AbstractPart::__sleep()` is forbidden: implement `__serialize()`, which returns the values themselves merged with `parent::__serialize()`, not the names of the properties

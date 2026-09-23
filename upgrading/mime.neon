@@ -1,0 +1,18 @@
+package: symfony/mime
+group: deprecations
+
+since 7.4:
+	forbiddenMembers:
+		Symfony\Component\Mime\Part\AbstractPart::__sleep: 'implement `__serialize()`, which returns the values themselves merged with `parent::__serialize()`, not the names of the properties'
+		Symfony\Component\Mime\Part\AbstractPart::__wakeup: 'implement `__unserialize()`, which receives the values and passes the data of the parent to `parent::__unserialize()`'
+
+since 6.2:
+	replacedMembers:
+		Symfony\Component\Mime\Email::attachPart: addPart
+
+	replacedCalls:
+		'Symfony\Component\Mime\Message::setBody()': 'setBody(null)'
+
+since 6.0:
+	replacedMembers:
+		Symfony\Component\Mime\Address::fromString: create

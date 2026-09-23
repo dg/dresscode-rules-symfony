@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Mail;
+
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Message;
+use Symfony\Component\Mime\Part\DataPart;
+use Symfony\Component\Mime\Part\TextPart;
+
+
+class InvoiceMailFactory
+{
+	public function __construct(
+		private ?Email $lastEmail = null,
+	) {
+	}
+
+
+	public function create(string $recipient, string $pdf): Email
+	{
+		$email = (new Email)
+			->from(Address::fromString('Billing <billing@example.com>'))
+			->to(Address::create($recipient))
+			->subject('Your invoice')
+			->text('See the attachment.');
+
+		$email->attachPart(new DataPart($pdf, 'invoice.pdf', 'application/pdf'));
+		$email->addPart(new DataPart('terms', 'terms.txt'));
+		$this->lastEmail?->attachPart(new DataPart($pdf, 'copy.pdf'));
+		$this->lastEmail = $email;
+
+		return $email;
+	}
+
+
+	public function createRaw(): Message
+	{
+		$message = new Message;
+		$message->setBody(new TextPart('hello'));
+		$message->setBody();
+		$message->setBody(null);
+
+		return $message;
+	}
+}
+
+
+class SignedEmail extends Email
+{
+	public function attachPart(DataPart $part): static
+	{
+		return parent::attachPart($part);
+	}
+}
+
+
+class TrackedTextPart extends TextPart
+{
+	private string $trackingId = '';
+
+
+	public function __sleep(): array
+	{
+		return ['trackingId'];
+	}
+
+
+	public function __wakeup(): void
+	{
+		$this->trackingId = trim($this->trackingId);
+	}
+}
+
+
+class TrackedDataPart extends DataPart
+{
+	public function __sleep(): array
+	{
+		return parent::__sleep();
+	}
+}
