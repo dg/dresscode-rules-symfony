@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Tests\Mailer;
+
+use Symfony\Component\Mailer\Test\TransportFactoryTestCase;
+use Symfony\Component\Mailer\Transport\Dsn;
+use Symfony\Component\Mailer\Transport\NullTransport;
+use Symfony\Component\Mailer\Transport\NullTransportFactory;
+use Symfony\Component\Mailer\Transport\TransportFactoryInterface;
+
+
+final class AcmeTransportFactoryTest extends TransportFactoryTestCase
+{
+	public function getFactory(): TransportFactoryInterface
+	{
+		return new NullTransportFactory($this->getDispatcher(), $this->getClient(), $this->getLogger());
+	}
+
+
+	public static function supportsProvider(): iterable
+	{
+		yield [new Dsn('null', ''), true];
+	}
+
+
+	public static function createProvider(): iterable
+	{
+		yield [new Dsn('null', 'null'), new NullTransport];
+	}
+
+
+	public static function incompleteDsnProvider(): iterable
+	{
+		yield [new Dsn('null', '')];
+	}
+}

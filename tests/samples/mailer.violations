@@ -1,0 +1,1 @@
+12: Class `Symfony\Component\Mailer\Test\TransportFactoryTestCase` is forbidden: extend `Symfony\Component\Mailer\Test\AbstractTransportFactoryTestCase`, which has no mock getters; use `IncompleteDsnTestTrait` for `incompleteDsnProvider()`
