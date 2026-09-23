@@ -1,0 +1,2 @@
+10: Class `Symfony\Component\Notifier\Test\TransportFactoryTestCase` is forbidden: extend `Symfony\Component\Notifier\Test\AbstractTransportFactoryTestCase` and use `IncompleteDsnTestTrait` or `MissingRequiredOptionTestTrait` for their providers
+38: Class `Symfony\Component\Notifier\Test\TransportFactoryTestCase` is forbidden: extend `Symfony\Component\Notifier\Test\AbstractTransportFactoryTestCase` and use `IncompleteDsnTestTrait` or `MissingRequiredOptionTestTrait` for their providers

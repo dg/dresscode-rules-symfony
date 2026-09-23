@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Tests\Notifier;
+
+use App\Notifier\AcmeTransportFactory;
+use Symfony\Component\Notifier\Test\TransportFactoryTestCase;
+use Symfony\Component\Notifier\Transport\TransportFactoryInterface;
+
+
+final class AcmeTransportFactoryTest extends TransportFactoryTestCase
+{
+	public function createFactory(): TransportFactoryInterface
+	{
+		return new AcmeTransportFactory;
+	}
+
+
+	public static function supportsProvider(): iterable
+	{
+		yield [true, 'acme://host'];
+		yield [false, 'somethingElse://host'];
+	}
+
+
+	public static function createProvider(): iterable
+	{
+		yield ['acme://host.test', 'acme://token@host.test'];
+	}
+
+
+	public static function incompleteDsnProvider(): iterable
+	{
+		yield 'missing token' => ['acme://host.test'];
+	}
+}
+
+
+abstract class SharedTransportFactoryTestCase extends \Symfony\Component\Notifier\Test\TransportFactoryTestCase
+{
+}
