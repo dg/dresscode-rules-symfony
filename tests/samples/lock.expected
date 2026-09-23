@@ -1,0 +1,81 @@
+<?php
+
+namespace App\Lock;
+
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Schema\Schema;
+use Symfony\Component\Lock\Exception\NotSupportedException;
+use Symfony\Component\Lock\LockFactory;
+use Symfony\Component\Lock\PersistingStoreInterface;
+use Symfony\Component\Lock\Store\DoctrineDbalPostgreSqlStore;
+use Symfony\Component\Lock\Store\DoctrineDbalStore;
+use Symfony\Component\Lock\Store\PdoStore;
+use Symfony\Component\Lock\Store\PostgreSqlStore;
+use Symfony\Component\Lock\Store\RetryTillSaveStore;
+
+
+final class LockFactoryProvider
+{
+	public function __construct(
+		private Connection $connection,
+		private \PDO $pdo,
+	) {
+	}
+
+
+	public function createFactory(): LockFactory
+	{
+		$store = new DoctrineDbalStore($this->connection, ['db_table' => 'app_lock'], 0.1);
+		return new LockFactory($store);
+	}
+
+
+	public function createPostgreSqlFactory(): LockFactory
+	{
+		return new LockFactory(new DoctrineDbalPostgreSqlStore($this->connection));
+	}
+
+
+	public function createPdoFactory(string $dsn): LockFactory
+	{
+		$first = new PdoStore($this->pdo);
+		$second = new PostgreSqlStore($dsn);
+		return new LockFactory($first);
+	}
+
+
+	public function wrap(PersistingStoreInterface $store): RetryTillSaveStore
+	{
+		return $store;
+	}
+}
+
+
+final class LockSchemaSubscriber
+{
+	public function __construct(
+		private PdoStore $pdoStore,
+		private DoctrineDbalStore $dbalStore,
+		private ?DoctrineDbalStore $optionalStore,
+	) {
+	}
+
+
+	public function postGenerateSchema(Schema $schema): void
+	{
+		$this->pdoStore->configureSchema($schema);
+		$this->dbalStore->configureSchema($schema, static fn() => true);
+		$this->dbalStore->configureSchema($schema, static fn() => false);
+		$this->optionalStore->configureSchema($schema, static fn() => true);
+	}
+}
+
+
+function acquire(LockFactory $factory): bool
+{
+	try {
+		return $factory->createLock('report')->acquire();
+	} catch (NotSupportedException $e) {
+		return false;
+	}
+}

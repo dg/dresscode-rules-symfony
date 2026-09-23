@@ -1,0 +1,19 @@
+package: symfony/lock
+group: deprecations
+
+since 6.3:
+	replacedCalls:
+		'Symfony\Component\Lock\Store\DoctrineDbalStore::configureSchema($schema)': 'configureSchema($schema, static fn() => true)'
+
+since 6.0:
+	replacedCalls:
+		'Symfony\Component\Lock\Store\PdoStore::__construct(Doctrine\DBAL\Connection $connection, ...)': 'new \Symfony\Component\Lock\Store\DoctrineDbalStore($connection, ...)'
+		'Symfony\Component\Lock\Store\PostgreSqlStore::__construct(Doctrine\DBAL\Connection $connection, ...)': 'new \Symfony\Component\Lock\Store\DoctrineDbalPostgreSqlStore($connection)'
+		'Symfony\Component\Lock\Store\RetryTillSaveStore::__construct($store, ...)': '$store'
+
+	forbiddenMembers:
+		Symfony\Component\Lock\Store\PdoStore::configureSchema: 'create a `Symfony\Component\Lock\Store\DoctrineDbalStore` over the DBAL connection and call its `configureSchema()`'
+
+	forbiddenClasses:
+		Symfony\Component\Lock\Exception\NotSupportedException: 'there is no replacement, no store throws it; drop the catch'
+		Symfony\Component\Lock\Store\RetryTillSaveStore: 'there is no replacement, `Symfony\Component\Lock\Lock` retries a store that is not blocking itself; use the decorated store directly'

@@ -1,0 +1,9 @@
+27: Constructor `Symfony\Component\Lock\Store\PdoStore::__construct()` is replaced by `new \Symfony\Component\Lock\Store\DoctrineDbalStore($connection, ...)`
+28: Constructor `Symfony\Component\Lock\Store\RetryTillSaveStore::__construct()` is replaced by `$store`
+34: Constructor `Symfony\Component\Lock\Store\PostgreSqlStore::__construct()` is replaced by `new \Symfony\Component\Lock\Store\DoctrineDbalPostgreSqlStore($connection)`
+46: Class `Symfony\Component\Lock\Store\RetryTillSaveStore` is forbidden: there is no replacement, `Symfony\Component\Lock\Lock` retries a store that is not blocking itself; use the decorated store directly
+48: Constructor `Symfony\Component\Lock\Store\RetryTillSaveStore::__construct()` is replaced by `$store`
+65: Method `Symfony\Component\Lock\Store\PdoStore::configureSchema()` is forbidden: create a `Symfony\Component\Lock\Store\DoctrineDbalStore` over the DBAL connection and call its `configureSchema()`
+66: Method `Symfony\Component\Lock\Store\DoctrineDbalStore::configureSchema()` is replaced by `configureSchema($schema, static fn() => true)`
+68: Method `Symfony\Component\Lock\Store\DoctrineDbalStore::configureSchema()` is replaced by `configureSchema($schema, static fn() => true)`
+77: Class `Symfony\Component\Lock\Exception\NotSupportedException` is forbidden: there is no replacement, no store throws it; drop the catch
