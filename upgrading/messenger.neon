@@ -1,0 +1,62 @@
+package: symfony/messenger
+group: deprecations
+
+since 6.4:
+	replacedCalls:
+		'Symfony\Component\Messenger\Exception\HandlerFailedException::getNestedExceptions()': '\array_values($this->getWrappedExceptions())'
+		'Symfony\Component\Messenger\Exception\HandlerFailedException::getNestedExceptionOfClass($class)': '\array_values($this->getWrappedExceptions($class))'
+
+	replacedMembers:
+		Symfony\Component\Messenger\Exception\DelayedMessageHandlingException::getExceptions: getWrappedExceptions
+
+	forbiddenClasses:
+		Symfony\Component\Messenger\EventListener\StopWorkerOnSignalsListener: 'there is no replacement, `messenger:consume` stops the worker on `SIGTERM` and `SIGINT` itself through `SignalableCommandInterface`; drop the listener'
+		Symfony\Component\Messenger\EventListener\StopWorkerOnSigtermSignalListener: 'there is no replacement, `messenger:consume` stops the worker on `SIGTERM` and `SIGINT` itself through `SignalableCommandInterface`; drop the listener'
+
+since 6.3:
+	replacedClasses:
+		Symfony\Component\Messenger\Transport\InMemoryTransport: Symfony\Component\Messenger\Transport\InMemory\InMemoryTransport
+		Symfony\Component\Messenger\Transport\InMemoryTransportFactory: Symfony\Component\Messenger\Transport\InMemory\InMemoryTransportFactory
+
+	forbiddenClasses:
+		Symfony\Component\Messenger\EventListener\StopWorkerOnSigtermSignalListener: 'create `Symfony\Component\Messenger\EventListener\StopWorkerOnSignalsListener`, which takes the signals as its first argument, such as `[SIGTERM]`'
+
+since 6.2:
+	attributeForMember:
+		Symfony\Component\Messenger\Handler\MessageHandlerInterface: Symfony\Component\Messenger\Attribute\AsMessageHandler
+
+	forbiddenClasses:
+		Symfony\Component\Messenger\Handler\MessageSubscriberInterface: 'write the attribute `AsMessageHandler` on each method that handles a message, with what `getHandledMessages()` yields for it as its arguments'
+
+since 6.0:
+	replacedClasses:
+		Symfony\Component\Messenger\Transport\AmqpExt\AmqpFactory: Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpFactory
+		Symfony\Component\Messenger\Transport\AmqpExt\AmqpReceivedStamp: Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpReceivedStamp
+		Symfony\Component\Messenger\Transport\AmqpExt\AmqpReceiver: Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpReceiver
+		Symfony\Component\Messenger\Transport\AmqpExt\AmqpSender: Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpSender
+		Symfony\Component\Messenger\Transport\AmqpExt\AmqpStamp: Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpStamp
+		Symfony\Component\Messenger\Transport\AmqpExt\AmqpTransport: Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpTransport
+		Symfony\Component\Messenger\Transport\AmqpExt\AmqpTransportFactory: Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpTransportFactory
+		Symfony\Component\Messenger\Transport\AmqpExt\Connection: Symfony\Component\Messenger\Bridge\Amqp\Transport\Connection
+		Symfony\Component\Messenger\Transport\Doctrine\Connection: Symfony\Component\Messenger\Bridge\Doctrine\Transport\Connection
+		Symfony\Component\Messenger\Transport\Doctrine\DoctrineReceivedStamp: Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineReceivedStamp
+		Symfony\Component\Messenger\Transport\Doctrine\DoctrineReceiver: Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineReceiver
+		Symfony\Component\Messenger\Transport\Doctrine\DoctrineSender: Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineSender
+		Symfony\Component\Messenger\Transport\Doctrine\DoctrineTransport: Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineTransport
+		Symfony\Component\Messenger\Transport\Doctrine\DoctrineTransportFactory: Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineTransportFactory
+		Symfony\Component\Messenger\Transport\RedisExt\Connection: Symfony\Component\Messenger\Bridge\Redis\Transport\Connection
+		Symfony\Component\Messenger\Transport\RedisExt\RedisReceivedStamp: Symfony\Component\Messenger\Bridge\Redis\Transport\RedisReceivedStamp
+		Symfony\Component\Messenger\Transport\RedisExt\RedisReceiver: Symfony\Component\Messenger\Bridge\Redis\Transport\RedisReceiver
+		Symfony\Component\Messenger\Transport\RedisExt\RedisSender: Symfony\Component\Messenger\Bridge\Redis\Transport\RedisSender
+		Symfony\Component\Messenger\Transport\RedisExt\RedisTransport: Symfony\Component\Messenger\Bridge\Redis\Transport\RedisTransport
+		Symfony\Component\Messenger\Transport\RedisExt\RedisTransportFactory: Symfony\Component\Messenger\Bridge\Redis\Transport\RedisTransportFactory
+
+	replacedCalls:
+		'Symfony\Component\Messenger\Stamp\RedeliveryStamp::__construct($retryCount, $exceptionMessage, $flattenException, $redeliveredAt)': 'new \Symfony\Component\Messenger\Stamp\RedeliveryStamp($retryCount, $redeliveredAt)'
+		'Symfony\Component\Messenger\Stamp\RedeliveryStamp::__construct($retryCount, DateTimeInterface $redeliveredAt, $flattenException)': 'new \Symfony\Component\Messenger\Stamp\RedeliveryStamp($retryCount, $redeliveredAt)'
+		'Symfony\Component\Messenger\Stamp\RedeliveryStamp::__construct($retryCount, ?string $exceptionMessage, $flattenException)': 'new \Symfony\Component\Messenger\Stamp\RedeliveryStamp($retryCount)'
+		'Symfony\Component\Messenger\Stamp\RedeliveryStamp::__construct($retryCount, string $exceptionMessage)': 'new \Symfony\Component\Messenger\Stamp\RedeliveryStamp($retryCount)'
+
+	forbiddenMembers:
+		Symfony\Component\Messenger\Stamp\RedeliveryStamp::getExceptionMessage: 'read `getExceptionMessage()` of the last `Symfony\Component\Messenger\Stamp\ErrorDetailsStamp` of the envelope'
+		Symfony\Component\Messenger\Stamp\RedeliveryStamp::getFlattenException: 'read `getFlattenException()` of the last `Symfony\Component\Messenger\Stamp\ErrorDetailsStamp` of the envelope'

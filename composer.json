@@ -29,6 +29,7 @@
 		"symfony/framework-bundle": "^8.1",
 		"symfony/http-foundation": "^8.1",
 		"symfony/http-kernel": "^8.1",
+		"symfony/messenger": "^8.1",
 		"symfony/options-resolver": "^8.1",
 		"symfony/password-hasher": "^8.1",
 		"symfony/property-access": "^8.1",
@@ -40,7 +41,10 @@
 		"symfony/security-http": "^8.1",
 		"symfony/serializer": "^8.1",
 		"symfony/type-info": "^8.1",
-		"symfony/validator": "^8.1"
+		"symfony/validator": "^8.1",
+		"symfony/amqp-messenger": "^8.1",
+		"symfony/doctrine-messenger": "^8.1",
+		"symfony/redis-messenger": "^8.1"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
@@ -57,6 +61,10 @@
 	"config": {
 		"allow-plugins": {
 			"phpstan/extension-installer": true
+		},
+		"platform": {
+			"ext-amqp": "2.1",
+			"ext-redis": "6.2"
 		}
 	},
 	"extra": {
@@ -74,6 +82,7 @@
 				"upgrading/framework-bundle.neon",
 				"upgrading/http-foundation.neon",
 				"upgrading/http-kernel.neon",
+				"upgrading/messenger.neon",
 				"upgrading/options-resolver.neon",
 				"upgrading/property-access.neon",
 				"upgrading/property-info.neon",

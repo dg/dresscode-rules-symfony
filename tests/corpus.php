@@ -175,6 +175,7 @@ function isLegacy(string $file): bool
 {
 	$refusing = [
 		'Validator/Tests/Constraints/BicValidatorTest.php', // new Bic(options: [...]) after the expected exception
+		'Messenger/Tests/Command/ConsumeMessagesCommandTest.php', // add() where method_exists() finds no addCommand()
 		'Serializer/Tests/Fixtures/Attributes/ClassWithIgnoreAnnotation.php', // the removed Annotation\Ignore, which must not be honoured
 		'Serializer/Tests/Fixtures/DummyMessageNumberTwo.php', // a @Groups nothing reads any more
 		'Security/Http/Tests/Fixtures/DummyAuthenticator.php', // a dead import of the removed PassportInterface

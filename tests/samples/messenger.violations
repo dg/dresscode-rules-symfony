@@ -1,0 +1,24 @@
+17: Class `Symfony\Component\Messenger\Transport\AmqpExt\AmqpStamp` is replaced by `Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpStamp`
+18: Class `Symfony\Component\Messenger\Transport\Doctrine\DoctrineReceivedStamp` is replaced by `Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineReceivedStamp`
+19: Class `Symfony\Component\Messenger\Transport\InMemoryTransport` is replaced by `Symfony\Component\Messenger\Transport\InMemory\InMemoryTransport`
+20: Class `Symfony\Component\Messenger\Transport\InMemoryTransportFactory` is replaced by `Symfony\Component\Messenger\Transport\InMemory\InMemoryTransportFactory`
+21: Class `Symfony\Component\Messenger\Transport\RedisExt\Connection` is replaced by `Symfony\Component\Messenger\Bridge\Redis\Transport\Connection`
+33: Interface `Symfony\Component\Messenger\Handler\MessageHandlerInterface` is replaced by the attribute `#[Symfony\Component\Messenger\Attribute\AsMessageHandler]`
+41: Class `Symfony\Component\Messenger\Handler\MessageSubscriberInterface` is forbidden: write the attribute `AsMessageHandler` on each method that handles a message, with what `getHandledMessages()` yields for it as its arguments
+66: Class `Symfony\Component\Messenger\Transport\AmqpExt\AmqpStamp` is replaced by `Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpStamp`
+68: Method `Symfony\Component\Messenger\Exception\HandlerFailedException::getNestedExceptions()` is replaced by `\array_values($this->getWrappedExceptions())`
+69: Method `Symfony\Component\Messenger\Exception\HandlerFailedException::getNestedExceptionOfClass()` is replaced by `\array_values($this->getWrappedExceptions($class))`
+74: Method `Symfony\Component\Messenger\Exception\DelayedMessageHandlingException::getExceptions()` is replaced by `DelayedMessageHandlingException::getWrappedExceptions()`
+81: Method `Symfony\Component\Messenger\Exception\DelayedMessageHandlingException::getExceptions()` is replaced by `DelayedMessageHandlingException::getWrappedExceptions()`
+87: Class `Symfony\Component\Messenger\Transport\Doctrine\DoctrineReceivedStamp` is replaced by `Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineReceivedStamp`
+94: Method `Symfony\Component\Messenger\Stamp\RedeliveryStamp::getExceptionMessage()` is forbidden: read `getExceptionMessage()` of the last `Symfony\Component\Messenger\Stamp\ErrorDetailsStamp` of the envelope
+95: Method `Symfony\Component\Messenger\Stamp\RedeliveryStamp::getFlattenException()` is forbidden: read `getFlattenException()` of the last `Symfony\Component\Messenger\Stamp\ErrorDetailsStamp` of the envelope
+98: Constructor `Symfony\Component\Messenger\Stamp\RedeliveryStamp::__construct()` is replaced by `new \Symfony\Component\Messenger\Stamp\RedeliveryStamp($retryCount)`
+99: Constructor `Symfony\Component\Messenger\Stamp\RedeliveryStamp::__construct()` is replaced by `new \Symfony\Component\Messenger\Stamp\RedeliveryStamp($retryCount)`
+100: Constructor `Symfony\Component\Messenger\Stamp\RedeliveryStamp::__construct()` is replaced by `new \Symfony\Component\Messenger\Stamp\RedeliveryStamp($retryCount, $redeliveredAt)`
+101: Constructor `Symfony\Component\Messenger\Stamp\RedeliveryStamp::__construct()` is replaced by `new \Symfony\Component\Messenger\Stamp\RedeliveryStamp($retryCount, $redeliveredAt)`
+111: Class `Symfony\Component\Messenger\Transport\RedisExt\Connection` is replaced by `Symfony\Component\Messenger\Bridge\Redis\Transport\Connection`
+128: Class `Symfony\Component\Messenger\EventListener\StopWorkerOnSigtermSignalListener` is forbidden: there is no replacement, `messenger:consume` stops the worker on `SIGTERM` and `SIGINT` itself through `SignalableCommandInterface`; drop the listener
+129: Class `Symfony\Component\Messenger\EventListener\StopWorkerOnSignalsListener` is forbidden: there is no replacement, `messenger:consume` stops the worker on `SIGTERM` and `SIGINT` itself through `SignalableCommandInterface`; drop the listener
+140: Class `Symfony\Component\Messenger\Transport\InMemoryTransport` is replaced by `Symfony\Component\Messenger\Transport\InMemory\InMemoryTransport`
+143: Class `Symfony\Component\Messenger\Transport\InMemoryTransportFactory` is replaced by `Symfony\Component\Messenger\Transport\InMemory\InMemoryTransportFactory`

@@ -1,0 +1,146 @@
+<?php
+
+namespace App\Messenger;
+
+use Psr\Log\LoggerInterface;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\ErrorHandler\Exception\FlattenException;
+use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\EventListener\StopWorkerOnSignalsListener;
+use Symfony\Component\Messenger\EventListener\StopWorkerOnSigtermSignalListener;
+use Symfony\Component\Messenger\Exception\DelayedMessageHandlingException;
+use Symfony\Component\Messenger\Exception\HandlerFailedException;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
+use Symfony\Component\Messenger\Transport\AmqpExt\AmqpStamp;
+use Symfony\Component\Messenger\Transport\Doctrine\DoctrineReceivedStamp;
+use Symfony\Component\Messenger\Transport\InMemoryTransport;
+use Symfony\Component\Messenger\Transport\InMemoryTransportFactory;
+use Symfony\Component\Messenger\Transport\RedisExt\Connection;
+
+
+class OrderPlaced
+{
+	public function __construct(
+		public int $id,
+	) {
+	}
+}
+
+
+class OrderPlacedHandler implements MessageHandlerInterface
+{
+	public function __invoke(OrderPlaced $message): void
+	{
+	}
+}
+
+
+class OrderSubscriber implements MessageSubscriberInterface
+{
+	public static function getHandledMessages(): iterable
+	{
+		yield OrderPlaced::class => ['method' => 'onPlaced'];
+	}
+
+
+	public function onPlaced(OrderPlaced $message): void
+	{
+	}
+}
+
+
+class OrderDispatcher
+{
+	public function __construct(
+		private MessageBusInterface $bus,
+	) {
+	}
+
+
+	public function dispatch(OrderPlaced $order): void
+	{
+		try {
+			$this->bus->dispatch($order, [new AmqpStamp('orders.placed')]);
+		} catch (HandlerFailedException $e) {
+			$first = $e->getNestedExceptions()[0];
+			foreach ($e->getNestedExceptionOfClass(\RuntimeException::class) as $nested) {
+				throw $nested;
+			}
+			throw $first;
+		} catch (DelayedMessageHandlingException $e) {
+			throw $e->getExceptions()[0];
+		}
+	}
+
+
+	public function unwrap(?DelayedMessageHandlingException $delayed): array
+	{
+		return $delayed?->getExceptions() ?? [];
+	}
+
+
+	public function wasReceivedFromDoctrine(Envelope $envelope): bool
+	{
+		return $envelope->last(DoctrineReceivedStamp::class) !== null;
+	}
+
+
+	public function retry(Envelope $envelope, \Throwable $error, \DateTimeImmutable $now): Envelope
+	{
+		$stamp = $envelope->last(RedeliveryStamp::class);
+		$message = $stamp?->getExceptionMessage();
+		$flatten = $stamp?->getFlattenException();
+
+		return $envelope
+			->with(new RedeliveryStamp(1, $error->getMessage()))
+			->with(new RedeliveryStamp(2, 'Timeout', FlattenException::createFromThrowable($error)))
+			->with(new RedeliveryStamp(3, null, null, $now))
+			->with(new RedeliveryStamp(4, $now, null))
+			->with(new RedeliveryStamp(5, $now))
+			->with(new RedeliveryStamp(6));
+	}
+}
+
+
+class RedisHealthCheck
+{
+	public function __construct(
+		private Connection $connection,
+	) {
+	}
+
+
+	public function count(): ?int
+	{
+		return $this->connection->getMessageCount();
+	}
+}
+
+
+class WorkerListeners
+{
+	public static function create(LoggerInterface $logger): array
+	{
+		return [
+			new StopWorkerOnSigtermSignalListener($logger),
+			new StopWorkerOnSignalsListener([SIGTERM, SIGINT], $logger),
+		];
+	}
+}
+
+
+class OrderFlowTest extends KernelTestCase
+{
+	public function testOrderIsQueued(): void
+	{
+		$transport = self::getContainer()->get('messenger.transport.async');
+		assert($transport instanceof InMemoryTransport);
+		$this->assertCount(1, $transport->getSent());
+
+		$factory = new InMemoryTransportFactory;
+		$factory->reset();
+	}
+}
