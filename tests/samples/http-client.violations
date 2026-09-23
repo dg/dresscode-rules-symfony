@@ -1,0 +1,10 @@
+31: Method `Symfony\Component\HttpClient\NoPrivateNetworkHttpClient::setLogger()` is forbidden: call `setLogger()` on the wrapped client before passing it to the constructor
+39: Method `Symfony\Component\HttpClient\ScopingHttpClient::setLogger()` is forbidden: call `setLogger()` on the wrapped client before passing it to the constructor
+47: Method `Symfony\Component\HttpClient\TraceableHttpClient::setLogger()` is forbidden: call `setLogger()` on the wrapped client before passing it to the constructor
+54: Constructor `Symfony\Component\HttpClient\CachingHttpClient::__construct()` is forbidden: pass a `Symfony\Contracts\Cache\TagAwareCacheInterface` such as a `TagAwareAdapter`, which stores the responses by RFC 9111 without `HttpCache`
+56: Constructor `Symfony\Component\HttpClient\CachingHttpClient::__construct()` is forbidden: pass a positive number of seconds such as `86400`, the default, which caps the lifetime of every cached response
+57: Constructor `Symfony\Component\HttpClient\CachingHttpClient::__construct()` is forbidden: pass a positive number of seconds such as `86400`, the default, which caps the lifetime of every cached response
+68: Method `Symfony\Component\HttpClient\HttplugClient::createRequest()` is forbidden: call `createRequest($method, $uri)` and set the headers, the body and the protocol version on the returned request by its `with*()` methods
+69: Method `Symfony\Component\HttpClient\HttplugClient::createRequest()` is forbidden: call `createRequest($method, $uri)` and set the headers, the body and the protocol version on the returned request by its `with*()` methods
+76: Method `Symfony\Component\HttpClient\ScopingHttpClient::setLogger()` is forbidden: call `setLogger()` on the wrapped client before passing it to the constructor
+84: Constructor `Symfony\Component\HttpClient\DependencyInjection\HttpClientPass::__construct()` is forbidden: there is no replacement, the pass always reads the `http_client.client` tag; drop the argument

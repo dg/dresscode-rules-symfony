@@ -1,0 +1,25 @@
+package: symfony/http-client
+group: deprecations
+
+since 8.1:
+	forbiddenMembers:
+		'Symfony\Component\HttpClient\CachingHttpClient::__construct($client, $cache, $defaultOptions, $sharedCache, null)': 'pass a positive number of seconds such as `86400`, the default, which caps the lifetime of every cached response'
+		'Symfony\Component\HttpClient\CachingHttpClient::__construct(maxTtl: null, ...)': 'pass a positive number of seconds such as `86400`, the default, which caps the lifetime of every cached response'
+
+since 7.4:
+	forbiddenMembers:
+		'Symfony\Component\HttpClient\CachingHttpClient::__construct($client, Symfony\Component\HttpKernel\HttpCache\StoreInterface $store, ...)': 'pass a `Symfony\Contracts\Cache\TagAwareCacheInterface` such as a `TagAwareAdapter`, which stores the responses by RFC 9111 without `HttpCache`'
+
+since 7.1:
+	forbiddenMembers:
+		Symfony\Component\HttpClient\NoPrivateNetworkHttpClient::setLogger: 'call `setLogger()` on the wrapped client before passing it to the constructor'
+		Symfony\Component\HttpClient\ScopingHttpClient::setLogger: 'call `setLogger()` on the wrapped client before passing it to the constructor'
+		Symfony\Component\HttpClient\TraceableHttpClient::setLogger: 'call `setLogger()` on the wrapped client before passing it to the constructor'
+
+since 6.2:
+	forbiddenMembers:
+		'Symfony\Component\HttpClient\HttplugClient::createRequest($method, $uri, $headers, ...)': 'call `createRequest($method, $uri)` and set the headers, the body and the protocol version on the returned request by its `with*()` methods'
+
+since 6.0:
+	forbiddenMembers:
+		'Symfony\Component\HttpClient\DependencyInjection\HttpClientPass::__construct($clientTag)': 'there is no replacement, the pass always reads the `http_client.client` tag; drop the argument'

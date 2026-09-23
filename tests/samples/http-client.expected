@@ -1,0 +1,86 @@
+<?php
+
+namespace App\Http;
+
+use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpClient\CachingHttpClient;
+use Symfony\Component\HttpClient\DependencyInjection\HttpClientPass;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpClient\HttplugClient;
+use Symfony\Component\HttpClient\NoPrivateNetworkHttpClient;
+use Symfony\Component\HttpClient\ScopingHttpClient;
+use Symfony\Component\HttpClient\TraceableHttpClient;
+use Symfony\Component\HttpKernel\HttpCache\Store;
+use Symfony\Component\Cache\Adapter\TagAwareAdapter;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+
+class ClientFactory
+{
+	public function __construct(
+		private LoggerInterface $logger,
+	) {
+	}
+
+
+	public function createPublicClient(): HttpClientInterface
+	{
+		$client = new NoPrivateNetworkHttpClient(HttpClient::create());
+		$client->setLogger($this->logger);
+		return $client;
+	}
+
+
+	public function createScopedClient(?ScopingHttpClient $scoped = null): HttpClientInterface
+	{
+		$scoped ??= ScopingHttpClient::forBaseUri(HttpClient::create(), 'https://api.example.com/');
+		$scoped?->setLogger($this->logger);
+		return $scoped;
+	}
+
+
+	public function createTraceableClient(): HttpClientInterface
+	{
+		$client = new TraceableHttpClient(HttpClient::create());
+		$client->setLogger($this->logger);
+		return $client;
+	}
+
+
+	public function createCachingClient(string $cacheDir): HttpClientInterface
+	{
+		$legacy = new CachingHttpClient(HttpClient::create(), new Store($cacheDir), ['debug' => true]);
+		$current = new CachingHttpClient(HttpClient::create(), new TagAwareAdapter(new ArrayAdapter), [], true, 3600);
+		$unlimited = new CachingHttpClient(HttpClient::create(), new TagAwareAdapter(new ArrayAdapter), [], true, null);
+		$named = new CachingHttpClient(HttpClient::create(), new TagAwareAdapter(new ArrayAdapter), maxTtl: null);
+		return $legacy;
+	}
+}
+
+
+class HttplugRequests
+{
+	public function build(HttplugClient $client): void
+	{
+		$client->createRequest('GET', 'https://example.com/');
+		$client->createRequest('POST', 'https://example.com/', ['Content-Type' => 'application/json'], '{}');
+		$client->createRequest('POST', 'https://example.com/', ['Accept' => 'text/html']);
+	}
+}
+
+
+class LoggingScopingHttpClient extends ScopingHttpClient
+{
+	public function setLogger(LoggerInterface $logger): void
+	{
+	}
+}
+
+
+function registerPasses(ContainerBuilder $container): void
+{
+	$container->addCompilerPass(new HttpClientPass('app.http_client'));
+	$container->addCompilerPass(new HttpClientPass);
+}
