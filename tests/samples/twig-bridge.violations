@@ -1,0 +1,9 @@
+27: Annotation `@Template` is replaced by the attribute `#[Symfony\Bridge\Twig\Attribute\Template]`
+36: Annotation `@Template` is replaced by the attribute `#[Symfony\Bridge\Twig\Attribute\Template]`
+45: Annotation `@Template` is replaced by the attribute `#[Symfony\Bridge\Twig\Attribute\Template]`, but the attribute requires `$template`, which is not given
+54: Annotation `@Template` is replaced by the attribute `#[Symfony\Bridge\Twig\Attribute\Template]`
+57: Constructor `Symfony\Bridge\Twig\Attribute\Template::__construct()` is replaced by `new \Symfony\Bridge\Twig\Attribute\Template($template, stream: $stream)`
+63: Attribute `#[Sensio\Bundle\FrameworkExtraBundle\Configuration\Template]` is replaced by `#[Symfony\Bridge\Twig\Attribute\Template]`
+81: Constructor `Symfony\Bridge\Twig\Node\FormThemeNode::__construct()` is replaced by `new \Symfony\Bridge\Twig\Node\FormThemeNode($form, $resources, $lineno, $only)`
+84: Constructor `Symfony\Bridge\Twig\Node\FormThemeNode::__construct()` is replaced by `new \Symfony\Bridge\Twig\Node\FormThemeNode($form, $resources, $lineno)`
+90: Constructor `Symfony\Bridge\Twig\Node\FormThemeNode::__construct()` is replaced by `new \Symfony\Bridge\Twig\Node\FormThemeNode($form, $resources, $lineno)`

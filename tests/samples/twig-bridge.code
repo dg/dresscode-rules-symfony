@@ -1,0 +1,105 @@
+<?php
+
+namespace Sensio\Bundle\FrameworkExtraBundle\Configuration {
+
+	#[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
+	class Template
+	{
+		public function __construct($data = [], array $vars = [], bool $isStreamable = false, array $owner = [])
+		{
+		}
+	}
+}
+
+
+namespace App {
+
+	use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+	use Symfony\Bridge\Twig\Node\FormThemeNode;
+	use Symfony\Component\HttpFoundation\Response;
+	use Twig\Node\Node;
+	use Twig\Token;
+	use Twig\TokenParser\AbstractTokenParser;
+
+
+	class PostController
+	{
+		/**
+		 * @Template("post/index.html.twig")
+		 */
+		public function index(): array
+		{
+			return ['posts' => []];
+		}
+
+
+		/**
+		 * @Template("post/show.html.twig", vars={"post"})
+		 */
+		public function show($post): array
+		{
+			return [];
+		}
+
+
+		/**
+		 * @Template()
+		 */
+		public function guessed(): array
+		{
+			return [];
+		}
+
+
+		/**
+		 * @Template("post/feed.html.twig", isStreamable=true)
+		 */
+		public function feed(): array
+		{
+			return [];
+		}
+
+
+		#[Template('post/edit.html.twig')]
+		public function edit(): array
+		{
+			return [];
+		}
+	}
+
+
+	final class ThemeTokenParser extends AbstractTokenParser
+	{
+		public function parse(Token $token): Node
+		{
+			$stream = $this->parser->getStream();
+			$form = $this->parser->parseExpression();
+			$resources = $this->parser->parseExpression();
+			$stream->expect(Token::BLOCK_END_TYPE);
+
+			if ($token->getValue() === 'only') {
+				return new FormThemeNode($form, $resources, $token->getLine(), $this->getTag(), true);
+			}
+
+			return new FormThemeNode($form, $resources, $token->getLine(), $this->getTag());
+		}
+
+
+		public function parseNull(Token $token, Node $form, Node $resources): Node
+		{
+			return new FormThemeNode($form, $resources, $token->getLine(), null);
+		}
+
+
+		public function parseCurrent(Token $token, Node $form, Node $resources): Node
+		{
+			return new FormThemeNode($form, $resources, $token->getLine(), true);
+		}
+
+
+		public function getTag(): string
+		{
+			return 'app_theme';
+		}
+	}
+}

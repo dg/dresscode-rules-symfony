@@ -1,0 +1,15 @@
+package: symfony/twig-bridge
+group: deprecations
+
+since 7.2:
+	replacedCalls:
+		'Symfony\Bridge\Twig\Node\FormThemeNode::__construct($form, $resources, $lineno, null)': 'new \Symfony\Bridge\Twig\Node\FormThemeNode($form, $resources, $lineno)'
+		'Symfony\Bridge\Twig\Node\FormThemeNode::__construct($form, $resources, $lineno, string $tag)': 'new \Symfony\Bridge\Twig\Node\FormThemeNode($form, $resources, $lineno)'
+		'Symfony\Bridge\Twig\Node\FormThemeNode::__construct($form, $resources, $lineno, $tag, $only)': 'new \Symfony\Bridge\Twig\Node\FormThemeNode($form, $resources, $lineno, $only)'
+
+since 6.2:
+	replacedCalls:
+		'Symfony\Bridge\Twig\Attribute\Template::__construct($template, isStreamable: $stream)': 'new \Symfony\Bridge\Twig\Attribute\Template($template, stream: $stream)'
+
+	attributeForAnnotation:
+		Sensio\Bundle\FrameworkExtraBundle\Configuration\Template: Symfony\Bridge\Twig\Attribute\Template

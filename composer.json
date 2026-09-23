@@ -47,8 +47,10 @@
 		"symfony/security-http": "^8.1",
 		"symfony/serializer": "^8.1",
 		"symfony/translation": "^8.1",
+		"symfony/twig-bridge": "^8.1",
 		"symfony/type-info": "^8.1",
 		"symfony/validator": "^8.1",
+		"twig/twig": "^3.21",
 		"symfony/amqp-messenger": "^8.1",
 		"symfony/doctrine-messenger": "^8.1",
 		"symfony/redis-messenger": "^8.1"
@@ -106,6 +108,7 @@
 				"upgrading/security-http.neon",
 				"upgrading/serializer.neon",
 				"upgrading/translation.neon",
+				"upgrading/twig-bridge.neon",
 				"upgrading/type-info.neon",
 				"upgrading/validator.neon"
 			]
