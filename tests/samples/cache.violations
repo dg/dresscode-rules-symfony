@@ -1,0 +1,13 @@
+26: Class `Symfony\Component\Cache\DoctrineProvider` is removed: use `Doctrine\Common\Cache\Psr6\DoctrineProvider::wrap()` of `doctrine/cache`, which returns a `Doctrine\Common\Cache\Cache`, since symfony/cache 6.0.
+28: Constructor `Symfony\Component\Cache\DoctrineProvider::__construct()` is replaced by `\Doctrine\Common\Cache\Psr6\DoctrineProvider::wrap($pool)`.
+32: Class `Symfony\Component\Cache\Adapter\DoctrineAdapter` is removed: use `Doctrine\Common\Cache\Psr6\CacheAdapter::wrap()` of `doctrine/cache`, which takes no namespace and no default lifetime, since symfony/cache 6.0.
+34: Constructor `Symfony\Component\Cache\Adapter\DoctrineAdapter::__construct()` is replaced by `\Doctrine\Common\Cache\Psr6\CacheAdapter::wrap($provider)`.
+35: Constructor `Symfony\Component\Cache\Adapter\DoctrineAdapter::__construct()` is replaced by `\Doctrine\Common\Cache\Psr6\CacheAdapter::wrap($provider)`.
+36: Class `Symfony\Component\Cache\Adapter\DoctrineAdapter` is removed: use `Doctrine\Common\Cache\Psr6\CacheAdapter::wrap()` of `doctrine/cache`, which takes no namespace and no default lifetime, since symfony/cache 6.0.
+37: Constructor `Symfony\Component\Cache\Adapter\DoctrineAdapter::__construct()` is replaced by `\Doctrine\Common\Cache\Psr6\CacheAdapter::wrap($provider)`.
+46: Constructor `Symfony\Component\Cache\Adapter\PdoAdapter::__construct()` is replaced by `new \Symfony\Component\Cache\Adapter\DoctrineDbalAdapter($connOrDsn, ...)`.
+52: Method `Symfony\Component\Cache\Adapter\PdoAdapter::configureSchema()` is removed: use `Symfony\Component\Cache\Adapter\DoctrineDbalAdapter`, whose `configureSchema()` adds the table to a Doctrine DBAL schema, since symfony/cache 6.0.
+56: Class `Symfony\Component\Cache\Adapter\CouchbaseBucketAdapter` is removed: use `Symfony\Component\Cache\Adapter\CouchbaseCollectionAdapter`, which needs the Couchbase 3 SDK and takes a collection, not a bucket, since symfony/cache 7.1.
+58: Class `Symfony\Component\Cache\Adapter\CouchbaseBucketAdapter` is removed: use `Symfony\Component\Cache\Adapter\CouchbaseCollectionAdapter`, which needs the Couchbase 3 SDK and takes a collection, not a bucket, since symfony/cache 7.1.
+69: Class `Symfony\Component\Cache\Adapter\DoctrineAdapter` is removed: use `Doctrine\Common\Cache\Psr6\CacheAdapter::wrap()` of `doctrine/cache`, which takes no namespace and no default lifetime, since symfony/cache 6.0.
+82: Constructor `Symfony\Component\Cache\Adapter\PdoAdapter::__construct()` is replaced by `new \Symfony\Component\Cache\Adapter\DoctrineDbalAdapter($connOrDsn, ...)`, but `parent::__construct()` creates no object to replace.
