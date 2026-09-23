@@ -20,6 +20,7 @@
 		"nette/tester": "^2.6",
 		"phpstan/extension-installer": "^1.4",
 		"phpstan/phpstan": "^2.2",
+		"symfony/cache": "^8.1",
 		"symfony/config": "^8.1",
 		"symfony/console": "^8.1",
 		"symfony/dependency-injection": "^8.1",
@@ -77,6 +78,7 @@
 		"dresscode": {
 			"plugin": "DressCodeRules\\Symfony\\Plugin",
 			"upgrading": [
+				"upgrading/cache.neon",
 				"upgrading/config.neon",
 				"upgrading/console.neon",
 				"upgrading/dependency-injection.neon",

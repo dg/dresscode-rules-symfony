@@ -1,0 +1,21 @@
+package: symfony/cache
+group: deprecations
+
+since 7.1:
+	forbiddenClasses:
+		Symfony\Component\Cache\Adapter\CouchbaseBucketAdapter: 'use `Symfony\Component\Cache\Adapter\CouchbaseCollectionAdapter`, which needs the Couchbase 3 SDK and takes a collection, not a bucket'
+
+since 6.0:
+	replacedCalls:
+		'Symfony\Component\Cache\DoctrineProvider::__construct($pool)': '\Doctrine\Common\Cache\Psr6\DoctrineProvider::wrap($pool)'
+		'Symfony\Component\Cache\Adapter\DoctrineAdapter::__construct($provider)': '\Doctrine\Common\Cache\Psr6\CacheAdapter::wrap($provider)'
+		'Symfony\Component\Cache\Adapter\DoctrineAdapter::__construct($provider, '''')': '\Doctrine\Common\Cache\Psr6\CacheAdapter::wrap($provider)'
+		'Symfony\Component\Cache\Adapter\DoctrineAdapter::__construct($provider, '''', 0)': '\Doctrine\Common\Cache\Psr6\CacheAdapter::wrap($provider)'
+		'Symfony\Component\Cache\Adapter\PdoAdapter::__construct(Doctrine\DBAL\Connection $connOrDsn, ...)': 'new \Symfony\Component\Cache\Adapter\DoctrineDbalAdapter($connOrDsn, ...)'
+
+	forbiddenClasses:
+		Symfony\Component\Cache\DoctrineProvider: 'use `Doctrine\Common\Cache\Psr6\DoctrineProvider::wrap()` of `doctrine/cache`, which returns a `Doctrine\Common\Cache\Cache`'
+		Symfony\Component\Cache\Adapter\DoctrineAdapter: 'use `Doctrine\Common\Cache\Psr6\CacheAdapter::wrap()` of `doctrine/cache`, which takes no namespace and no default lifetime'
+
+	forbiddenMembers:
+		Symfony\Component\Cache\Adapter\PdoAdapter::configureSchema: 'use `Symfony\Component\Cache\Adapter\DoctrineDbalAdapter`, whose `configureSchema()` adds the table to a Doctrine DBAL schema'

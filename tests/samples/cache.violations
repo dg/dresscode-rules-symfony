@@ -1,0 +1,13 @@
+26: Class `Symfony\Component\Cache\DoctrineProvider` is forbidden: use `Doctrine\Common\Cache\Psr6\DoctrineProvider::wrap()` of `doctrine/cache`, which returns a `Doctrine\Common\Cache\Cache`
+28: Constructor `Symfony\Component\Cache\DoctrineProvider::__construct()` is replaced by `\Doctrine\Common\Cache\Psr6\DoctrineProvider::wrap($pool)`
+32: Class `Symfony\Component\Cache\Adapter\DoctrineAdapter` is forbidden: use `Doctrine\Common\Cache\Psr6\CacheAdapter::wrap()` of `doctrine/cache`, which takes no namespace and no default lifetime
+34: Constructor `Symfony\Component\Cache\Adapter\DoctrineAdapter::__construct()` is replaced by `\Doctrine\Common\Cache\Psr6\CacheAdapter::wrap($provider)`
+35: Constructor `Symfony\Component\Cache\Adapter\DoctrineAdapter::__construct()` is replaced by `\Doctrine\Common\Cache\Psr6\CacheAdapter::wrap($provider)`
+36: Class `Symfony\Component\Cache\Adapter\DoctrineAdapter` is forbidden: use `Doctrine\Common\Cache\Psr6\CacheAdapter::wrap()` of `doctrine/cache`, which takes no namespace and no default lifetime
+37: Constructor `Symfony\Component\Cache\Adapter\DoctrineAdapter::__construct()` is replaced by `\Doctrine\Common\Cache\Psr6\CacheAdapter::wrap($provider)`
+46: Constructor `Symfony\Component\Cache\Adapter\PdoAdapter::__construct()` is replaced by `new \Symfony\Component\Cache\Adapter\DoctrineDbalAdapter($connOrDsn, ...)`
+52: Method `Symfony\Component\Cache\Adapter\PdoAdapter::configureSchema()` is forbidden: use `Symfony\Component\Cache\Adapter\DoctrineDbalAdapter`, whose `configureSchema()` adds the table to a Doctrine DBAL schema
+56: Class `Symfony\Component\Cache\Adapter\CouchbaseBucketAdapter` is forbidden: use `Symfony\Component\Cache\Adapter\CouchbaseCollectionAdapter`, which needs the Couchbase 3 SDK and takes a collection, not a bucket
+58: Class `Symfony\Component\Cache\Adapter\CouchbaseBucketAdapter` is forbidden: use `Symfony\Component\Cache\Adapter\CouchbaseCollectionAdapter`, which needs the Couchbase 3 SDK and takes a collection, not a bucket
+69: Class `Symfony\Component\Cache\Adapter\DoctrineAdapter` is forbidden: use `Doctrine\Common\Cache\Psr6\CacheAdapter::wrap()` of `doctrine/cache`, which takes no namespace and no default lifetime
+82: Constructor `Symfony\Component\Cache\Adapter\PdoAdapter::__construct()` is replaced by `new \Symfony\Component\Cache\Adapter\DoctrineDbalAdapter($connOrDsn, ...)`, but `parent::__construct()` creates no object to replace

@@ -1,0 +1,86 @@
+<?php
+
+namespace App\Cache;
+
+use Doctrine\Common\Cache\CacheProvider;
+use Doctrine\Common\Cache\Psr6\CacheAdapter;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Schema\Schema;
+use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\Cache\Adapter\CouchbaseBucketAdapter;
+use Symfony\Component\Cache\Adapter\DoctrineAdapter;
+use Symfony\Component\Cache\Adapter\DoctrineDbalAdapter;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Adapter\PdoAdapter;
+use Symfony\Component\Cache\DoctrineProvider;
+
+
+class CacheFactory
+{
+	public function __construct(
+		private Connection $connection,
+		private ?Connection $replica,
+		private \PDO $pdo,
+	) {
+	}
+
+
+	public function createDoctrineCache(CacheItemPoolInterface $pool): DoctrineProvider
+	{
+		return \Doctrine\Common\Cache\Psr6\DoctrineProvider::wrap($pool);
+	}
+
+
+	public function createPool(CacheProvider $provider): DoctrineAdapter
+	{
+		CacheAdapter::wrap($provider);
+		CacheAdapter::wrap($provider);
+		new DoctrineAdapter($provider, 'app', 3600);
+		return CacheAdapter::wrap($provider);
+	}
+
+
+	public function createDatabasePool(): PdoAdapter
+	{
+		new PdoAdapter($this->replica, 'replica');
+		new PdoAdapter($this->pdo, 'app');
+		new PdoAdapter('mysql://user:secret@localhost/app');
+		return new DoctrineDbalAdapter($this->connection, 'app', 3600, ['db_table' => 'cache_items']);
+	}
+
+
+	public function configureSchema(Schema $schema, ?PdoAdapter $adapter): void
+	{
+		$adapter->configureSchema($schema, $this->connection);
+	}
+
+
+	public function createCouchbasePool(\CouchbaseBucket $bucket): CouchbaseBucketAdapter
+	{
+		return new CouchbaseBucketAdapter($bucket, 'app');
+	}
+
+
+	public function createFilesystemPool(): FilesystemAdapter
+	{
+		return new FilesystemAdapter('app', 0, '/tmp/cache');
+	}
+}
+
+
+class NamespacedDoctrineAdapter extends DoctrineAdapter
+{
+	public function __construct(CacheProvider $provider)
+	{
+		parent::__construct($provider);
+	}
+}
+
+
+class ReplicaAdapter extends PdoAdapter
+{
+	public function __construct(Connection $connection)
+	{
+		parent::__construct($connection, 'replica');
+	}
+}
