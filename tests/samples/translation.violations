@@ -1,0 +1,12 @@
+20: Class `Symfony\Component\Translation\Extractor\PhpExtractor` is forbidden: use `Symfony\Component\Translation\Extractor\PhpAstExtractor`, which parses the code with `nikic/php-parser` and takes its visitors in the constructor
+29: Class `Symfony\Component\Translation\Extractor\PhpStringTokenParser` is forbidden: there is no replacement, the token based extractor is gone; parse the code with `nikic/php-parser`
+38: Method `Symfony\Component\Translation\Loader\CsvFileLoader::setCsvControl()` is replaced by `setCsvControl($delimiter, $enclosure)`
+48: Method `Symfony\Component\Translation\Loader\CsvFileLoader::setCsvControl()` is replaced by `setCsvControl($delimiter, $enclosure)`
+50: Method `Symfony\Component\Translation\Loader\CsvFileLoader::setCsvControl()` is replaced by `setCsvControl()`
+51: Method `Symfony\Component\Translation\Loader\CsvFileLoader::setCsvControl()` is replaced by `setCsvControl($delimiter)`
+52: Method `Symfony\Component\Translation\Loader\CsvFileLoader::setCsvControl()` is replaced by `setCsvControl($delimiter, $enclosure)`
+53: Method `Symfony\Component\Translation\Loader\CsvFileLoader::setCsvControl()` is replaced by `setCsvControl($delimiter, $enclosure)`
+54: Method `Symfony\Component\Translation\Loader\CsvFileLoader::setCsvControl()` is replaced by `setCsvControl($delimiter, $enclosure)`
+71: Method `Symfony\Component\Translation\TranslatableMessage::__toString()` is replaced by `getMessage()`
+72: Method `Symfony\Component\Translation\TranslatableMessage::__toString()` is replaced by `getMessage()`
+77: Class `Symfony\Component\Translation\Test\ProviderFactoryTestCase` is forbidden: extend `Symfony\Component\Translation\Test\AbstractProviderFactoryTestCase`, which has no mock getters; use `IncompleteDsnTestTrait` for `incompleteDsnProvider()`

@@ -1,0 +1,101 @@
+<?php
+
+namespace App\Translation;
+
+use Symfony\Component\Translation\Extractor\PhpExtractor;
+use Symfony\Component\Translation\Extractor\PhpStringTokenParser;
+use Symfony\Component\Translation\Loader\CsvFileLoader;
+use Symfony\Component\Translation\MessageCatalogue;
+use Symfony\Component\Translation\Provider\ProviderFactoryInterface;
+use Symfony\Component\Translation\Test\ProviderFactoryTestCase;
+use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
+
+class TranslationExtractor
+{
+	public function extract(string $dir): MessageCatalogue
+	{
+		$catalogue = new MessageCatalogue('en');
+		$extractor = new PhpExtractor;
+		$extractor->setPrefix('__');
+		$extractor->extract($dir, $catalogue);
+		return $catalogue;
+	}
+
+
+	public function unquote(string $token): string
+	{
+		return PhpStringTokenParser::parse($token);
+	}
+}
+
+
+class TabLoader extends CsvFileLoader
+{
+	public function __construct()
+	{
+		$this->setCsvControl("\t", '"');
+	}
+}
+
+
+class LoaderFactory
+{
+	public function create(): CsvFileLoader
+	{
+		$loader = new CsvFileLoader;
+		$loader->setCsvControl(';', '"');
+		$loader->setCsvControl(';', '"');
+		$loader->setCsvControl();
+		$loader->setCsvControl('|');
+		$loader->setCsvControl(',', "'");
+		$loader->setCsvControl(',', "'");
+		$loader->setCsvControl(',', "'");
+		return $loader;
+	}
+}
+
+
+class Notifier
+{
+	public function __construct(
+		private TranslatorInterface $translator,
+		private ?TranslatableMessage $subject = null,
+	) {
+	}
+
+
+	public function subject(TranslatableMessage $message): string
+	{
+		$this->subject?->getMessage();
+		return $message->getMessage() . ' / ' . $message->trans($this->translator);
+	}
+}
+
+
+class AcmeProviderFactoryTest extends ProviderFactoryTestCase
+{
+	public function createFactory(): ProviderFactoryInterface
+	{
+		return new AcmeProviderFactory($this->getClient(), $this->getLogger(), $this->getDefaultLocale(), $this->getLoader());
+	}
+
+
+	public static function supportsProvider(): iterable
+	{
+		yield [true, 'acme://API_KEY@default'];
+	}
+
+
+	public static function createProvider(): iterable
+	{
+		yield ['acme://api.acme.com', 'acme://API_KEY@default'];
+	}
+
+
+	public static function incompleteDsnProvider(): iterable
+	{
+		yield ['acme://default'];
+	}
+}

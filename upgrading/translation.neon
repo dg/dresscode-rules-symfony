@@ -1,0 +1,21 @@
+package: symfony/translation
+group: deprecations
+
+since 7.4:
+	replacedCalls:
+		'Symfony\Component\Translation\TranslatableMessage::__toString()': 'getMessage()'
+
+since 7.2:
+	replacedCalls:
+		'Symfony\Component\Translation\Loader\CsvFileLoader::setCsvControl($delimiter, $enclosure, $escape)': 'setCsvControl($delimiter, $enclosure)'
+		'Symfony\Component\Translation\Loader\CsvFileLoader::setCsvControl($delimiter, $enclosure, escape: $escape)': 'setCsvControl($delimiter, $enclosure)'
+		'Symfony\Component\Translation\Loader\CsvFileLoader::setCsvControl($delimiter, escape: $escape)': 'setCsvControl($delimiter)'
+		'Symfony\Component\Translation\Loader\CsvFileLoader::setCsvControl(escape: $escape)': 'setCsvControl()'
+
+	forbiddenClasses:
+		Symfony\Component\Translation\Test\ProviderFactoryTestCase: 'extend `Symfony\Component\Translation\Test\AbstractProviderFactoryTestCase`, which has no mock getters; use `IncompleteDsnTestTrait` for `incompleteDsnProvider()`'
+
+since 6.2:
+	forbiddenClasses:
+		Symfony\Component\Translation\Extractor\PhpExtractor: 'use `Symfony\Component\Translation\Extractor\PhpAstExtractor`, which parses the code with `nikic/php-parser` and takes its visitors in the constructor'
+		Symfony\Component\Translation\Extractor\PhpStringTokenParser: 'there is no replacement, the token based extractor is gone; parse the code with `nikic/php-parser`'

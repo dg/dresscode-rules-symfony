@@ -46,6 +46,7 @@
 		"symfony/security-csrf": "^8.1",
 		"symfony/security-http": "^8.1",
 		"symfony/serializer": "^8.1",
+		"symfony/translation": "^8.1",
 		"symfony/type-info": "^8.1",
 		"symfony/validator": "^8.1",
 		"symfony/amqp-messenger": "^8.1",
@@ -104,6 +105,7 @@
 				"upgrading/security-csrf.neon",
 				"upgrading/security-http.neon",
 				"upgrading/serializer.neon",
+				"upgrading/translation.neon",
 				"upgrading/type-info.neon",
 				"upgrading/validator.neon"
 			]
