@@ -1,0 +1,24 @@
+package: symfony/monolog-bridge
+group: deprecations
+
+since 7.4:
+	replacedCalls:
+		'Symfony\Bridge\Monolog\Handler\FingersCrossed\NotFoundActivationStrategy::__construct($requestStack, $excludedUrls, $inner)': 'new \Symfony\Bridge\Monolog\Handler\FingersCrossed\HttpCodeActivationStrategy($requestStack, [[''code'' => 404, ''urls'' => $excludedUrls]], $inner)'
+
+	forbiddenClasses:
+		Symfony\Bridge\Monolog\Handler\FingersCrossed\NotFoundActivationStrategy: 'use `Symfony\Bridge\Monolog\Handler\FingersCrossed\HttpCodeActivationStrategy` with a single exclusion of code `404` and the same urls'
+
+since 6.4:
+	forbiddenClasses:
+		Symfony\Bridge\Monolog\Logger: 'use `Monolog\Logger` and read the debug logs through `Symfony\Component\HttpKernel\Log\DebugLoggerConfigurator::getDebugLogger()`'
+
+since 6.0:
+	replacedCalls:
+		'Symfony\Bridge\Monolog\Handler\FingersCrossed\NotFoundActivationStrategy::__construct($requestStack, $excludedUrls, int $actionLevel)': 'new \Symfony\Bridge\Monolog\Handler\FingersCrossed\NotFoundActivationStrategy($requestStack, $excludedUrls, new \Monolog\Handler\FingersCrossed\ErrorLevelActivationStrategy($actionLevel))'
+		'Symfony\Bridge\Monolog\Handler\FingersCrossed\NotFoundActivationStrategy::__construct($requestStack, $excludedUrls, string $actionLevel)': 'new \Symfony\Bridge\Monolog\Handler\FingersCrossed\NotFoundActivationStrategy($requestStack, $excludedUrls, new \Monolog\Handler\FingersCrossed\ErrorLevelActivationStrategy($actionLevel))'
+		'Symfony\Bridge\Monolog\Handler\FingersCrossed\HttpCodeActivationStrategy::__construct($requestStack, $exclusions, int $actionLevel)': 'new \Symfony\Bridge\Monolog\Handler\FingersCrossed\HttpCodeActivationStrategy($requestStack, $exclusions, new \Monolog\Handler\FingersCrossed\ErrorLevelActivationStrategy($actionLevel))'
+		'Symfony\Bridge\Monolog\Handler\FingersCrossed\HttpCodeActivationStrategy::__construct($requestStack, $exclusions, string $actionLevel)': 'new \Symfony\Bridge\Monolog\Handler\FingersCrossed\HttpCodeActivationStrategy($requestStack, $exclusions, new \Monolog\Handler\FingersCrossed\ErrorLevelActivationStrategy($actionLevel))'
+
+	forbiddenClasses:
+		Symfony\Bridge\Monolog\Handler\SwiftMailerHandler: 'use `Symfony\Bridge\Monolog\Handler\MailerHandler`, which sends the records through Symfony Mailer'
+		Symfony\Bridge\Monolog\Messenger\ResetLoggersWorkerSubscriber: 'there is no replacement, the messenger worker resets the loggers after each message; drop the subscriber'
