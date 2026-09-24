@@ -61,7 +61,8 @@
 		"twig/twig": "^3.21",
 		"symfony/amqp-messenger": "^8.1",
 		"symfony/doctrine-messenger": "^8.1",
-		"symfony/redis-messenger": "^8.1"
+		"symfony/redis-messenger": "^8.1",
+		"symfony/var-exporter": "^8.1"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
@@ -127,6 +128,7 @@
 				"symfony/type-info",
 				"symfony/validator",
 				"symfony/var-dumper",
+				"symfony/var-exporter",
 				"symfony/workflow"
 			]
 		}

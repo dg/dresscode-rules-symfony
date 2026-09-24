@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Lazy;
+
+use Symfony\Component\VarExporter\Hydrator;
+use Symfony\Component\VarExporter\LazyGhostTrait;
+use Symfony\Component\VarExporter\LazyObjectInterface;
+use Symfony\Component\VarExporter\LazyProxyTrait;
+use Symfony\Component\VarExporter\ProxyHelper;
+use Symfony\Component\VarExporter\VarExporter;
+
+
+class Invoice
+{
+	public int $id = 0;
+	public string $number = '';
+}
+
+
+class LazyInvoice extends Invoice implements LazyObjectInterface
+{
+	use LazyGhostTrait;
+}
+
+
+class InvoiceRepositoryProxy extends InvoiceRepository implements LazyObjectInterface
+{
+	use LazyProxyTrait;
+}
+
+
+class InvoiceRepository
+{
+	public function find(int $id): Invoice
+	{
+		$invoice = LazyInvoice::createLazyGhost(function (Invoice $invoice) use ($id): void {
+			$invoice->id = $id;
+		});
+		return Hydrator::hydrate($invoice, ['number' => 'F-' . $id]);
+	}
+
+
+	public function dumpProxyCode(): string
+	{
+		$code = ProxyHelper::generateLazyGhost(new \ReflectionClass(Invoice::class));
+		$code .= ProxyHelper::generateLazyProxy(new \ReflectionClass(self::class));
+		return $code . VarExporter::export([1, 2]);
+	}
+}
