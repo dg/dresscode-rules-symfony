@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Text;
+
+use Symfony\Component\String\ByteString;
+use Symfony\Component\String\LazyString;
+use Symfony\Component\String\UnicodeString;
+
+
+class Slug extends UnicodeString
+{
+	private string $locale = 'en';
+
+
+	public function __sleep(): array
+	{
+		return [...parent::__sleep(), 'locale'];
+	}
+
+
+	public function __wakeup(): void
+	{
+		parent::__wakeup();
+		$this->locale = $this->locale ?: 'en';
+	}
+}
+
+
+class Token extends ByteString
+{
+	public function __sleep(): array
+	{
+		return ['string'];
+	}
+}
+
+
+class Greeting extends LazyString
+{
+	public function __sleep(): array
+	{
+		return parent::__sleep();
+	}
+}
+
+
+function title(string $value): string
+{
+	return (new UnicodeString($value))->title(true)->toString();
+}

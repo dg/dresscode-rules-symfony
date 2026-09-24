@@ -1,0 +1,7 @@
+15: Method `Symfony\Component\String\AbstractString::__sleep()` is forbidden: implement `__serialize()`, which the string classes serialize by; a `__sleep()` of a child is ignored
+17: Method `Symfony\Component\String\AbstractString::__sleep()` is forbidden: implement `__serialize()`, which the string classes serialize by; a `__sleep()` of a child is ignored
+21: Method `Symfony\Component\String\UnicodeString::__wakeup()` is forbidden: implement `__unserialize()`, which `UnicodeString` restores itself by; a `__wakeup()` of a child is ignored
+23: Method `Symfony\Component\String\UnicodeString::__wakeup()` is forbidden: implement `__unserialize()`, which `UnicodeString` restores itself by; a `__wakeup()` of a child is ignored
+31: Method `Symfony\Component\String\AbstractString::__sleep()` is forbidden: implement `__serialize()`, which the string classes serialize by; a `__sleep()` of a child is ignored
+40: Method `Symfony\Component\String\LazyString::__sleep()` is forbidden: implement `__serialize()`, which `LazyString` serializes by; a `__sleep()` of a child is ignored
+42: Method `Symfony\Component\String\LazyString::__sleep()` is forbidden: implement `__serialize()`, which `LazyString` serializes by; a `__sleep()` of a child is ignored

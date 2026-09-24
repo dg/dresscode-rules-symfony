@@ -1,0 +1,8 @@
+package: symfony/string
+group: deprecations
+
+since 7.4:
+	forbiddenMembers:
+		Symfony\Component\String\AbstractString::__sleep: 'implement `__serialize()`, which the string classes serialize by; a `__sleep()` of a child is ignored'
+		Symfony\Component\String\LazyString::__sleep: 'implement `__serialize()`, which `LazyString` serializes by; a `__sleep()` of a child is ignored'
+		Symfony\Component\String\UnicodeString::__wakeup: 'implement `__unserialize()`, which `UnicodeString` restores itself by; a `__wakeup()` of a child is ignored'
