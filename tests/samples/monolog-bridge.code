@@ -1,0 +1,79 @@
+<?php
+
+namespace App\Logging;
+
+use Monolog\Handler\FingersCrossed\ActivationStrategyInterface;
+use Monolog\Handler\FingersCrossed\ErrorLevelActivationStrategy;
+use Monolog\Handler\FingersCrossedHandler;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger as MonologLogger;
+use Psr\Log\LogLevel;
+use Symfony\Bridge\Monolog\Handler\FingersCrossed\HttpCodeActivationStrategy;
+use Symfony\Bridge\Monolog\Handler\FingersCrossed\NotFoundActivationStrategy;
+use Symfony\Bridge\Monolog\Handler\SwiftMailerHandler;
+use Symfony\Bridge\Monolog\Logger;
+use Symfony\Bridge\Monolog\Messenger\ResetLoggersWorkerSubscriber;
+use Symfony\Component\HttpFoundation\RequestStack;
+
+
+class LoggerFactory
+{
+	public function __construct(
+		private RequestStack $requestStack,
+	) {
+	}
+
+
+	public function createNotFoundStrategy(): NotFoundActivationStrategy
+	{
+		return new NotFoundActivationStrategy($this->requestStack, ['^/phpmyadmin', '^/wp-login'], MonologLogger::ERROR);
+	}
+
+
+	public function createQuietStrategy(array $urls): ActivationStrategyInterface
+	{
+		return new NotFoundActivationStrategy($this->requestStack, $urls, 'warning');
+	}
+
+
+	public function createDecoratingStrategy(ActivationStrategyInterface $inner): ActivationStrategyInterface
+	{
+		return new NotFoundActivationStrategy($this->requestStack, [], $inner);
+	}
+
+
+	public function createHttpCodeStrategy(): ActivationStrategyInterface
+	{
+		return new HttpCodeActivationStrategy($this->requestStack, [['code' => 403, 'urls' => []]], LogLevel::ERROR);
+	}
+
+
+	public function createCurrentHttpCodeStrategy(): ActivationStrategyInterface
+	{
+		return new HttpCodeActivationStrategy($this->requestStack, [['code' => 410, 'urls' => []]], new ErrorLevelActivationStrategy(LogLevel::ERROR));
+	}
+
+
+	public function createLogger(): Logger
+	{
+		$logger = new Logger('app');
+		$logger->pushHandler(new FingersCrossedHandler(new StreamHandler('php://stderr'), $this->createNotFoundStrategy()));
+		return $logger;
+	}
+
+
+	public function countErrors(?Logger $logger): int
+	{
+		return $logger?->countErrors() ?? 0;
+	}
+}
+
+
+function services(): array
+{
+	return [
+		'monolog.handler.swift' => SwiftMailerHandler::class,
+		'monolog.messenger.reset' => ResetLoggersWorkerSubscriber::class,
+		'monolog.activation_strategy.not_found' => NotFoundActivationStrategy::class,
+	];
+}
