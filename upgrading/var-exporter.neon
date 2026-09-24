@@ -1,0 +1,10 @@
+package: symfony/var-exporter
+group: deprecations
+
+since 7.3:
+	forbiddenClasses:
+		Symfony\Component\VarExporter\LazyGhostTrait: 'create the object with `ReflectionClass::newLazyGhost()`, which makes a native lazy ghost on PHP 8.4 without a generated class'
+		Symfony\Component\VarExporter\LazyProxyTrait: 'create the object with `ReflectionClass::newLazyProxy()`, which makes a native lazy proxy on PHP 8.4 without a generated class'
+
+	forbiddenMembers:
+		Symfony\Component\VarExporter\ProxyHelper::generateLazyGhost: 'call `ReflectionClass::newLazyGhost()`, which makes a native lazy ghost on PHP 8.4 without a generated class'

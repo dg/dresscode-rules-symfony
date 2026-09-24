@@ -1,0 +1,3 @@
+22: Class `Symfony\Component\VarExporter\LazyGhostTrait` is forbidden: create the object with `ReflectionClass::newLazyGhost()`, which makes a native lazy ghost on PHP 8.4 without a generated class
+28: Class `Symfony\Component\VarExporter\LazyProxyTrait` is forbidden: create the object with `ReflectionClass::newLazyProxy()`, which makes a native lazy proxy on PHP 8.4 without a generated class
+45: Static method `Symfony\Component\VarExporter\ProxyHelper::generateLazyGhost()` is forbidden: call `ReflectionClass::newLazyGhost()`, which makes a native lazy ghost on PHP 8.4 without a generated class
