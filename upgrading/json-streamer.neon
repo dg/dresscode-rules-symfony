@@ -1,0 +1,20 @@
+package: symfony/json-streamer
+group: deprecations
+
+since 8.1:
+	replacedClasses:
+		Symfony\Component\JsonStreamer\ValueTransformer\ValueTransformerInterface: Symfony\Component\JsonStreamer\Transformer\PropertyValueTransformerInterface
+
+since 7.4:
+	replacedMembers:
+		Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::getNativeToStreamValueTransformer: getValueTransformers
+		Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::getStreamToNativeValueTransformers: getValueTransformers
+		Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::withNativeToStreamValueTransformers: withValueTransformers
+		Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::withStreamToNativeValueTransformers: withValueTransformers
+		Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::withAdditionalNativeToStreamValueTransformer: withAdditionalValueTransformer
+		Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::withAdditionalStreamToNativeValueTransformer: withAdditionalValueTransformer
+
+	replacedCalls:
+		'Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::__construct($name, $type, [], $transformers)': 'new \Symfony\Component\JsonStreamer\Mapping\PropertyMetadata($name, $type, $transformers)'
+		'Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::__construct($name, $type, streamToNativeValueTransformers: $transformers)': 'new \Symfony\Component\JsonStreamer\Mapping\PropertyMetadata($name, $type, $transformers)'
+		'Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::__construct($name, $type, nativeToStreamValueTransformers: $transformers)': 'new \Symfony\Component\JsonStreamer\Mapping\PropertyMetadata($name, $type, $transformers)'

@@ -1,0 +1,11 @@
+7: Class `Symfony\Component\JsonStreamer\ValueTransformer\ValueTransformerInterface` is replaced by `Symfony\Component\JsonStreamer\Transformer\PropertyValueTransformerInterface`
+11: Class `Symfony\Component\JsonStreamer\ValueTransformer\ValueTransformerInterface` is replaced by `Symfony\Component\JsonStreamer\Transformer\PropertyValueTransformerInterface`
+41: Method `Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::withAdditionalNativeToStreamValueTransformer()` is replaced by `PropertyMetadata::withAdditionalValueTransformer()`
+44: Method `Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::getStreamToNativeValueTransformers()` is replaced by `PropertyMetadata::getValueTransformers()`
+44: Method `Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::getNativeToStreamValueTransformer()` is replaced by `PropertyMetadata::getValueTransformers()`
+45: Method `Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::withNativeToStreamValueTransformers()` is replaced by `PropertyMetadata::withValueTransformers()`
+46: Method `Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::withStreamToNativeValueTransformers()` is replaced by `PropertyMetadata::withValueTransformers()`
+47: Method `Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::withAdditionalStreamToNativeValueTransformer()` is replaced by `PropertyMetadata::withAdditionalValueTransformer()`
+51: Constructor `Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::__construct()` is replaced by `new \Symfony\Component\JsonStreamer\Mapping\PropertyMetadata($name, $type, $transformers)`
+52: Constructor `Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::__construct()` is replaced by `new \Symfony\Component\JsonStreamer\Mapping\PropertyMetadata($name, $type, $transformers)`
+53: Constructor `Symfony\Component\JsonStreamer\Mapping\PropertyMetadata::__construct()` is replaced by `new \Symfony\Component\JsonStreamer\Mapping\PropertyMetadata($name, $type, $transformers)`

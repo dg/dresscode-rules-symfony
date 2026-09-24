@@ -183,6 +183,8 @@ function isLegacy(string $file): bool
 		'RememberMeBundle/Security/UserChangingUserProvider.php', // loadUserByUsername() kept for 5.x, calling it on the inner provider
 		'Security/Core/User/ArrayUserProvider.php', // setUsername(), which the installed exception has no longer
 		'Translation/Tests/Fixtures/extractor-ast/validator-constraints.php', // arrays of constraint options the extractor must still read
+		'JsonStreamer/RangeToStringValueTransformer.php', // the old interface in a branch for the version without the new one
+		'JsonStreamer/StringToRangeValueTransformer.php', // the same
 	];
 	return array_any($refusing, fn(string $path) => str_ends_with(str_replace('\\', '/', $file), $path))
 		|| preg_match('~@group\s+legacy|#\[Group\(.legacy.\)\]|#\[IgnoreDeprecations\]~i', (string) file_get_contents($file));
