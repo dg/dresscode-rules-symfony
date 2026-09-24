@@ -1,0 +1,5 @@
+22: Method `Symfony\Component\Workflow\Event\Event::getWorkflow()` is forbidden: inject the workflow into the listener constructor, such as with `#[Target]` or a locator of workflows read by `getWorkflowName()`
+23: Method `Symfony\Component\Workflow\Event\Event::getWorkflow()` is forbidden: inject the workflow into the listener constructor, such as with `#[Target]` or a locator of workflows read by `getWorkflowName()`
+31: Method `Symfony\Component\Workflow\Event\GuardEvent::getContext()` is forbidden: there is no replacement, it always returned an empty array in a guard listener; drop the call
+47: Method `Symfony\Component\Workflow\Event\Event::getWorkflow()` is forbidden: inject the workflow into the listener constructor, such as with `#[Target]` or a locator of workflows read by `getWorkflowName()`
+56: Class `Symfony\Component\Workflow\Exception\InvalidTokenConfigurationException` is forbidden: there is no replacement, nothing throws it; drop the catch

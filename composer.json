@@ -52,6 +52,7 @@
 		"symfony/twig-bridge": "^8.1",
 		"symfony/type-info": "^8.1",
 		"symfony/validator": "^8.1",
+		"symfony/workflow": "^8.1",
 		"twig/twig": "^3.21",
 		"symfony/amqp-messenger": "^8.1",
 		"symfony/doctrine-messenger": "^8.1",
@@ -114,7 +115,8 @@
 				"upgrading/translation.neon",
 				"upgrading/twig-bridge.neon",
 				"upgrading/type-info.neon",
-				"upgrading/validator.neon"
+				"upgrading/validator.neon",
+				"upgrading/workflow.neon"
 			]
 		}
 	}

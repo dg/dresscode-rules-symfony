@@ -1,0 +1,14 @@
+package: symfony/workflow
+group: deprecations
+
+since 7.3:
+	forbiddenMembers:
+		Symfony\Component\Workflow\Event\Event::getWorkflow: 'inject the workflow into the listener constructor, such as with `#[Target]` or a locator of workflows read by `getWorkflowName()`'
+
+since 6.4:
+	forbiddenMembers:
+		Symfony\Component\Workflow\Event\GuardEvent::getContext: 'there is no replacement, it always returned an empty array in a guard listener; drop the call'
+
+since 6.0:
+	forbiddenClasses:
+		Symfony\Component\Workflow\Exception\InvalidTokenConfigurationException: 'there is no replacement, nothing throws it; drop the catch'
