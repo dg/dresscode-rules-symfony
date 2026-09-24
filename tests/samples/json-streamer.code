@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Streamer;
+
+use Symfony\Component\JsonStreamer\Mapping\PropertyMetadata;
+use Symfony\Component\JsonStreamer\Mapping\PropertyMetadataLoaderInterface;
+use Symfony\Component\JsonStreamer\ValueTransformer\ValueTransformerInterface;
+use Symfony\Component\TypeInfo\Type;
+
+
+final class MoneyValueTransformer implements ValueTransformerInterface
+{
+	public function transform(mixed $value, array $options = []): mixed
+	{
+		return (int) round($value * 100);
+	}
+
+
+	public static function getStreamValueType(): Type
+	{
+		return Type::int();
+	}
+}
+
+
+final class MoneyPropertyMetadataLoader implements PropertyMetadataLoaderInterface
+{
+	public function __construct(
+		private PropertyMetadataLoaderInterface $decorated,
+	) {
+	}
+
+
+	public function load(string $className, array $options = [], array $context = []): array
+	{
+		$result = $this->decorated->load($className, $options, $context);
+		foreach ($result as $streamedName => $metadata) {
+			if ($metadata->getType()->isIdentifiedBy(\Money\Money::class)) {
+				$result[$streamedName] = $metadata
+					->withType(Type::int())
+					->withAdditionalNativeToStreamValueTransformer(MoneyValueTransformer::class);
+			}
+
+			if ($metadata->getStreamToNativeValueTransformers() === [] && $metadata->getNativeToStreamValueTransformer() === []) {
+				$result[$streamedName] = $metadata->withNativeToStreamValueTransformers([])
+					->withStreamToNativeValueTransformers([MoneyValueTransformer::class])
+					->withAdditionalStreamToNativeValueTransformer(fn($value) => $value);
+			}
+		}
+
+		$result['total'] = new PropertyMetadata('total', Type::int(), [], [MoneyValueTransformer::class]);
+		$result['paid'] = new PropertyMetadata('paid', Type::bool(), streamToNativeValueTransformers: ['boolval']);
+		$result['fee'] = new PropertyMetadata('fee', Type::int(), nativeToStreamValueTransformers: [MoneyValueTransformer::class]);
+		$result['tax'] = new PropertyMetadata('tax', Type::int(), [MoneyValueTransformer::class]);
+
+		return $result;
+	}
+}
