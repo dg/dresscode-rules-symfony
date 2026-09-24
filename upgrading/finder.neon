@@ -1,0 +1,8 @@
+package: symfony/finder
+group: deprecations
+
+since 6.0:
+	forbiddenMembers:
+		'Symfony\Component\Finder\Comparator\Comparator::setTarget($target)': 'pass the target to the constructor'
+		'Symfony\Component\Finder\Comparator\Comparator::setOperator($operator)': 'pass the operator to the constructor as its second argument'
+		'Symfony\Component\Finder\Comparator\Comparator::__construct()': 'pass the target the tested value is compared with'

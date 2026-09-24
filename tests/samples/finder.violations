@@ -1,0 +1,7 @@
+14: Constructor `Symfony\Component\Finder\Comparator\Comparator::__construct()` is forbidden: pass the target the tested value is compared with
+15: Method `Symfony\Component\Finder\Comparator\Comparator::setTarget()` is forbidden: pass the target to the constructor
+16: Method `Symfony\Component\Finder\Comparator\Comparator::setOperator()` is forbidden: pass the operator to the constructor as its second argument
+31: Constructor `Symfony\Component\Finder\Comparator\Comparator::__construct()` is forbidden: pass the target the tested value is compared with
+32: Method `Symfony\Component\Finder\Comparator\Comparator::setTarget()` is forbidden: pass the target to the constructor
+33: Method `Symfony\Component\Finder\Comparator\Comparator::setOperator()` is forbidden: pass the operator to the constructor as its second argument
+36: Method `Symfony\Component\Finder\Comparator\Comparator::setOperator()` is forbidden: pass the operator to the constructor as its second argument

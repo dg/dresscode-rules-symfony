@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Finder;
+
+use Symfony\Component\Finder\Comparator\Comparator;
+use Symfony\Component\Finder\Comparator\NumberComparator;
+use Symfony\Component\Finder\Finder;
+
+
+class LengthComparator extends Comparator
+{
+	public function __construct(int $length)
+	{
+		parent::__construct();
+		$this->setTarget((string) $length);
+		$this->setOperator('<=');
+	}
+}
+
+
+class TargetlessComparator extends Comparator
+{
+	public function setTarget(string $target): void
+	{
+	}
+}
+
+
+function findSmall(string $dir): Finder
+{
+	$comparator = new Comparator();
+	$comparator->setTarget('100');
+	$comparator->setOperator('<');
+
+	$size = new NumberComparator('< 1K');
+	$size->setOperator('>');
+
+	$kept = new Comparator('10', '>=');
+
+	return Finder::create()->files()->in($dir)->filter(fn(\SplFileInfo $file) => $comparator->test($file->getSize()) && $kept->test(strlen($file->getFilename())));
+}
