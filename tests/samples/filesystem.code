@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Storage;
+
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Path;
+
+
+class Publisher
+{
+	public function __construct(
+		private Filesystem $filesystem,
+	) {
+	}
+
+
+	public function publish(string $source, string $target): void
+	{
+		if (Path::isBasePath('', $target) || Path::isBasePath('/var/www', $target)) {
+			$this->filesystem->mirror($source, $target, null, ['override' => true, 'copy_on_windows' => true]);
+		}
+	}
+
+
+	public function copyTree(string $source, string $target, bool $follow): void
+	{
+		$this->filesystem->mirror($source, $target, options: ['copy_on_windows' => $follow]);
+		$this->filesystem->mirror($source, $target, null, [
+			'delete' => true,
+			'copy_on_windows' => $follow,
+		]);
+		$this->filesystem->mirror($source, $target, null, ['follow_symlinks' => $follow]);
+	}
+
+
+	public function inRoot(string $path): bool
+	{
+		return Path::isBasePath('', $path);
+	}
+}

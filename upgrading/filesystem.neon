@@ -1,0 +1,11 @@
+package: symfony/filesystem
+group: deprecations
+
+since 8.2:
+	replacedCalls:
+		'Symfony\Component\Filesystem\Path::isBasePath('''', $ofPath)': 'isBasePath(''/'', $ofPath)'
+
+since 8.1:
+	replacedCalls:
+		'Symfony\Component\Filesystem\Filesystem::mirror($originDir, $targetDir, $iterator, [''copy_on_windows'' => $follow, ...$options])': 'mirror($originDir, $targetDir, $iterator, [''follow_symlinks'' => $follow, ...$options])'
+		'Symfony\Component\Filesystem\Filesystem::mirror($originDir, $targetDir, options: [''copy_on_windows'' => $follow, ...$options])': 'mirror($originDir, $targetDir, options: [''follow_symlinks'' => $follow, ...$options])'

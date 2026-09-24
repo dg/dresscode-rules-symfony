@@ -1,0 +1,3 @@
+20: Method `Symfony\Component\Filesystem\Filesystem::mirror()` is replaced by `mirror($originDir, $targetDir, $iterator, ['follow_symlinks' => $follow, ...$options])`
+27: Method `Symfony\Component\Filesystem\Filesystem::mirror()` is replaced by `mirror($originDir, $targetDir, options: ['follow_symlinks' => $follow, ...$options])`
+28: Method `Symfony\Component\Filesystem\Filesystem::mirror()` is replaced by `mirror($originDir, $targetDir, $iterator, ['follow_symlinks' => $follow, ...$options])`
