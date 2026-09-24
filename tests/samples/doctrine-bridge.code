@@ -1,0 +1,136 @@
+<?php
+
+namespace App\Doctrine;
+
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\ContainerAwareEventManager;
+use Symfony\Bridge\Doctrine\DataCollector\DoctrineDataCollector;
+use Symfony\Bridge\Doctrine\DataFixtures\ContainerAwareLoader;
+use Symfony\Bridge\Doctrine\DependencyInjection\AbstractDoctrineExtension;
+use Symfony\Bridge\Doctrine\DependencyInjection\CompilerPass\RegisterMappingsPass;
+use Symfony\Bridge\Doctrine\Logger\DbalLogger;
+use Symfony\Bridge\Doctrine\Messenger\DoctrinePingConnectionMiddleware;
+use Symfony\Bridge\Doctrine\PropertyInfo\DoctrineExtractor;
+use Symfony\Bridge\Doctrine\SchemaListener\DoctrineDbalCacheAdapterSchemaSubscriber;
+use Symfony\Bridge\Doctrine\SchemaListener\RememberMeTokenProviderDoctrineSchemaSubscriber;
+use Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
+use Symfony\Bridge\Doctrine\Test\DoctrineTestHelper;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\Security\Core\User\UserInterface;
+
+
+/**
+ * @UniqueEntity(fields={"email"}, message="This e-mail is already used.")
+ * @UniqueEntity("username")
+ */
+class User
+{
+	public string $email = '';
+	public string $username = '';
+}
+
+
+#[UniqueEntity(['fields' => 'email', 'message' => 'This e-mail is already used.'])]
+#[UniqueEntity(['email', 'username'])]
+#[UniqueEntity(fields: ['nickname'])]
+class Customer
+{
+}
+
+
+class UserRepository implements UserLoaderInterface
+{
+	public function loadUserByUsername(string $username): ?UserInterface
+	{
+		return null;
+	}
+
+
+	public function findByLogin(string $login): ?UserInterface
+	{
+		return $this->loadUserByUsername($login);
+	}
+}
+
+
+class CustomerRepository implements UserLoaderInterface
+{
+	public function loadUserByUsername(string $username): ?UserInterface
+	{
+		return $this->loadUserByIdentifier($username);
+	}
+
+
+	public function loadUserByIdentifier(string $identifier): ?UserInterface
+	{
+		return null;
+	}
+}
+
+
+class StrictUniqueEntity extends UniqueEntity
+{
+	public function getRequiredOptions(): array
+	{
+		return ['fields', 'em'];
+	}
+}
+
+
+class AppExtension extends AbstractDoctrineExtension
+{
+}
+
+
+class AppMappingsPass extends RegisterMappingsPass
+{
+	public function __construct(Definition $driver, array $namespaces, array $aliasMap)
+	{
+		parent::__construct($driver, $namespaces, ['doctrine.default_entity_manager'], 'doctrine.orm.%s_metadata_driver', false, 'doctrine.orm.%s_configuration', 'addEntityNamespace', $aliasMap);
+	}
+}
+
+
+function configure(
+	ContainerAwareEventManager $eventManager,
+	?UserLoaderInterface $loader,
+	ManagerRegistry $registry,
+	ContainerInterface $container,
+	DoctrineExtractor $extractor,
+	iterable $cacheAdapters,
+	DoctrineTokenProvider $tokenProvider,
+	array $options,
+): void
+{
+	$all = $eventManager->getListeners();
+	$all = $eventManager->getListeners(null);
+	$some = $eventManager->getListeners('postFlush');
+
+	$user = $loader?->loadUserByUsername('john');
+	$user = $loader->loadUserByIdentifier('john');
+
+	$collector = new DoctrineDataCollector($registry);
+	$collector->addLogger('default', new \Doctrine\DBAL\Logging\DebugStack);
+
+	$fixtures = new ContainerAwareLoader($container);
+	$logger = new DbalLogger;
+
+	$types = $extractor->getTypes(User::class, 'email');
+	$type = $extractor->getType(User::class, 'email');
+
+	$cacheSchema = new DoctrineDbalCacheAdapterSchemaSubscriber($cacheAdapters);
+	$rememberMeSchema = new RememberMeTokenProviderDoctrineSchemaSubscriber($tokenProvider);
+	assert($rememberMeSchema instanceof RememberMeTokenProviderDoctrineSchemaSubscriber);
+
+	$constraint = new UniqueEntity(['fields' => ['email'], 'errorPath' => 'email']);
+	$constraint = new UniqueEntity(['email', 'username']);
+	$constraint = new UniqueEntity('email', message: 'Taken.');
+	$constraint = new UniqueEntity($options);
+	$options = $constraint->getDefaultOption();
+
+	$middleware = new DoctrinePingConnectionMiddleware($registry);
+	$entityManager = DoctrineTestHelper::createTestEntityManager();
+}

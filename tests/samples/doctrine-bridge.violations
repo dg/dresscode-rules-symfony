@@ -1,0 +1,24 @@
+14: Class `Symfony\Bridge\Doctrine\SchemaListener\DoctrineDbalCacheAdapterSchemaSubscriber` is replaced by `Symfony\Bridge\Doctrine\SchemaListener\DoctrineDbalCacheAdapterSchemaListener`
+15: Class `Symfony\Bridge\Doctrine\SchemaListener\RememberMeTokenProviderDoctrineSchemaSubscriber` is replaced by `Symfony\Bridge\Doctrine\SchemaListener\RememberMeTokenProviderDoctrineSchemaListener`
+25: Annotation `@UniqueEntity` is replaced by the attribute `#[Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity]`
+25: Annotation `@UniqueEntity` is replaced by the attribute `#[Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity]`
+46: Method `Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface::loadUserByUsername()` is replaced by `UserLoaderInterface::loadUserByIdentifier()`
+46: Parameter `$username` of `loadUserByIdentifier()` is named `$identifier` in `Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface::loadUserByIdentifier()`
+54: Method `Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface::loadUserByUsername()` is replaced by `UserLoaderInterface::loadUserByIdentifier()`
+61: Method `Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface::loadUserByUsername()` is replaced by `UserLoaderInterface::loadUserByIdentifier()`, but the class declares `loadUserByIdentifier()` already
+76: Method `Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity::getRequiredOptions()` is forbidden: there is no replacement, the options are named arguments of the constructor; drop the method
+83: Class `Symfony\Bridge\Doctrine\DependencyInjection\AbstractDoctrineExtension` is forbidden: there is no replacement, the Doctrine bundles carry its code in their own extension classes
+92: Constructor `Symfony\Bridge\Doctrine\DependencyInjection\CompilerPass\RegisterMappingsPass::__construct()` is forbidden: there is no replacement, Doctrine no longer supports namespace aliases; drop the argument
+108: Method `Symfony\Bridge\Doctrine\ContainerAwareEventManager::getListeners()` is replaced by `getAllListeners()`
+109: Method `Symfony\Bridge\Doctrine\ContainerAwareEventManager::getListeners()` is replaced by `getAllListeners()`
+112: Method `Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface::loadUserByUsername()` is replaced by `UserLoaderInterface::loadUserByIdentifier()`
+115: Constructor `Symfony\Bridge\Doctrine\DataCollector\DoctrineDataCollector::__construct()` is forbidden: pass a `Symfony\Bridge\Doctrine\Middleware\Debug\DebugDataHolder` as the second argument, which the debug middleware fills
+116: Method `Symfony\Bridge\Doctrine\DataCollector\DoctrineDataCollector::addLogger()` is forbidden: there is no replacement, the collector reads the queries from the `DebugDataHolder` passed to its constructor; drop the call
+118: Class `Symfony\Bridge\Doctrine\DataFixtures\ContainerAwareLoader` is forbidden: use `Doctrine\Common\DataFixtures\Loader` and inject the services the fixtures need through their constructors
+119: Class `Symfony\Bridge\Doctrine\Logger\DbalLogger` is forbidden: use a DBAL middleware such as `Doctrine\DBAL\Logging\Middleware`, which logs the queries of the connection
+121: Method `Symfony\Bridge\Doctrine\PropertyInfo\DoctrineExtractor::getTypes()` is forbidden: call `getType()`, which returns a single `Symfony\Component\TypeInfo\Type` instead of a list of property-info types
+124: Class `Symfony\Bridge\Doctrine\SchemaListener\DoctrineDbalCacheAdapterSchemaSubscriber` is replaced by `Symfony\Bridge\Doctrine\SchemaListener\DoctrineDbalCacheAdapterSchemaListener`
+125: Class `Symfony\Bridge\Doctrine\SchemaListener\RememberMeTokenProviderDoctrineSchemaSubscriber` is replaced by `Symfony\Bridge\Doctrine\SchemaListener\RememberMeTokenProviderDoctrineSchemaListener`
+126: Class `Symfony\Bridge\Doctrine\SchemaListener\RememberMeTokenProviderDoctrineSchemaSubscriber` is replaced by `Symfony\Bridge\Doctrine\SchemaListener\RememberMeTokenProviderDoctrineSchemaListener`
+132: Method `Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity::getDefaultOption()` is forbidden: there is no replacement, the options are named arguments of the constructor; drop the method
+135: Class `Symfony\Bridge\Doctrine\Test\DoctrineTestHelper` is forbidden: there is no replacement, it served the tests of Symfony itself

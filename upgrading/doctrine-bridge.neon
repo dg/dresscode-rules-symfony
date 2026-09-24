@@ -1,0 +1,56 @@
+package: symfony/doctrine-bridge
+group: deprecations
+
+since 8.2:
+	forbiddenClasses:
+		Symfony\Bridge\Doctrine\Messenger\DoctrineCloseConnectionMiddleware: 'use `Symfony\Bridge\Doctrine\Messenger\DoctrineDbalCloseConnectionMiddleware`, which takes a `ConnectionRegistry` and connection names instead of a manager name'
+		Symfony\Bridge\Doctrine\Messenger\DoctrineOpenTransactionLoggerMiddleware: 'use `Symfony\Bridge\Doctrine\Messenger\DoctrineDbalOpenTransactionLoggerMiddleware`, which takes the logger second and connection names third'
+		Symfony\Bridge\Doctrine\Messenger\DoctrinePingConnectionMiddleware: 'use `Symfony\Bridge\Doctrine\Messenger\DoctrineDbalPingConnectionMiddleware`, which pings DBAL connections and does not reset closed entity managers'
+
+since 8.1:
+	forbiddenMembers:
+		'Symfony\Bridge\Doctrine\DependencyInjection\CompilerPass\RegisterMappingsPass::__construct($driver, $namespaces, $managerParameters, $driverPattern, $enabledParameter, $configurationPattern, $registerAliasMethodName, $aliasMap)': 'there is no replacement, Doctrine no longer supports namespace aliases; drop the argument'
+
+since 7.4:
+	forbiddenClasses:
+		Symfony\Bridge\Doctrine\DependencyInjection\AbstractDoctrineExtension: 'there is no replacement, the Doctrine bundles carry its code in their own extension classes'
+
+	forbiddenMembers:
+		Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity::getRequiredOptions: 'there is no replacement, the options are named arguments of the constructor; drop the method'
+		Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity::getDefaultOption: 'there is no replacement, the options are named arguments of the constructor; drop the method'
+
+since 7.3:
+	forbiddenMembers:
+		Symfony\Bridge\Doctrine\PropertyInfo\DoctrineExtractor::getTypes: 'call `getType()`, which returns a single `Symfony\Component\TypeInfo\Type` instead of a list of property-info types'
+
+since 6.4:
+	forbiddenClasses:
+		Symfony\Bridge\Doctrine\Logger\DbalLogger: 'use a DBAL middleware such as `Doctrine\DBAL\Logging\Middleware`, which logs the queries of the connection'
+		Symfony\Bridge\Doctrine\DataFixtures\ContainerAwareLoader: 'use `Doctrine\Common\DataFixtures\Loader` and inject the services the fixtures need through their constructors'
+
+	forbiddenMembers:
+		'Symfony\Bridge\Doctrine\DataCollector\DoctrineDataCollector::__construct($registry)': 'pass a `Symfony\Bridge\Doctrine\Middleware\Debug\DebugDataHolder` as the second argument, which the debug middleware fills'
+		Symfony\Bridge\Doctrine\DataCollector\DoctrineDataCollector::addLogger: 'there is no replacement, the collector reads the queries from the `DebugDataHolder` passed to its constructor; drop the call'
+
+	attributeForAnnotation:
+		Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity
+
+since 6.3:
+	replacedClasses:
+		Symfony\Bridge\Doctrine\SchemaListener\DoctrineDbalCacheAdapterSchemaSubscriber: Symfony\Bridge\Doctrine\SchemaListener\DoctrineDbalCacheAdapterSchemaListener
+		Symfony\Bridge\Doctrine\SchemaListener\MessengerTransportDoctrineSchemaSubscriber: Symfony\Bridge\Doctrine\SchemaListener\MessengerTransportDoctrineSchemaListener
+		Symfony\Bridge\Doctrine\SchemaListener\RememberMeTokenProviderDoctrineSchemaSubscriber: Symfony\Bridge\Doctrine\SchemaListener\RememberMeTokenProviderDoctrineSchemaListener
+
+since 6.2:
+	replacedCalls:
+		'Symfony\Bridge\Doctrine\ContainerAwareEventManager::getListeners()': 'getAllListeners()'
+		'Symfony\Bridge\Doctrine\ContainerAwareEventManager::getListeners(null)': 'getAllListeners()'
+
+since 6.0:
+	replacedMembers:
+		Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface::loadUserByUsername: loadUserByIdentifier
+
+	forbiddenClasses:
+		Symfony\Bridge\Doctrine\SchemaListener\PdoCacheAdapterDoctrineSchemaSubscriber: 'use `Symfony\Bridge\Doctrine\SchemaListener\DoctrineDbalCacheAdapterSchemaListener`, which takes `DoctrineDbalAdapter` instances instead of `PdoAdapter` ones'
+		Symfony\Bridge\Doctrine\Test\DoctrineTestHelper: 'there is no replacement, it served the tests of Symfony itself'
+		Symfony\Bridge\Doctrine\Test\TestRepositoryFactory: 'there is no replacement, it served the tests of Symfony itself'
