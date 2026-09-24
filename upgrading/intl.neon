@@ -1,0 +1,25 @@
+package: symfony/intl
+group: deprecations
+
+since 6.0:
+	replacedClasses:
+		Symfony\Component\Intl\Collator\Collator: Collator
+		Symfony\Component\Intl\DateFormatter\IntlDateFormatter: IntlDateFormatter
+		Symfony\Component\Intl\NumberFormatter\NumberFormatter: NumberFormatter
+		Symfony\Component\Intl\Locale\Locale: Locale
+		Symfony\Component\Intl\Exception\MethodArgumentNotImplementedException: Symfony\Polyfill\Intl\Icu\Exception\MethodArgumentNotImplementedException
+		Symfony\Component\Intl\Exception\MethodArgumentValueNotImplementedException: Symfony\Polyfill\Intl\Icu\Exception\MethodArgumentValueNotImplementedException
+		Symfony\Component\Intl\Exception\MethodNotImplementedException: Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException
+		Symfony\Component\Intl\Exception\NotImplementedException: Symfony\Polyfill\Intl\Icu\Exception\NotImplementedException
+
+	replacedMembers:
+		Symfony\Component\Intl\Globals\IntlGlobals::isFailure: \intl_is_failure
+		Symfony\Component\Intl\Globals\IntlGlobals::getErrorCode: \intl_get_error_code
+		Symfony\Component\Intl\Globals\IntlGlobals::getErrorMessage: \intl_get_error_message
+		Symfony\Component\Intl\Globals\IntlGlobals::getErrorName: \intl_error_name
+
+	forbiddenMembers:
+		Symfony\Component\Intl\Globals\IntlGlobals::U_ZERO_ERROR: 'use the global constant `U_ZERO_ERROR` of `ext-intl`'
+		Symfony\Component\Intl\Globals\IntlGlobals::U_ILLEGAL_ARGUMENT_ERROR: 'use the global constant `U_ILLEGAL_ARGUMENT_ERROR` of `ext-intl`'
+		Symfony\Component\Intl\Globals\IntlGlobals::U_PARSE_ERROR: 'use the global constant `U_PARSE_ERROR` of `ext-intl`'
+		Symfony\Component\Intl\Globals\IntlGlobals::setError: 'there is no replacement, the error state of `ext-intl` is set by its own functions only; drop the call'

@@ -1,0 +1,20 @@
+5: Class `Symfony\Component\Intl\Collator\Collator` is replaced by `Collator`
+6: Class `Symfony\Component\Intl\DateFormatter\IntlDateFormatter` is replaced by `IntlDateFormatter`
+7: Class `Symfony\Component\Intl\Exception\MethodNotImplementedException` is replaced by `Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException`
+8: Class `Symfony\Component\Intl\Exception\NotImplementedException` is replaced by `Symfony\Polyfill\Intl\Icu\Exception\NotImplementedException`
+10: Class `Symfony\Component\Intl\Locale\Locale` is replaced by `Locale`
+11: Class `Symfony\Component\Intl\NumberFormatter\NumberFormatter` is replaced by `NumberFormatter`
+14: Class `Symfony\Component\Intl\Collator\Collator` is replaced by `Collator`
+27: Class `Symfony\Component\Intl\Locale\Locale` is replaced by `Locale`
+27: Class `Symfony\Component\Intl\NumberFormatter\NumberFormatter` is replaced by `NumberFormatter`
+30: Class `Symfony\Component\Intl\Exception\MethodNotImplementedException` is replaced by `Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException`
+30: Class `Symfony\Component\Intl\Exception\NotImplementedException` is replaced by `Symfony\Polyfill\Intl\Icu\Exception\NotImplementedException`
+38: Class `Symfony\Component\Intl\DateFormatter\IntlDateFormatter` is replaced by `IntlDateFormatter`
+38: Class `Symfony\Component\Intl\DateFormatter\IntlDateFormatter` is replaced by `IntlDateFormatter`
+40: Static method `Symfony\Component\Intl\Globals\IntlGlobals::isFailure()` is replaced by `intl_is_failure()`
+40: Static method `Symfony\Component\Intl\Globals\IntlGlobals::getErrorCode()` is replaced by `intl_get_error_code()`
+41: Static method `Symfony\Component\Intl\Globals\IntlGlobals::getErrorMessage()` is replaced by `intl_get_error_message()`
+41: Static method `Symfony\Component\Intl\Globals\IntlGlobals::getErrorName()` is replaced by `intl_error_name()`
+41: Constant `Symfony\Component\Intl\Globals\IntlGlobals::U_PARSE_ERROR` is forbidden: use the global constant `U_PARSE_ERROR` of `ext-intl`
+44: Static method `Symfony\Component\Intl\Globals\IntlGlobals::setError()` is forbidden: there is no replacement, the error state of `ext-intl` is set by its own functions only; drop the call
+44: Constant `Symfony\Component\Intl\Globals\IntlGlobals::U_ZERO_ERROR` is forbidden: use the global constant `U_ZERO_ERROR` of `ext-intl`
