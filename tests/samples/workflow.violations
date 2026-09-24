@@ -1,0 +1,5 @@
+22: Method `Symfony\Component\Workflow\Event\Event::getWorkflow()` is removed: inject the workflow into the listener constructor, such as with `#[Target]` or a locator of workflows read by `getWorkflowName()`, since symfony/workflow 7.3.
+23: Method `Symfony\Component\Workflow\Event\Event::getWorkflow()` is removed: inject the workflow into the listener constructor, such as with `#[Target]` or a locator of workflows read by `getWorkflowName()`, since symfony/workflow 7.3.
+31: Method `Symfony\Component\Workflow\Event\GuardEvent::getContext()` is removed: there is no replacement; it always returned an empty array in a guard listener; drop the call, since symfony/workflow 6.4.
+47: Method `Symfony\Component\Workflow\Event\Event::getWorkflow()` is removed: inject the workflow into the listener constructor, such as with `#[Target]` or a locator of workflows read by `getWorkflowName()`, since symfony/workflow 7.3.
+56: Class `Symfony\Component\Workflow\Exception\InvalidTokenConfigurationException` is removed: there is no replacement; nothing throws it; drop the catch, since symfony/workflow 6.0.

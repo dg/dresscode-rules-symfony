@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Workflow;
+
+use Symfony\Component\Workflow\Attribute\AsCompletedListener;
+use Symfony\Component\Workflow\Attribute\AsGuardListener;
+use Symfony\Component\Workflow\Attribute\AsTransitionListener;
+use Symfony\Component\Workflow\Event\CompletedEvent;
+use Symfony\Component\Workflow\Event\Event;
+use Symfony\Component\Workflow\Event\GuardEvent;
+use Symfony\Component\Workflow\Event\TransitionEvent;
+use Symfony\Component\Workflow\Exception\InvalidTokenConfigurationException;
+use Symfony\Component\Workflow\WorkflowInterface;
+
+
+final class OrderListener
+{
+	#[AsCompletedListener('order', 'pay')]
+	public function onPaid(CompletedEvent $event): void
+	{
+		$subject = $event->getSubject();
+		if ($event->getWorkflow()->can($subject, 'ship')) {
+			$event->getWorkflow()->apply($subject, 'ship', $event->getContext());
+		}
+	}
+
+
+	#[AsGuardListener('order', 'ship')]
+	public function onGuardShip(GuardEvent $event): void
+	{
+		if ($event->getContext() === []) {
+			$event->setBlocked(true, 'Missing context.');
+		}
+	}
+
+
+	#[AsTransitionListener('order')]
+	public function onTransition(TransitionEvent $event): void
+	{
+		$context = $event->getContext();
+		$event->setContext($context + ['name' => $event->getWorkflowName()]);
+	}
+
+
+	public function describe(?Event $event): string
+	{
+		return $event?->getWorkflow()->getName() ?? 'none';
+	}
+}
+
+
+function apply(WorkflowInterface $workflow, object $order): void
+{
+	try {
+		$workflow->apply($order, 'pay');
+	} catch (InvalidTokenConfigurationException $e) {
+	}
+}
