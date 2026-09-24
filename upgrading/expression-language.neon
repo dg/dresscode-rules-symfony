@@ -1,0 +1,9 @@
+package: symfony/expression-language
+group: deprecations
+
+since 7.1:
+	replacedCalls:
+		'Symfony\Component\ExpressionLanguage\ExpressionLanguage::lint($expression, null)': 'lint($expression, [], \Symfony\Component\ExpressionLanguage\Parser::IGNORE_UNKNOWN_VARIABLES)'
+		'Symfony\Component\ExpressionLanguage\ExpressionLanguage::lint($expression, null, $flags)': 'lint($expression, [], $flags | \Symfony\Component\ExpressionLanguage\Parser::IGNORE_UNKNOWN_VARIABLES)'
+		'Symfony\Component\ExpressionLanguage\Parser::lint($stream, null)': 'lint($stream, [], \Symfony\Component\ExpressionLanguage\Parser::IGNORE_UNKNOWN_VARIABLES)'
+		'Symfony\Component\ExpressionLanguage\Parser::lint($stream, null, $flags)': 'lint($stream, [], $flags | \Symfony\Component\ExpressionLanguage\Parser::IGNORE_UNKNOWN_VARIABLES)'

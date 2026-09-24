@@ -1,0 +1,8 @@
+20: Method `Symfony\Component\ExpressionLanguage\ExpressionLanguage::lint()` is replaced by `lint($expression, [], \Symfony\Component\ExpressionLanguage\Parser::IGNORE_UNKNOWN_VARIABLES)`
+21: Method `Symfony\Component\ExpressionLanguage\ExpressionLanguage::lint()` is replaced by `lint($expression, [], $flags | \Symfony\Component\ExpressionLanguage\Parser::IGNORE_UNKNOWN_VARIABLES)`
+22: Method `Symfony\Component\ExpressionLanguage\ExpressionLanguage::lint()` is replaced by `lint($expression, [], \Symfony\Component\ExpressionLanguage\Parser::IGNORE_UNKNOWN_VARIABLES)`
+32: Method `Symfony\Component\ExpressionLanguage\ExpressionLanguage::lint()` is replaced by `lint($expression, [], \Symfony\Component\ExpressionLanguage\Parser::IGNORE_UNKNOWN_VARIABLES)`
+33: Method `Symfony\Component\ExpressionLanguage\ExpressionLanguage::lint()` is replaced by `lint($expression, [], \Symfony\Component\ExpressionLanguage\Parser::IGNORE_UNKNOWN_VARIABLES)`
+40: Method `Symfony\Component\ExpressionLanguage\ExpressionLanguage::lint()` is replaced by `lint($expression, [], \Symfony\Component\ExpressionLanguage\Parser::IGNORE_UNKNOWN_VARIABLES)`
+44: Method `Symfony\Component\ExpressionLanguage\Parser::lint()` is replaced by `lint($stream, [], \Symfony\Component\ExpressionLanguage\Parser::IGNORE_UNKNOWN_VARIABLES)`
+45: Method `Symfony\Component\ExpressionLanguage\Parser::lint()` is replaced by `lint($stream, [], $flags | \Symfony\Component\ExpressionLanguage\Parser::IGNORE_UNKNOWN_VARIABLES)`
