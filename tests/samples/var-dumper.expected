@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Debug;
+
+use Symfony\Component\VarDumper\Caster\ResourceCaster;
+use Symfony\Component\VarDumper\Cloner\Stub;
+use Symfony\Component\VarDumper\Cloner\VarCloner;
+use Symfony\Component\VarDumper\Dumper\CliDumper;
+use Symfony\Component\VarDumper\VarDumper;
+
+
+class DumpConfigurator
+{
+	public function configure(): void
+	{
+		$cloner = new VarCloner;
+		$dumper = new CliDumper;
+		VarDumper::setHandler(fn($var) => $dumper->dump($cloner->cloneVar($var)));
+	}
+
+
+	public function reset(): void
+	{
+		VarDumper::setHandler(null);
+		VarDumper::setHandler(null);
+	}
+
+
+	public function castCurl($handle, array $a, Stub $stub, bool $isNested): array
+	{
+		return ResourceCaster::castCurl($handle, $a, $stub, $isNested);
+	}
+
+
+	public function castImage($image, array $a, Stub $stub, bool $isNested): array
+	{
+		$a = ResourceCaster::castGd($image, $a, $stub, $isNested);
+		return ResourceCaster::castOpensslX509($image, $a, $stub, $isNested);
+	}
+}
+
+
+class TestDumper extends VarDumper
+{
+	public static function restore(): void
+	{
+		self::setHandler(null);
+	}
+}

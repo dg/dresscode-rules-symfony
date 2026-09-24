@@ -1,0 +1,12 @@
+package: symfony/var-dumper
+group: deprecations
+
+since 7.3:
+	forbiddenMembers:
+		Symfony\Component\VarDumper\Caster\ResourceCaster::castCurl: 'there is no replacement, the default casters of the cloner dump a curl handle; drop the caster'
+		Symfony\Component\VarDumper\Caster\ResourceCaster::castGd: 'there is no replacement, the default casters of the cloner dump a GD image; drop the caster'
+		Symfony\Component\VarDumper\Caster\ResourceCaster::castOpensslX509: 'there is no replacement, the default casters of the cloner dump an OpenSSL certificate; drop the caster'
+
+since 6.2:
+	replacedCalls:
+		'Symfony\Component\VarDumper\VarDumper::setHandler()': 'setHandler(null)'

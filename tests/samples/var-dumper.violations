@@ -1,0 +1,5 @@
+24: Static method `Symfony\Component\VarDumper\VarDumper::setHandler()` is replaced by `setHandler(null)`
+31: Static method `Symfony\Component\VarDumper\Caster\ResourceCaster::castCurl()` is forbidden: there is no replacement, the default casters of the cloner dump a curl handle; drop the caster
+37: Static method `Symfony\Component\VarDumper\Caster\ResourceCaster::castGd()` is forbidden: there is no replacement, the default casters of the cloner dump a GD image; drop the caster
+38: Static method `Symfony\Component\VarDumper\Caster\ResourceCaster::castOpensslX509()` is forbidden: there is no replacement, the default casters of the cloner dump an OpenSSL certificate; drop the caster
+47: Method `Symfony\Component\VarDumper\VarDumper::setHandler()` is replaced by `setHandler(null)`
