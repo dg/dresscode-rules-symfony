@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Intl;
+
+use Collator;
+use IntlDateFormatter;
+use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
+use Symfony\Polyfill\Intl\Icu\Exception\NotImplementedException;
+use Symfony\Component\Intl\Globals\IntlGlobals;
+use Locale;
+use NumberFormatter;
+
+
+class EnglishCollator extends Collator
+{
+	public function __construct()
+	{
+		parent::__construct('en');
+	}
+}
+
+
+final class Formatting
+{
+	public function price(float $amount): string
+	{
+		$formatter = new NumberFormatter(Locale::getDefault(), NumberFormatter::CURRENCY);
+		try {
+			return (string) $formatter->formatCurrency($amount, 'EUR');
+		} catch (MethodNotImplementedException | NotImplementedException $e) {
+			return number_format($amount, 2);
+		}
+	}
+
+
+	public function date(\DateTimeInterface $date): string
+	{
+		$formatter = new IntlDateFormatter('en', IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE);
+		$result = $formatter->format($date);
+		if (\intl_is_failure(\intl_get_error_code())) {
+			throw new \RuntimeException(\intl_get_error_message() . \intl_error_name(IntlGlobals::U_PARSE_ERROR));
+		}
+
+		IntlGlobals::setError(IntlGlobals::U_ZERO_ERROR);
+		return (string) $result;
+	}
+}
