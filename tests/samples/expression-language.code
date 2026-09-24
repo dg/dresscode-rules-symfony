@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Rules;
+
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
+use Symfony\Component\ExpressionLanguage\Lexer;
+use Symfony\Component\ExpressionLanguage\Parser;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
+
+
+class RuleExpressionValidator extends ConstraintValidator
+{
+	private ?ExpressionLanguage $expressionLanguage = null;
+
+
+	public function validate(mixed $value, Constraint $constraint): void
+	{
+		$this->expressionLanguage ??= new ExpressionLanguage;
+		$this->expressionLanguage->lint($value, null);
+		$this->expressionLanguage->lint($value, null, Parser::IGNORE_UNKNOWN_FUNCTIONS);
+		$this->expressionLanguage->lint($value, names: null);
+		$this->expressionLanguage->lint($value, ['user', 'order']);
+	}
+}
+
+
+class AppExpressionLanguage extends ExpressionLanguage
+{
+	public function check(string $expression): void
+	{
+		$this->lint($expression, null);
+		parent::lint($expression, null);
+	}
+}
+
+
+function lintStream(string $expression, ?ExpressionLanguage $language): void
+{
+	$language->lint($expression, null);
+
+	$parser = new Parser([]);
+	$stream = (new Lexer)->tokenize($expression);
+	$parser->lint($stream, null);
+	$parser->lint($stream, null, Parser::IGNORE_UNKNOWN_FUNCTIONS);
+	$parser->lint($stream);
+}
