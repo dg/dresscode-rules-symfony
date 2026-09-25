@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Html;
+
+use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
+use Symfony\Component\HtmlSanitizer\Parser\MastermindsParser;
+
+
+final class CommentSanitizerFactory
+{
+	public function create(): HtmlSanitizer
+	{
+		$config = (new HtmlSanitizerConfig())
+			->allowSafeElements()
+			->allowLinkSchemes(['https']);
+
+		return new HtmlSanitizer($config, new MastermindsParser());
+	}
+
+
+	public function createStrict(HtmlSanitizerConfig $config): HtmlSanitizer
+	{
+		return new HtmlSanitizer($config, new MastermindsParser(['encoding' => 'UTF-8']));
+	}
+
+
+	public function usesMasterminds(HtmlSanitizer $sanitizer, object $parser): bool
+	{
+		return $parser instanceof MastermindsParser;
+	}
+}

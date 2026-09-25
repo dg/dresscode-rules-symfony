@@ -68,7 +68,8 @@
 		"symfony/amqp-messenger": "^8.1",
 		"symfony/doctrine-messenger": "^8.1",
 		"symfony/redis-messenger": "^8.1",
-		"symfony/var-exporter": "^8.1"
+		"symfony/var-exporter": "^8.1",
+		"symfony/html-sanitizer": "^8.1"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
@@ -113,6 +114,7 @@
 				"upgrading/finder.neon",
 				"upgrading/form.neon",
 				"upgrading/framework-bundle.neon",
+				"upgrading/html-sanitizer.neon",
 				"upgrading/http-client.neon",
 				"upgrading/http-foundation.neon",
 				"upgrading/http-kernel.neon",

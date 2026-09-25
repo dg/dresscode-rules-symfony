@@ -1,0 +1,5 @@
+7: Class `Symfony\Component\HtmlSanitizer\Parser\MastermindsParser` is replaced by `Symfony\Component\HtmlSanitizer\Parser\NativeParser`
+18: Class `Symfony\Component\HtmlSanitizer\Parser\MastermindsParser` is replaced by `Symfony\Component\HtmlSanitizer\Parser\NativeParser`
+24: Class `Symfony\Component\HtmlSanitizer\Parser\MastermindsParser` is replaced by `Symfony\Component\HtmlSanitizer\Parser\NativeParser`
+24: Constructor `Symfony\Component\HtmlSanitizer\Parser\MastermindsParser::__construct()` is forbidden: there is no replacement, `Symfony\Component\HtmlSanitizer\Parser\NativeParser` takes no options; drop the argument
+30: Class `Symfony\Component\HtmlSanitizer\Parser\MastermindsParser` is replaced by `Symfony\Component\HtmlSanitizer\Parser\NativeParser`

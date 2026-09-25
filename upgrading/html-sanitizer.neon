@@ -1,0 +1,9 @@
+package: symfony/html-sanitizer
+group: deprecations
+
+since 7.4:
+	replacedClasses:
+		Symfony\Component\HtmlSanitizer\Parser\MastermindsParser: Symfony\Component\HtmlSanitizer\Parser\NativeParser
+
+	forbiddenMembers:
+		'Symfony\Component\HtmlSanitizer\Parser\MastermindsParser::__construct($defaultOptions)': 'there is no replacement, `Symfony\Component\HtmlSanitizer\Parser\NativeParser` takes no options; drop the argument'
