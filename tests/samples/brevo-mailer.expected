@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Mail;
+
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoApiTransport;
+use Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoSmtpTransport;
+use Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoTransportFactory;
+use Symfony\Component\Mailer\Transport\Dsn;
+use Symfony\Component\Mailer\Transport\TransportInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+
+class TransportProvider
+{
+	public function __construct(
+		private HttpClientInterface $client,
+		private LoggerInterface $logger,
+		private ?BrevoTransportFactory $factory = null,
+	) {
+	}
+
+
+	public function createApi(string $key): BrevoApiTransport
+	{
+		$transport = new BrevoApiTransport($key, $this->client, null, $this->logger);
+		$transport->setPort(8080);
+		return $transport;
+	}
+
+
+	public function createSmtp(string $user, string $password): TransportInterface
+	{
+		return new BrevoSmtpTransport($user, $password, null, $this->logger);
+	}
+
+
+	public function createFromDsn(string $dsn): ?TransportInterface
+	{
+		return $this->factory?->create(Dsn::fromString($dsn));
+	}
+
+
+	public function isApi(TransportInterface $transport): bool
+	{
+		return $transport instanceof BrevoApiTransport;
+	}
+}
