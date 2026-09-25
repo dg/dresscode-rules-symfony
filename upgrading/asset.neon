@@ -1,0 +1,5 @@
+package: symfony/asset
+
+since 6.0:
+	replacedClasses:
+		Symfony\Component\Asset\VersionStrategy\RemoteJsonManifestVersionStrategy: Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy

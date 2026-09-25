@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Asset;
+
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+
+class CdnVersionStrategy extends JsonManifestVersionStrategy
+{
+	public function __construct(HttpClientInterface $httpClient)
+	{
+		parent::__construct('https://cdn.example.com/manifest.json', $httpClient);
+	}
+}
+
+
+final class AssetPackageFactory
+{
+	public function __construct(
+		private HttpClientInterface $httpClient,
+	) {
+	}
+
+
+	public function create(string $manifestUrl): Package
+	{
+		$strategy = new JsonManifestVersionStrategy($manifestUrl, $this->httpClient);
+		return new Package($strategy);
+	}
+
+
+	public function isRemote(object $strategy): bool
+	{
+		return $strategy instanceof JsonManifestVersionStrategy;
+	}
+}
