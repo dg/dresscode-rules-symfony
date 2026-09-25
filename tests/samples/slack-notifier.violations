@@ -1,0 +1,4 @@
+15: Method `Symfony\Component\Notifier\Bridge\Slack\SlackOptions::channel()` is forbidden: call `recipient()`, which sends the message to that channel; `channel()` has set nothing since Symfony 5.1, so the message went to the channel of the DSN
+33: Method `Symfony\Component\Notifier\Bridge\Slack\SlackOptions::channel()` is forbidden: call `recipient()`, which sends the message to that channel; `channel()` has set nothing since Symfony 5.1, so the message went to the channel of the DSN
+36: Method `Symfony\Component\Notifier\Bridge\Slack\SlackOptions::channel()` is forbidden: call `recipient()`, which sends the message to that channel; `channel()` has set nothing since Symfony 5.1, so the message went to the channel of the DSN
+37: Method `Symfony\Component\Notifier\Bridge\Slack\SlackOptions::channel()` is forbidden: call `recipient()`, which sends the message to that channel; `channel()` has set nothing since Symfony 5.1, so the message went to the channel of the DSN

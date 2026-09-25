@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Notifier;
+
+use Symfony\Component\Notifier\Bridge\Slack\Block\SlackSectionBlock;
+use Symfony\Component\Notifier\Bridge\Slack\SlackOptions;
+use Symfony\Component\Notifier\ChatterInterface;
+use Symfony\Component\Notifier\Message\ChatMessage;
+
+
+class AlertOptions extends SlackOptions
+{
+	public static function forChannel(string $channel): self
+	{
+		return (new self())->channel($channel);
+	}
+}
+
+
+class DeployNotifier
+{
+	public function __construct(
+		private ChatterInterface $chatter,
+		private ?SlackOptions $defaults = null,
+	) {
+	}
+
+
+	public function notify(string $text): void
+	{
+		$options = (new SlackOptions())
+			->iconEmoji('rocket')
+			->channel('#deploys')
+			->block((new SlackSectionBlock())->text($text));
+
+		$this->defaults?->channel('#general');
+		$this->defaults->channel('#general');
+
+		$this->chatter->send(new ChatMessage($text, $options));
+		$this->chatter->send(new ChatMessage($text, AlertOptions::forChannel('#alerts')));
+	}
+}
