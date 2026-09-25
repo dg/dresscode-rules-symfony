@@ -1,0 +1,8 @@
+6: Class `Symfony\Component\Mailer\Bridge\Sendinblue\Transport\SendinblueApiTransport` is replaced by `Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoApiTransport`
+7: Class `Symfony\Component\Mailer\Bridge\Sendinblue\Transport\SendinblueSmtpTransport` is replaced by `Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoSmtpTransport`
+8: Class `Symfony\Component\Mailer\Bridge\Sendinblue\Transport\SendinblueTransportFactory` is replaced by `Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoTransportFactory`
+19: Class `Symfony\Component\Mailer\Bridge\Sendinblue\Transport\SendinblueTransportFactory` is replaced by `Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoTransportFactory`
+24: Class `Symfony\Component\Mailer\Bridge\Sendinblue\Transport\SendinblueApiTransport` is replaced by `Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoApiTransport`
+26: Class `Symfony\Component\Mailer\Bridge\Sendinblue\Transport\SendinblueApiTransport` is replaced by `Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoApiTransport`
+34: Class `Symfony\Component\Mailer\Bridge\Sendinblue\Transport\SendinblueSmtpTransport` is replaced by `Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoSmtpTransport`
+46: Class `Symfony\Component\Mailer\Bridge\Sendinblue\Transport\SendinblueApiTransport` is replaced by `Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoApiTransport`

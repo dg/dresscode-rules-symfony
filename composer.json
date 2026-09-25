@@ -69,7 +69,8 @@
 		"symfony/doctrine-messenger": "^8.1",
 		"symfony/redis-messenger": "^8.1",
 		"symfony/var-exporter": "^8.1",
-		"symfony/html-sanitizer": "^8.1"
+		"symfony/html-sanitizer": "^8.1",
+		"symfony/brevo-mailer": "^8.1"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
@@ -101,6 +102,7 @@
 			"upgrading": [
 				"upgrading/asset-mapper.neon",
 				"upgrading/asset.neon",
+				"upgrading/brevo-mailer.neon",
 				"upgrading/browser-kit.neon",
 				"upgrading/cache.neon",
 				"upgrading/config.neon",

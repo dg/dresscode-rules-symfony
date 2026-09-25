@@ -1,0 +1,8 @@
+package: symfony/brevo-mailer
+group: deprecations
+
+since 6.4:
+	replacedClasses:
+		Symfony\Component\Mailer\Bridge\Sendinblue\Transport\SendinblueApiTransport: Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoApiTransport
+		Symfony\Component\Mailer\Bridge\Sendinblue\Transport\SendinblueSmtpTransport: Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoSmtpTransport
+		Symfony\Component\Mailer\Bridge\Sendinblue\Transport\SendinblueTransportFactory: Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoTransportFactory
