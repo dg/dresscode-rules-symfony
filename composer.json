@@ -70,6 +70,7 @@
 		"symfony/redis-messenger": "^8.1",
 		"symfony/var-exporter": "^8.1",
 		"symfony/html-sanitizer": "^8.1",
+		"symfony/mail-pace-mailer": "^8.1",
 		"symfony/brevo-mailer": "^8.1"
 	},
 	"minimum-stability": "dev",
@@ -123,6 +124,7 @@
 				"upgrading/intl.neon",
 				"upgrading/json-streamer.neon",
 				"upgrading/lock.neon",
+				"upgrading/mail-pace-mailer.neon",
 				"upgrading/mailer.neon",
 				"upgrading/messenger.neon",
 				"upgrading/mime.neon",

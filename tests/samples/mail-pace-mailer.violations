@@ -1,0 +1,9 @@
+6: Class `Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpApiTransport` is replaced by `Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceApiTransport`
+7: Class `Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpSmtpTransport` is replaced by `Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceSmtpTransport`
+8: Class `Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpTransportFactory` is replaced by `Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceTransportFactory`
+19: Class `Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpTransportFactory` is replaced by `Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceTransportFactory`
+24: Class `Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpApiTransport` is replaced by `Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceApiTransport`
+26: Class `Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpApiTransport` is replaced by `Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceApiTransport`
+34: Class `Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpSmtpTransport` is replaced by `Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceSmtpTransport`
+46: Class `Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpSmtpTransport` is replaced by `Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceSmtpTransport`
+47: Class `Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpApiTransport` is replaced by `Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceApiTransport`

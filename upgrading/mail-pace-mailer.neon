@@ -1,0 +1,8 @@
+package: symfony/mail-pace-mailer
+group: deprecations
+
+since 6.2:
+	replacedClasses:
+		Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpApiTransport: Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceApiTransport
+		Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpSmtpTransport: Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceSmtpTransport
+		Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpTransportFactory: Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceTransportFactory

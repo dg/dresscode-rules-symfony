@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Mail;
+
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceApiTransport;
+use Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceSmtpTransport;
+use Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceTransportFactory;
+use Symfony\Component\Mailer\Transport\Dsn;
+use Symfony\Component\Mailer\Transport\TransportInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+
+class TransportProvider
+{
+	public function __construct(
+		private HttpClientInterface $client,
+		private LoggerInterface $logger,
+		private ?MailPaceTransportFactory $factory = null,
+	) {
+	}
+
+
+	public function createApi(string $key): MailPaceApiTransport
+	{
+		$transport = new MailPaceApiTransport($key, $this->client, null, $this->logger);
+		$transport->setHost('app.example.com');
+		return $transport;
+	}
+
+
+	public function createSmtp(string $id): TransportInterface
+	{
+		return new MailPaceSmtpTransport($id, null, $this->logger);
+	}
+
+
+	public function createFromDsn(string $dsn): TransportInterface
+	{
+		return $this->factory?->create(Dsn::fromString($dsn)) ?? $this->createSmtp('id');
+	}
+
+
+	public function isSmtp(TransportInterface $transport): bool
+	{
+		return $transport instanceof MailPaceSmtpTransport
+			|| $transport::class === \Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceApiTransport::class;
+	}
+}
