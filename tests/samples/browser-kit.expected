@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Tests\Browser;
+
+use Symfony\Component\BrowserKit\AbstractBrowser;
+use Symfony\Component\BrowserKit\HttpBrowser;
+use Symfony\Component\BrowserKit\Response;
+
+
+class FakeBrowser extends AbstractBrowser
+{
+	public function useHtml5Parser(bool $useHtml5Parser): static
+	{
+		return parent::useHtml5Parser($useHtml5Parser);
+	}
+
+
+	protected function doRequest(object $request): object
+	{
+		$content = $this->useHtml5Parser ? '<!DOCTYPE html><p>ok</p>' : '<p>ok</p>';
+		return new Response($content);
+	}
+}
+
+
+final class HomepageCheck
+{
+	public function run(?HttpBrowser $maybe): void
+	{
+		$browser = new HttpBrowser();
+		$browser->useHtml5Parser(false);
+		$crawler = $browser->useHtml5Parser(true)->request('GET', 'https://example.com/');
+		$maybe->useHtml5Parser(true);
+
+		$crawler->filter('h1')->text();
+	}
+}

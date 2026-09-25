@@ -22,6 +22,7 @@
 		"phpstan/phpstan": "^2.2",
 		"symfony/asset": "^8.1",
 		"symfony/asset-mapper": "^8.1",
+		"symfony/browser-kit": "^8.1",
 		"symfony/cache": "^8.1",
 		"symfony/config": "^8.1",
 		"symfony/console": "^8.1",
@@ -98,6 +99,7 @@
 			"upgrading": [
 				"upgrading/asset-mapper.neon",
 				"upgrading/asset.neon",
+				"upgrading/browser-kit.neon",
 				"upgrading/cache.neon",
 				"upgrading/config.neon",
 				"upgrading/console.neon",

@@ -1,0 +1,7 @@
+package: symfony/browser-kit
+group: deprecations
+
+since 7.4:
+	forbiddenMembers:
+		Symfony\Component\BrowserKit\AbstractBrowser::useHtml5Parser: 'there is no replacement, the native HTML5 parser is always used; drop the call'
+		Symfony\Component\BrowserKit\AbstractBrowser::$useHtml5Parser: 'there is no replacement, the native HTML5 parser is always used'
