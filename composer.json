@@ -21,6 +21,7 @@
 		"phpstan/extension-installer": "^1.4",
 		"phpstan/phpstan": "^2.2",
 		"symfony/asset": "^8.1",
+		"symfony/asset-mapper": "^8.1",
 		"symfony/cache": "^8.1",
 		"symfony/config": "^8.1",
 		"symfony/console": "^8.1",
@@ -95,6 +96,7 @@
 		"dresscode": {
 			"plugin": "DressCodeRules\\Symfony\\Plugin",
 			"upgrading": [
+				"upgrading/asset-mapper.neon",
 				"upgrading/asset.neon",
 				"upgrading/cache.neon",
 				"upgrading/config.neon",

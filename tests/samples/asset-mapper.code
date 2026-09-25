@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Asset;
+
+use Symfony\Component\AssetMapper\ImportMap\ImportMapConfigReader;
+
+
+final class PackageNameParser
+{
+	/** @return array{string, string} */
+	public function parse(string $specifier): array
+	{
+		[$package, $path] = ImportMapConfigReader::splitPackageNameAndFilePath($specifier);
+		return [$package, ltrim($path, '/')];
+	}
+
+
+	public function packageOf(ImportMapConfigReader $reader, string $specifier): string
+	{
+		return $reader::splitPackageNameAndFilePath($specifier)[0];
+	}
+}

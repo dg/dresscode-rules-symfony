@@ -1,0 +1,2 @@
+13: Static method `Symfony\Component\AssetMapper\ImportMap\ImportMapConfigReader::splitPackageNameAndFilePath()` is replaced by `Symfony\Component\AssetMapper\ImportMap\ImportMapEntry::splitPackageNameAndFilePath()`
+20: Static method `Symfony\Component\AssetMapper\ImportMap\ImportMapConfigReader::splitPackageNameAndFilePath()` is replaced by `Symfony\Component\AssetMapper\ImportMap\ImportMapEntry::splitPackageNameAndFilePath()`

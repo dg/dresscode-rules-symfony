@@ -1,0 +1,6 @@
+package: symfony/asset-mapper
+group: deprecations
+
+since 7.1:
+	replacedMembers:
+		Symfony\Component\AssetMapper\ImportMap\ImportMapConfigReader::splitPackageNameAndFilePath: Symfony\Component\AssetMapper\ImportMap\ImportMapEntry::splitPackageNameAndFilePath
