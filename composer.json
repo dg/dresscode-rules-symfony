@@ -21,6 +21,7 @@
 		"phpstan/extension-installer": "^1.4",
 		"phpstan/phpstan": "^2.2",
 		"symfony/asset": "^8.1",
+		"symfony/asset-mapper": "^8.1",
 		"symfony/cache": "^8.1",
 		"symfony/config": "^8.1",
 		"symfony/console": "^8.1",
@@ -97,6 +98,7 @@
 			"upgrading-dir": "upgrading",
 			"packages": [
 				"symfony/asset",
+				"symfony/asset-mapper",
 				"symfony/cache",
 				"symfony/config",
 				"symfony/console",
