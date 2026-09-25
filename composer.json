@@ -72,7 +72,8 @@
 		"symfony/html-sanitizer": "^8.1",
 		"symfony/mail-pace-mailer": "^8.1",
 		"symfony/brevo-notifier": "^8.1",
-		"symfony/brevo-mailer": "^8.1"
+		"symfony/brevo-mailer": "^8.1",
+		"symfony/sevenio-notifier": "^8.1"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
@@ -141,6 +142,7 @@
 				"upgrading/security-csrf.neon",
 				"upgrading/security-http.neon",
 				"upgrading/serializer.neon",
+				"upgrading/sevenio-notifier.neon",
 				"upgrading/string.neon",
 				"upgrading/translation.neon",
 				"upgrading/twig-bridge.neon",

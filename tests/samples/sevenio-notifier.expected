@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Notifier;
+
+use Symfony\Component\Notifier\Bridge\Sevenio\SevenIoTransport;
+use Symfony\Component\Notifier\Bridge\Sevenio\SevenIoTransportFactory;
+use Symfony\Component\Notifier\Message\SmsMessage;
+use Symfony\Component\Notifier\Transport\Dsn;
+use Symfony\Component\Notifier\Transport\TransportInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+
+class SmsSender
+{
+	public function __construct(
+		private HttpClientInterface $client,
+		private ?SevenIoTransportFactory $factory = null,
+	) {
+	}
+
+
+	public function send(string $phone, string $text): void
+	{
+		$transport = new SevenIoTransport('api-key', 'Acme', $this->client);
+		$transport->send(new SmsMessage($phone, $text));
+	}
+
+
+	public function create(string $dsn): ?TransportInterface
+	{
+		$transport = $this->factory?->create(new Dsn($dsn));
+		return $transport instanceof SevenIoTransport ? $transport : null;
+	}
+}

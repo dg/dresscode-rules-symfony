@@ -185,6 +185,7 @@ function isLegacy(string $file): bool
 		'Translation/Tests/Fixtures/extractor-ast/validator-constraints.php', // arrays of constraint options the extractor must still read
 		'JsonStreamer/RangeToStringValueTransformer.php', // the old interface in a branch for the version without the new one
 		'JsonStreamer/StringToRangeValueTransformer.php', // the same
+		'Notifier/Tests/Exception/UnsupportedSchemeExceptionTest.php', // a list of every bridge, the retired Sms77 among them
 	];
 	return array_any($refusing, fn(string $path) => str_ends_with(str_replace('\\', '/', $file), $path))
 		|| preg_match('~@group\s+legacy|#\[Group\(.legacy.\)\]|#\[IgnoreDeprecations\]~i', (string) file_get_contents($file));

@@ -1,0 +1,7 @@
+package: symfony/sevenio-notifier
+group: deprecations
+
+since 7.3:
+	replacedClasses:
+		Symfony\Component\Notifier\Bridge\Sms77\Sms77Transport: Symfony\Component\Notifier\Bridge\Sevenio\SevenIoTransport
+		Symfony\Component\Notifier\Bridge\Sms77\Sms77TransportFactory: Symfony\Component\Notifier\Bridge\Sevenio\SevenIoTransportFactory

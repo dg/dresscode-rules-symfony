@@ -1,0 +1,5 @@
+5: Class `Symfony\Component\Notifier\Bridge\Sms77\Sms77Transport` is replaced by `Symfony\Component\Notifier\Bridge\Sevenio\SevenIoTransport`
+6: Class `Symfony\Component\Notifier\Bridge\Sms77\Sms77TransportFactory` is replaced by `Symfony\Component\Notifier\Bridge\Sevenio\SevenIoTransportFactory`
+17: Class `Symfony\Component\Notifier\Bridge\Sms77\Sms77TransportFactory` is replaced by `Symfony\Component\Notifier\Bridge\Sevenio\SevenIoTransportFactory`
+24: Class `Symfony\Component\Notifier\Bridge\Sms77\Sms77Transport` is replaced by `Symfony\Component\Notifier\Bridge\Sevenio\SevenIoTransport`
+32: Class `Symfony\Component\Notifier\Bridge\Sms77\Sms77Transport` is replaced by `Symfony\Component\Notifier\Bridge\Sevenio\SevenIoTransport`
