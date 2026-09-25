@@ -1,0 +1,4 @@
+6: Class `Symfony\Component\Asset\VersionStrategy\RemoteJsonManifestVersionStrategy` is replaced by `Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy`
+10: Class `Symfony\Component\Asset\VersionStrategy\RemoteJsonManifestVersionStrategy` is replaced by `Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy`
+29: Class `Symfony\Component\Asset\VersionStrategy\RemoteJsonManifestVersionStrategy` is replaced by `Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy`
+36: Class `Symfony\Component\Asset\VersionStrategy\RemoteJsonManifestVersionStrategy` is replaced by `Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy`
