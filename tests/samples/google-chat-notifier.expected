@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Notifier;
+
+use Symfony\Component\Notifier\Bridge\GoogleChat\GoogleChatOptions;
+use Symfony\Component\Notifier\ChatterInterface;
+use Symfony\Component\Notifier\Message\ChatMessage;
+
+
+class OrderNotifier
+{
+	public function __construct(
+		private ChatterInterface $chatter,
+	) {
+	}
+
+
+	public function notify(string $order): void
+	{
+		$options = (new GoogleChatOptions())
+			->text('New order')
+			->card([
+				'header' => ['title' => 'Order ' . $order],
+				'sections' => [['widgets' => [['keyValue' => ['topLabel' => 'Status', 'content' => 'paid']]]]],
+			]);
+		$options->setThreadKey('orders');
+
+		$this->chatter->send(new ChatMessage('New order', $options));
+	}
+}
