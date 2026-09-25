@@ -1,0 +1,15 @@
+package: symfony/dom-crawler
+group: deprecations
+
+since 7.4:
+	replacedCalls:
+		'Symfony\Component\DomCrawler\Crawler::__construct($node, $uri, $baseHref, true)': 'new \Symfony\Component\DomCrawler\Crawler($node, $uri, $baseHref)'
+		'Symfony\Component\DomCrawler\Crawler::__construct(useHtml5Parser: true, ...)': 'new \Symfony\Component\DomCrawler\Crawler(...)'
+
+	forbiddenMembers:
+		'Symfony\Component\DomCrawler\Crawler::__construct($node, $uri, $baseHref, false)': 'there is no replacement, the native HTML5 parser is always used; drop the argument'
+		'Symfony\Component\DomCrawler\Crawler::__construct(useHtml5Parser: false, ...)': 'there is no replacement, the native HTML5 parser is always used; drop the argument'
+
+since 6.0:
+	replacedMembers:
+		Symfony\Component\DomCrawler\Crawler::parents: ancestors

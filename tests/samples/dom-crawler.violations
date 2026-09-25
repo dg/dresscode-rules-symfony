@@ -1,0 +1,10 @@
+12: Constructor `Symfony\Component\DomCrawler\Crawler::__construct()` is replaced by `new \Symfony\Component\DomCrawler\Crawler($node, $uri, $baseHref)`
+16: Method `Symfony\Component\DomCrawler\Crawler::parents()` is replaced by `Crawler::ancestors()`
+18: Method `Symfony\Component\DomCrawler\Crawler::parents()` is replaced by `Crawler::ancestors()`
+27: Constructor `Symfony\Component\DomCrawler\Crawler::__construct()` is forbidden: there is no replacement, the native HTML5 parser is always used; drop the argument
+36: Constructor `Symfony\Component\DomCrawler\Crawler::__construct()` is replaced by `new \Symfony\Component\DomCrawler\Crawler($node, $uri, $baseHref)`
+37: Constructor `Symfony\Component\DomCrawler\Crawler::__construct()` is replaced by `new \Symfony\Component\DomCrawler\Crawler(...)`
+38: Constructor `Symfony\Component\DomCrawler\Crawler::__construct()` is forbidden: there is no replacement, the native HTML5 parser is always used; drop the argument
+39: Constructor `Symfony\Component\DomCrawler\Crawler::__construct()` is forbidden: there is no replacement, the native HTML5 parser is always used; drop the argument
+42: Method `Symfony\Component\DomCrawler\Crawler::parents()` is replaced by `Crawler::ancestors()`
+45: Method `Symfony\Component\DomCrawler\Crawler::parents()` is replaced by `Crawler::ancestors()`
