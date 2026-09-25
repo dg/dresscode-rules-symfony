@@ -1,0 +1,1 @@
+22: Method `Symfony\Component\Notifier\Bridge\GoogleChat\GoogleChatOptions::card()` is forbidden: call `cardV2()`, which takes a card in the Cards v2 format, with widgets such as `decoratedText` and `buttonList`

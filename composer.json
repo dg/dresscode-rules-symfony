@@ -72,6 +72,7 @@
 		"symfony/html-sanitizer": "^8.1",
 		"symfony/mail-pace-mailer": "^8.1",
 		"symfony/slack-notifier": "^8.1",
+		"symfony/google-chat-notifier": "^8.1",
 		"symfony/brevo-notifier": "^8.1",
 		"symfony/brevo-mailer": "^8.1",
 		"symfony/sevenio-notifier": "^8.1"
@@ -121,6 +122,7 @@
 				"upgrading/finder.neon",
 				"upgrading/form.neon",
 				"upgrading/framework-bundle.neon",
+				"upgrading/google-chat-notifier.neon",
 				"upgrading/html-sanitizer.neon",
 				"upgrading/http-client.neon",
 				"upgrading/http-foundation.neon",

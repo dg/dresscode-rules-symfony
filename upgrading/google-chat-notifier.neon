@@ -1,0 +1,6 @@
+package: symfony/google-chat-notifier
+group: deprecations
+
+since 6.3:
+	forbiddenMembers:
+		Symfony\Component\Notifier\Bridge\GoogleChat\GoogleChatOptions::card: 'call `cardV2()`, which takes a card in the Cards v2 format, with widgets such as `decoratedText` and `buttonList`'
