@@ -1,0 +1,6 @@
+12: Method `Symfony\Component\BrowserKit\AbstractBrowser::useHtml5Parser()` is removed: there is no replacement; the native HTML5 parser is always used; drop the call, since symfony/browser-kit 7.4.
+14: Method `Symfony\Component\BrowserKit\AbstractBrowser::useHtml5Parser()` is removed: there is no replacement; the native HTML5 parser is always used; drop the call, since symfony/browser-kit 7.4.
+20: Property `Symfony\Component\BrowserKit\AbstractBrowser::$useHtml5Parser` is removed: there is no replacement; the native HTML5 parser is always used, since symfony/browser-kit 7.4.
+31: Method `Symfony\Component\BrowserKit\AbstractBrowser::useHtml5Parser()` is removed: there is no replacement; the native HTML5 parser is always used; drop the call, since symfony/browser-kit 7.4.
+32: Method `Symfony\Component\BrowserKit\AbstractBrowser::useHtml5Parser()` is removed: there is no replacement; the native HTML5 parser is always used; drop the call, since symfony/browser-kit 7.4.
+33: Method `Symfony\Component\BrowserKit\AbstractBrowser::useHtml5Parser()` is removed: there is no replacement; the native HTML5 parser is always used; drop the call, since symfony/browser-kit 7.4.
