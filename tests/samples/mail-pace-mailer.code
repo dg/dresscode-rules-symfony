@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Mail;
+
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpApiTransport;
+use Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpSmtpTransport;
+use Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpTransportFactory;
+use Symfony\Component\Mailer\Transport\Dsn;
+use Symfony\Component\Mailer\Transport\TransportInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+
+class TransportProvider
+{
+	public function __construct(
+		private HttpClientInterface $client,
+		private LoggerInterface $logger,
+		private ?OhMySmtpTransportFactory $factory = null,
+	) {
+	}
+
+
+	public function createApi(string $key): OhMySmtpApiTransport
+	{
+		$transport = new OhMySmtpApiTransport($key, $this->client, null, $this->logger);
+		$transport->setHost('app.example.com');
+		return $transport;
+	}
+
+
+	public function createSmtp(string $id): TransportInterface
+	{
+		return new OhMySmtpSmtpTransport($id, null, $this->logger);
+	}
+
+
+	public function createFromDsn(string $dsn): TransportInterface
+	{
+		return $this->factory?->create(Dsn::fromString($dsn)) ?? $this->createSmtp('id');
+	}
+
+
+	public function isSmtp(TransportInterface $transport): bool
+	{
+		return $transport instanceof OhMySmtpSmtpTransport
+			|| $transport::class === \Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpApiTransport::class;
+	}
+}
