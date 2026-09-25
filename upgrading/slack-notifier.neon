@@ -1,0 +1,5 @@
+package: symfony/slack-notifier
+
+since 6.0:
+	forbiddenMembers:
+		Symfony\Component\Notifier\Bridge\Slack\SlackOptions::channel: 'call `recipient()`, which sends the message to that channel; `channel()` has set nothing since Symfony 5.1, so the message went to the channel of the DSN'
