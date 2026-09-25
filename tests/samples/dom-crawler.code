@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Scraper;
+
+use Symfony\Component\DomCrawler\Crawler;
+
+
+class PageCrawler extends Crawler
+{
+	public function __construct(string $html, string $uri)
+	{
+		parent::__construct($html, $uri, null, true);
+	}
+
+
+	public function parents(): static
+	{
+		return parent::parents()->reduce(fn(Crawler $node) => $node->nodeName() !== 'html');
+	}
+}
+
+
+class LegacyCrawler extends Crawler
+{
+	public function __construct(string $html)
+	{
+		parent::__construct($html, null, null, false);
+	}
+}
+
+
+final class LinkExtractor
+{
+	public function extract(string $html, string $uri, bool $html5): array
+	{
+		$crawler = new Crawler($html, $uri, null, true);
+		$named = new Crawler($html, useHtml5Parser: true);
+		$legacy = new Crawler($html, $uri, null, false);
+		$legacyNamed = new Crawler($html, useHtml5Parser: false);
+		$plain = new Crawler($html, $uri);
+
+		$sections = $crawler->filter('a')->parents()->filter('section');
+		$maybe = $this->findList($named);
+
+		return [$sections, $maybe?->parents(), $legacy, $legacyNamed, $plain];
+	}
+
+
+	private function findList(Crawler $crawler): ?Crawler
+	{
+		$list = $crawler->filter('ul');
+		return $list->count() ? $list : null;
+	}
+}
