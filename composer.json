@@ -68,7 +68,8 @@
 		"symfony/amqp-messenger": "^8.1",
 		"symfony/doctrine-messenger": "^8.1",
 		"symfony/redis-messenger": "^8.1",
-		"symfony/var-exporter": "^8.1"
+		"symfony/var-exporter": "^8.1",
+		"symfony/html-sanitizer": "^8.1"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
@@ -114,6 +115,7 @@
 				"symfony/finder",
 				"symfony/form",
 				"symfony/framework-bundle",
+				"symfony/html-sanitizer",
 				"symfony/http-client",
 				"symfony/http-foundation",
 				"symfony/http-kernel",
