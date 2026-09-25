@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Notifier;
+
+use Symfony\Component\Notifier\Bridge\Brevo\BrevoTransport;
+use Symfony\Component\Notifier\Bridge\Brevo\BrevoTransportFactory;
+use Symfony\Component\Notifier\Message\SmsMessage;
+use Symfony\Component\Notifier\Transport\Dsn;
+use Symfony\Component\Notifier\Transport\TransportInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+
+class SmsSender
+{
+	public function __construct(
+		private HttpClientInterface $client,
+		private ?BrevoTransportFactory $factory = null,
+	) {
+	}
+
+
+	public function send(string $phone, string $text): void
+	{
+		$transport = new BrevoTransport('api-key', '+420777000111', $this->client);
+		$transport->setHost('api.example.com');
+		$transport->send(new SmsMessage($phone, $text));
+	}
+
+
+	public function create(string $dsn): ?TransportInterface
+	{
+		$transport = $this->factory?->create(new Dsn($dsn));
+		return $transport instanceof BrevoTransport ? $transport : null;
+	}
+}

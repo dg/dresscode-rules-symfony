@@ -1,0 +1,5 @@
+5: Class `Symfony\Component\Notifier\Bridge\Sendinblue\SendinblueTransport` is replaced by `Symfony\Component\Notifier\Bridge\Brevo\BrevoTransport`
+6: Class `Symfony\Component\Notifier\Bridge\Sendinblue\SendinblueTransportFactory` is replaced by `Symfony\Component\Notifier\Bridge\Brevo\BrevoTransportFactory`
+17: Class `Symfony\Component\Notifier\Bridge\Sendinblue\SendinblueTransportFactory` is replaced by `Symfony\Component\Notifier\Bridge\Brevo\BrevoTransportFactory`
+24: Class `Symfony\Component\Notifier\Bridge\Sendinblue\SendinblueTransport` is replaced by `Symfony\Component\Notifier\Bridge\Brevo\BrevoTransport`
+33: Class `Symfony\Component\Notifier\Bridge\Sendinblue\SendinblueTransport` is replaced by `Symfony\Component\Notifier\Bridge\Brevo\BrevoTransport`

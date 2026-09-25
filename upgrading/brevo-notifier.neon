@@ -1,0 +1,7 @@
+package: symfony/brevo-notifier
+group: deprecations
+
+since 6.4:
+	replacedClasses:
+		Symfony\Component\Notifier\Bridge\Sendinblue\SendinblueTransport: Symfony\Component\Notifier\Bridge\Brevo\BrevoTransport
+		Symfony\Component\Notifier\Bridge\Sendinblue\SendinblueTransportFactory: Symfony\Component\Notifier\Bridge\Brevo\BrevoTransportFactory
